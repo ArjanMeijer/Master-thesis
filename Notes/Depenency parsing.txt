@@ -1,0 +1,7 @@
+Dependency parsing could be used to reduce the amount of words in a sentence/document.
+Only defining words are needed that capture the essense of a centence.
+
+Using word embedding on these reduced sets may decrease training time without influencing
+the accuracy of the catigorization task, since it perserves the 'essense' of the sentences.
+
+Reduction options: cut all leaves
