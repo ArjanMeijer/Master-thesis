@@ -1,5 +1,17 @@
 \documentclass[../../Thesis.tex]{subfiles}
 \begin{document}
 \section{Document Embedding}
-The basic theory of word embedding can be explained by the following quote of J.R. Firth: "You shall know a word by the company it keeps". Word embeddings represent a word as a multi/high-dimensional vector of numbers. 
+The basic theory of word embedding can be explained by the following quote of J.R. Firth: "You shall know a word by the company it keeps". \\
+Word embedding as described by Lai et al, can capture both the semantic and syntactic
+information of words from a large unlabeled corpus.\cite{lai2016generate} Word embeddings are vector based representations of words, that can, depending on the model either predict the target word given context words, or predict context words, given the target word. Techniques based on word vectors have improved various NLP areas such as machine translation, [todo: add fields and references]
+
+\subsection{domain specific}
+Earlier work on this topic, concerning academic articles, by Truong[TODO: CITE] states the following: "Our findings clearly evinced that in-domain training of the
+word embeddings can drastically improve the process of document clustering. In fact, the
+effect is even stronger than the number of training examples and the model architecture.
+However, too isolated training can lead to a failure of several clustering algorithms, such
+as DBSCAN, due to a too dense vocabulary". This was also found by Lai et al, who state: "The corpus domain is more important than the corpus size. Using an indomain corpus significantly improves the performance for a given task, whereas using a corpus in an unsuitable domain may decrease performance". These statements both indicate that an indomain corpus improves the performance of word-vectors for those specific domains. However, domain specific validation techniques do not exist currently. Multiple generic validation sets have been published [TODO: insert comparison methods]. These sets have been used in multiple studies of word-vectors[TODO REFERENCE] whom corpus existed of simular generic information [TODO: INSERT CORPUS DETAILS]. These validation methods are limited to the non domain specific fields. 
+\subsection{Embedding validation}[IS THIS TRUE?]Not published results of the study by Truong show high error rates on the validation scores, while the word-vectors seem to work well on document clustering. This seems to indicate that the word-vectors are well suited, but no objective validation method can confirm or deny this. Therefore, we propose the validation of word-embeddings through [SOLUTION].
+
+
 \end{document}
