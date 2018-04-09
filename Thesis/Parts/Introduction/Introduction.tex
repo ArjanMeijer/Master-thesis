@@ -10,8 +10,21 @@ Earlier work on this topic, concerning academic articles, by Truong[TODO: CITE] 
 word embeddings can drastically improve the process of document clustering. In fact, the
 effect is even stronger than the number of training examples and the model architecture.
 However, too isolated training can lead to a failure of several clustering algorithms, such
-as DBSCAN, due to a too dense vocabulary". This was also found by Lai et al, who state: "The corpus domain is more important than the corpus size. Using an indomain corpus significantly improves the performance for a given task, whereas using a corpus in an unsuitable domain may decrease performance". These statements both indicate that an indomain corpus improves the performance of word-vectors for those specific domains. However, domain specific validation techniques do not exist currently. Multiple generic validation sets have been published [TODO: insert comparison methods]. These sets have been used in multiple studies of word-vectors[TODO REFERENCE] whom corpus existed of simular generic information [TODO: INSERT CORPUS DETAILS]. These validation methods are limited to the non domain specific fields. 
-\subsection{Embedding validation}[IS THIS TRUE?]Not published results of the study by Truong show high error rates on the validation scores, while the word-vectors seem to work well on document clustering. This seems to indicate that the word-vectors are well suited, but no objective validation method can confirm or deny this. Therefore, we propose the validation of word-embeddings through [SOLUTION].
+as DBSCAN, due to a too dense vocabulary". This was also found by Lai et al, who state: "The corpus domain is more important than the corpus size. Using an in-domain corpus significantly improves the performance for a given task, whereas using a corpus in an unsuitable domain may decrease performance". These statements both indicate that an in-domain corpus improves the performance of word-vectors for those specific domains. However, domain specific validation techniques do not exist currently. Multiple generic validation sets have been published such as:
 
+the Rare-word dataset introduced by Luong et al in their paper "Better Word Representations with Recursive Neural Networks for Morphology"\cite{luong2013better}, 
+the MEN test collection\cite{EBruniMENCollection} and the WordSimilarity-353 test collection\cite{EGabrilovichWScollection}.
+
+These sets have been used in multiple studies of word-vectors[TODO REFERENCE] which corpus existed of similar generic information [TODO: INSERT CORPUS DETAILS]. These validation methods are limited to the non domain specific fields. 
+\subsection{Embedding validation}Not published results of the study by Truong show high error rates on the validation scores, while the word-vectors seem to work well on document clustering. This seems to indicate that the word-vectors are well suited, but no objective validation method can confirm or deny this. Therefore, we propose the validation of word-embeddings through [SOLUTION].
+
+
+\begin{tabular}{c c c c}
+&WordSim & Men & RareWords\\
+Lowest & 0.38 & 0.54 & 0.29 \\
+Highest & 0.49 & 0.61 & 0.32\\
+Average & 0.45 & 0.59 & 0.32\\
+Baseline & 0.64 & 0.68 & 0.34\\
+\end{tabular}
 
 \end{document}
