@@ -5,6 +5,14 @@
 \usepackage{subfiles}
 \usepackage{amssymb}
 \usepackage[a4paper, total={6in,8in}]{geometry}
+\usepackage{csquotes}
+\usepackage[numbers, sort, comma, square]{natbib}
+\usepackage{fixltx2e}
+
+
+\newcommand{\header}[1]{\vspace{0.1in}\leavevmode\newline\textbf{#1}\\}
+\newcommand{\subheader}[1]{\textit{#1}\\}
+
 \begin{document}
 \begin{titlepage}
 \title{Document Embedding for Scientific Articles: Validation of word embeddings}
@@ -12,9 +20,8 @@
 \clearpage\maketitle\thispagestyle{empty}
 \subfile{Parts/Abstract/Abstract.tex}
 \end{titlepage}
-
 \subfile{Parts/Introduction/Introduction.tex}
 
-\bibliographystyle{unsrt}
+\bibliographystyle{unsrtnat}
 \bibliography{Bibliography}
 \end{document}

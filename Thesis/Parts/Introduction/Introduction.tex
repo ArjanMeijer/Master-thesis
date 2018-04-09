@@ -1,30 +1,41 @@
 \documentclass[../../Thesis.tex]{subfiles}
 \begin{document}
-\section{Document Embedding}
-The basic theory of word embedding can be explained by the following quote of J.R. Firth: "You shall know a word by the company it keeps". \\
-Word embedding as described by Lai et al, can capture both the semantic and syntactic
-information of words from a large unlabeled corpus.\cite{lai2016generate} Word embeddings are vector based representations of words, that can, depending on the model either predict the target word given context words, or predict context words, given the target word. Techniques based on word vectors have improved various NLP areas such as machine translation, [todo: add fields and references]
-
-\subsection{domain specific}
-Earlier work on this topic, concerning academic articles, by Truong[TODO: CITE] states the following: "Our findings clearly evinced that in-domain training of the
+\header{Embedding}
+The basic theory of word embedding can be explained by the following quote of J.R. Firth: "You shall know a word by the company it keeps". Word embeddings are distributed representations of words (\citet{mikolov2013distributed}), which can capture both the semantic and syntactic information of words from a large unlabeled corpus (\citet{lai2016generate}).
+Word embeddings are vector based representations of words, that can, depending on the model either predict the target word given context words, or predict context words, given the target word. Techniques based on word vectors have improved various NLP areas such as named entity recognition, part-of-speech tagging, parsing, and semantic role labelling (\citet{luong2013better}).
+The word2vec model converts words via a learned lookuptable into real valued vectors \cite{mikolov2013linguistic}. \citet{mikolov2013linguistic} show that calculations with these vectors is also possible:
+\begin{displayquote}
+	X\textsubscript{apple} - X\textsubscript{apples} $\approx$  X\textsubscript{car} - X\textsubscript{cars}
+\end{displayquote}
+Furthermore they show that de distance in the vector space between "king" and "man" approximates the distance between "queen" and "women". Variations on the word2vec model have also been proposed, \citet{le2014distributed} introduced the paragraph vector, based on the word2vec model. The paragraph vector model uses additional variables to improve the accuracy of the word-embeddings. An advantage of the paragraph vector model is that it takes the word order into consideration, atleast in a small context \cite{le2014distributed}. For this reaseach, only word2vec will be used.
+\header{Domain specific}
+Earlier work on this topic, concerning academic articles, by (\citet{Truong2017Thesis}) states the following: 
+\begin{displayquote}
+"Our findings clearly evinced that in-domain training of the
 word embeddings can drastically improve the process of document clustering. In fact, the
 effect is even stronger than the number of training examples and the model architecture.
-However, too isolated training can lead to a failure of several clustering algorithms, such
-as DBSCAN, due to a too dense vocabulary". This was also found by Lai et al, who state: "The corpus domain is more important than the corpus size. Using an in-domain corpus significantly improves the performance for a given task, whereas using a corpus in an unsuitable domain may decrease performance". These statements both indicate that an in-domain corpus improves the performance of word-vectors for those specific domains. However, domain specific validation techniques do not exist currently. Multiple generic validation sets have been published such as:
+However, too isolated training can lead to a failure of several clustering algorithms, such as DBSCAN, due to a too dense vocabulary" (\citet{Truong2017Thesis}).
+\end{displayquote}
+This was also found by Lai et al, who state: 
+\begin{displayquote}
+"The corpus domain is more important than the corpus size. Using an in-domain corpus significantly improves the performance for a given task, whereas using a corpus in an unsuitable domain may decrease performance" (\citet{lai2016generate}).
+\end{displayquote}
+These statements both indicate that an in-domain corpus improves the performance of word-vectors for those specific domains. However, domain specific validation techniques do not exist currently. Multiple generic validation sets are publicly available such as:
+the Rare-word dataset introduced in the paper "Better Word Representations with Recursive Neural Networks for Morphology" (\citet{luong2013better}), 
+the MEN test collection (\citet{EBruniMENCollection}) and the WordSimilarity-353 test collection (\citet{EGabrilovichWScollection}).
+These sets have been used in multiple studies of word-vectors, whom are referenced by the respective sources.  These validation methods are limited to the non domain specific texts, since they do not contain words of specific domains.
 
-the Rare-word dataset introduced by Luong et al in their paper "Better Word Representations with Recursive Neural Networks for Morphology"\cite{luong2013better}, 
-the MEN test collection\cite{EBruniMENCollection} and the WordSimilarity-353 test collection\cite{EGabrilovichWScollection}.
+\header{Embedding validation}Not published results of the study by Truong show high error rates on the validation scores, this is presented in Table~\ref{table:truongErrorRates}. However, the word-vectors work well on document clustering, this seems to indicate that the word-vectors are able to represent the words. The problem is then that the currently used validation methods do not confirm or this. Therefore, we propose the validation of word-embeddings through [TODO: SOLUTION - classification - abstract/text/title matching - keyword categorization - ...].
 
-These sets have been used in multiple studies of word-vectors[TODO REFERENCE] which corpus existed of similar generic information [TODO: INSERT CORPUS DETAILS]. These validation methods are limited to the non domain specific fields. 
-\subsection{Embedding validation}Not published results of the study by Truong show high error rates on the validation scores, while the word-vectors seem to work well on document clustering. This seems to indicate that the word-vectors are well suited, but no objective validation method can confirm or deny this. Therefore, we propose the validation of word-embeddings through [SOLUTION].
-
-
+\begin{table}
 \begin{tabular}{c c c c}
 &WordSim & Men & RareWords\\
 Lowest & 0.38 & 0.54 & 0.29 \\
 Highest & 0.49 & 0.61 & 0.32\\
 Average & 0.45 & 0.59 & 0.32\\
-Baseline & 0.64 & 0.68 & 0.34\\
+Baseline & 0.64 & 0.68 & 0.34
 \end{tabular}
-
+\caption{Table 1}\label{table:truongErrorRates}
+\end{table}
+\newpage
 \end{document}
