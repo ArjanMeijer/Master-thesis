@@ -1,41 +1,67 @@
 \documentclass[../../Thesis.tex]{subfiles}
 \begin{document}
 \header{Embedding}
-The basic theory of word embedding can be explained by the following quote of J.R. Firth: "You shall know a word by the company it keeps". Word embeddings are distributed representations of words (\citet{mikolov2013distributed}), which can capture both the semantic and syntactic information of words from a large unlabeled corpus (\citet{lai2016generate}).
-Word embeddings are vector based representations of words, that can, depending on the model either predict the target word given context words, or predict context words, given the target word. Techniques based on word vectors have improved various NLP areas such as named entity recognition, part-of-speech tagging, parsing, and semantic role labelling (\citet{luong2013better}).
-The word2vec model converts words via a learned lookuptable into real valued vectors \cite{mikolov2013linguistic}. \citet{mikolov2013linguistic} show that calculations with these vectors is also possible:
+%The basic theory of word embedding can be explained by the following quote of J.R. Firth: "You shall know a word by the company it keeps". 
+ML tasks rely on a numerical (vectorial) representation of text which we refer to as an embedding. This embedding can be calculated for texts of different lengths such as a title, sentence, paragraph or an entire document\cite{Karimi2017Deep}. Word embeddings are these numerical representations of a word, which, since the representation is a vector, is an distributed word representation over multiple (vector) dimensions(\citet{mikolov2013distributed}).
+Word embeddings can capture both the semantic and syntactic information of words from a large unlabeled corpus (\citet{lai2016generate}).
+%Word embeddings are vector based representations of words, that can, depending on the model either predict the target word given context words, or predict context words, given the target word. 
+Techniques based on word embeddings have improved various NLP areas such as named entity recognition, part-of-speech tagging, parsing, and semantic role labelling (\citet{luong2013better}).
+The word2vec model is a way of creating word embeddings. The model converts words via a learned lookuptable into real valued vectors\cite{mikolov2013linguistic}. \citet{mikolov2013linguistic} show that calculations with these vectors is possible:
 \begin{displayquote}
 	X\textsubscript{apple} - X\textsubscript{apples} $\approx$  X\textsubscript{car} - X\textsubscript{cars}
 \end{displayquote}
-Furthermore they show that de distance in the vector space between "king" and "man" approximates the distance between "queen" and "women". Variations on the word2vec model have also been proposed, \citet{le2014distributed} introduced the paragraph vector, based on the word2vec model. The paragraph vector model uses additional variables to improve the accuracy of the word-embeddings. An advantage of the paragraph vector model is that it takes the word order into consideration, atleast in a small context \cite{le2014distributed}. For this reaseach, only word2vec will be used.
+Furthermore they show that de distance in the vector space between "king" and "man" approximates the distance between "queen" and "women". Variations on the word2vec model have also been proposed, \citet{le2014distributed} introduced the paragraph vector, based on the word2vec model. The paragraph vector model uses additional variables to improve the accuracy of the word-embeddings. An advantage of the paragraph vector model is that it takes the word order into consideration, atleast in a small context \cite{le2014distributed}. For this research, only word2vec will be used.
 \header{Domain specific}
-Earlier work on this topic, concerning academic articles, by (\citet{Truong2017Thesis}) states the following: 
-\begin{displayquote}
-"Our findings clearly evinced that in-domain training of the
-word embeddings can drastically improve the process of document clustering. In fact, the
-effect is even stronger than the number of training examples and the model architecture.
-However, too isolated training can lead to a failure of several clustering algorithms, such as DBSCAN, due to a too dense vocabulary" (\citet{Truong2017Thesis}).
-\end{displayquote}
-This was also found by Lai et al, who state: 
-\begin{displayquote}
-"The corpus domain is more important than the corpus size. Using an in-domain corpus significantly improves the performance for a given task, whereas using a corpus in an unsuitable domain may decrease performance" (\citet{lai2016generate}).
-\end{displayquote}
-These statements both indicate that an in-domain corpus improves the performance of word-vectors for those specific domains. However, domain specific validation techniques do not exist currently. Multiple generic validation sets are publicly available such as:
-the Rare-word dataset introduced in the paper "Better Word Representations with Recursive Neural Networks for Morphology" (\citet{luong2013better}), 
-the MEN test collection (\citet{EBruniMENCollection}) and the WordSimilarity-353 test collection (\citet{EGabrilovichWScollection}).
-These sets have been used in multiple studies of word-vectors, whom are referenced by the respective sources.  These validation methods are limited to the non domain specific texts, since they do not contain words of specific domains.
-
-\header{Embedding validation}Not published results of the study by Truong show high error rates on the validation scores, this is presented in Table~\ref{table:truongErrorRates}. However, the word-vectors work well on document clustering, this seems to indicate that the word-vectors are able to represent the words. The problem is then that the currently used validation methods do not confirm or this. Therefore, we propose the validation of word-embeddings through [TODO: SOLUTION - classification - abstract/text/title matching - keyword categorization - ...].
-
+Earlier work on this topic, concerning domain specific articles, by (\citet{Truong2017Thesis}), found that  
+%start of literal quote
+in-domain training of the word embeddings can drastically improve the process of document clustering. In fact, the effect is even stronger than the number of training examples and the model architecture. However, too isolated training can lead to a failure of several clustering algorithms, such as DBSCAN, due to a too dense vocabulary\cite{Truong2017Thesis}. 
+%end of literal quote
+\citet{lai2016generate} found that 
+%start literal quote
+the corpus domain is more important than the corpus size. Using an in-domain corpus significantly improves the performance for a given task, whereas using a corpus in an unsuitable domain may decrease performance. 
+%end literal quote
+These findings both indicate that an in-domain corpus improves the performance of word embeddings for the specific domains. 
+\header{Embedding validation}
+Multiple validations of word embeddings have been used, including: Word analogy, text similarity, categorization and positional visualization.
+\subheader{Word Analogy}
+Word analogy validation is based on a labelled validation set, containing, commonly, word pairs of four, that can be logically divided into two parts. As  Table
+~\ref{table:wordAnalogies} shows, each last word can be derived from the three words before. The score is the fraction of correctly given fourth words, given the first three words. This validation metric is used in multiple studies\cite{mikolov2013distributed, mikolov2013efficient, dai2015document, pennington2014glove}.
 \begin{table}
+\begin{center}
+\begin{tabular}{c c c c}
+Man & Women & King & Queen \\
+Athens & Greece & Oslo & Norway\\
+great & greater & tough & tougher
+\end{tabular}
+\end{center}
+\caption{Word analogies used in word embedding validation}\label{table:wordAnalogies}
+\end{table}
+\subheader{Word Similarity}
+A method to test the quality of word embeddings is the word similarity test. For these test, the distance between the word embeddings (vectors) is measured and compared to similarity scores defined by humans. Multiple non domain specific validation sets are publicly available including: the Rare-word dataset introduced in the paper "Better Word Representations with Recursive Neural Networks for Morphology" by \citet{luong2013better}, 
+the MEN test collection by \citet{EBruniMENCollection} and the WordSimilarity-353 test collection by \citet{EGabrilovichWScollection}.
+These sets, among others, have been used in multiple studies of word embeddings\cite{pennington2014glove, mikolov2013efficient}. This validation metric also relies on labelled data.
+\subheader{Classification}
+The classification validation method is a simple task which compares multiple texts. \citet{lau2016empirical} used data from StackExchange and tried to determine if a pair was a duplicate. Even though the validation method is simple, it too used labelled data to validate the acquired results.
+\subheader{Categorization}
+\citet{le2014distributed} used for their research a dataset of IMDB with 100,000 movie review. They validated their proposed paragraph vector model by determining whether a review was positive or negative.
+\subheader{Position Visualization}
+(Unlabelled, Needs human validation)\citet{dai2015document} and \citet{hinton2003stochastic} mapped their word embeddings to a two dimensional vector to be able to display them in a graph and applied colors to various categories. The advantage of this is that a human can directly see that the embeddings make sense, however this approach is not applicable by a computer.
+
+% Explanation of the word simularity
+ Even though this validation method is not limited to domains, the validation sets are, since they do not contain words of specific domains. At this moment, there are no sets for every domain which make it difficult to compare the accuracy of domain specific word embeddings to non domain specific word embeddings.
+% end explanation
+Unpublished results of the study by Truong encounter this problem, they show high error rates on the validation scores, presented in Table~\ref{table:truongErrorRates}. However, the word embeddings created correct document clusterings\cite{Truong2017Thesis}, this seems to indicate that the word-vectors are able to represent the words correctly. The problem is then that the available validation sets cannot confirm this. Therefore, we propose the validation of word-embeddings through [TODO: SOLUTION - classification - abstract/text/title matching - keyword categorization - ...] to eliminate the need for labelled data in the validation of word embeddings. This will enable us to find optimal parameters for the embedding of domain specific articles.
+\begin{table}
+\begin{center}
 \begin{tabular}{c c c c}
 &WordSim & Men & RareWords\\
 Lowest & 0.38 & 0.54 & 0.29 \\
 Highest & 0.49 & 0.61 & 0.32\\
 Average & 0.45 & 0.59 & 0.32\\
-Baseline & 0.64 & 0.68 & 0.34
+Baseline & \textbf{0.64} & \textbf{0.68} & \textbf{0.34}
 \end{tabular}
-\caption{Table 1}\label{table:truongErrorRates}
+\end{center}
+\caption{Results for the different validation sets of word simularity validations on domain specific texts from the study by \citet{Truong2017Thesis}}\label{table:truongErrorRates}
 \end{table}
-\newpage
+
 \end{document}

@@ -1,0 +1,77 @@
+Validation methods:
+Analogies (labeled data)
+@inproceedings{mikolov2013distributed,
+  title={Distributed representations of words and phrases and their compositionality},
+  author={Mikolov, Tomas and Sutskever, Ilya and Chen, Kai and Corrado, Greg S and Dean, Jeff},
+  booktitle={Advances in neural information processing systems},
+  pages={3111--3119},
+  year={2013}
+}
+
+@article{mikolov2013efficient,
+  title={Efficient estimation of word representations in vector space},
+  author={Mikolov, Tomas and Chen, Kai and Corrado, Greg and Dean, Jeffrey},
+  journal={arXiv preprint arXiv:1301.3781},
+  year={2013}
+}
+
+@article{dai2015document,
+  title={Document embedding with paragraph vectors},
+  author={Dai, Andrew M and Olah, Christopher and Le, Quoc V},
+  journal={arXiv preprint arXiv:1507.07998},
+  year={2015}
+}
+
+@inproceedings{pennington2014glove,
+  title={Glove: Global vectors for word representation},
+  author={Pennington, Jeffrey and Socher, Richard and Manning, Christopher},
+  booktitle={Proceedings of the 2014 conference on empirical methods in natural language processing (EMNLP)},
+  pages={1532--1543},
+  year={2014}
+}
+
+======================================================================================================================
+Textual Similarity:
+@article{lau2016empirical,
+  title={An empirical evaluation of doc2vec with practical insights into document embedding generation},
+  author={Lau, Jey Han and Baldwin, Timothy},
+  journal={arXiv preprint arXiv:1607.05368},
+  year={2016}
+}
+
+@inproceedings{pennington2014glove,
+  title={Glove: Global vectors for word representation},
+  author={Pennington, Jeffrey and Socher, Richard and Manning, Christopher},
+  booktitle={Proceedings of the 2014 conference on empirical methods in natural language processing (EMNLP)},
+  pages={1532--1543},
+  year={2014}
+}
+
+
+Categorization on labeled data:
+@inproceedings{le2014distributed,
+  title={Distributed representations of sentences and documents},
+  author={Le, Quoc and Mikolov, Tomas},
+  booktitle={International Conference on Machine Learning},
+  pages={1188--1196},
+  year={2014}
+}
+
+
+Vector position visualization (grouping)
+@article{dai2015document,
+  title={Document embedding with paragraph vectors},
+  author={Dai, Andrew M and Olah, Christopher and Le, Quoc V},
+  journal={arXiv preprint arXiv:1507.07998},
+  year={2015}
+}
+
+@inproceedings{hinton2003stochastic,
+  title={Stochastic neighbor embedding},
+  author={Hinton, Geoffrey E and Roweis, Sam T},
+  booktitle={Advances in neural information processing systems},
+  pages={857--864},
+  year={2003}
+}
+
+
