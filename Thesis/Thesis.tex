@@ -7,10 +7,13 @@
 \usepackage[a4paper, total={6in,8in}]{geometry}
 \usepackage{csquotes}
 \usepackage[numbers, sort, comma, square]{natbib}
-
+\usepackage{changepage}
 
 \newcommand{\header}[1]{\vspace{0.1in}\leavevmode\newline\textbf{#1}\\}
-\newcommand{\subheader}[1]{\vspace{0.05in}\leavevmode\newline\textit{#1}\\}
+\newcommand{\subheader}[1]{\vspace{0.1in}\leavevmode\newline\textit{#1}\\}
+\newsavebox{\scaleblockbox}
+\newenvironment{jumpin}{\begin{adjustwidth}{2cm}{}}{\end{adjustwidth}}
+
 
 \begin{document}
 \begin{titlepage}
