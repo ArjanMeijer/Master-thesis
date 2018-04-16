@@ -9,7 +9,7 @@
 
 \begin{document}
 \begin{titlepage}
-\title{Thesis plan\\Version 1.0}
+\title{Thesis plan\\Version 1.1}
 \author{Arjan Meijer\\11425555}
 \maketitle
 \thispagestyle{empty}
@@ -49,10 +49,9 @@ Telephone & +31 (0)6 3388 5147  \\
 This project looks at the usefulness of embedding for academic texts. More specifically, can embedding methods have a higher accuracy than the more traditional TD-IDF approach. This topic is closely related to machine learning, since the document embeddings are obtained through machine learning. This project produces an overview of the accuracy of embedding methods and the TF-IDF method for representing academic texts. With this information, researchers or people from industry can make a rational decision about using an embedding method for academic texts. This project gives an answer to three research questions:
 \begin{itemize}
 \item{Has the word-to-vec embedding method a higher accuracy for academic texts than TF-IDF?}
-\item{Which parameter values create embeddings with the highest accuracy for academic texts?}
 \item{Which metric(s) can be used to measure the accuracy of word embeddings for scientific articles?}
+\item{Which parameter values create embeddings with the highest accuracy for academic texts?\footnote{This research question will only be answered if there is sufficient time left}}
 \end{itemize}
-To answer the first research question, the optimal parameters for the embedding method have to be found. The comparison between embedding and TF-IDF must only be done with the optimal parameters for the embedding method.
 \section{Problem Analysis}
 Researchers have shown in previous studies that text related tasks, like search or recommendation, can be accomplished with embeddings of texts. There are a number of different embedding methods proposed. In this research, I want to see if embedding methods have a higher accuracy than the more traditional approach, TF-IDF. I want to do this for the domain of academic texts, which differ in their document-build up and language from earlier researched online sources, forum like sites and Wikipedia. Elsevier has a large set of academic texts and already applies different embeddings to these texts. Their collection and experience on this topic will enable me to do this research.
 
@@ -63,15 +62,19 @@ Researchers have shown in previous studies that text related tasks, like search 
 \item{The word-to-vec embedding method can have an higher accuracy or more utility\footnote{as in, reduced storing capacity and scalability to document/journal level} for academic texts than the TF-IDF algorithm.}
 \item{The accuracy of academic embedding methods can be validated using classification tasks}
 \end{itemize}
+The utility will be measured by the vector size of the resulting representation, for word embeddings but also for the TF-IDF algorithm. Furthermore, the utility will be measured by the accuracy on higher level (article/journal) representation.
+
 \paragraph{Validation} This research will be validated via a clear presentation of all compared results. The usage of a publicly available collection and via a clear presentation of the used parameters for each method.
 
 \subsection{Experiments:}
 This research exists out of multiple experiments, the usage of the methods on two collections, one containing non-academic texts, while the other consists of academic texts. The results mentioned in this paragraph is the accuracy score on the categorization tasks. Each document in the test set will be labelled except for 20\%, these unlabelled documents have to be matched to the right set of documents. The correct matched percentage will be the result score for the algorithm/embedding method.\\
-\paragraph{First experiment}The goal of the first experiment is to compare the results of my algorithm to earlier researches by comparing the results for the Wikipedia set\footnote{Which is also used in earlier researches}. This will ensure that the algorithm I use is comparable, and thus add legitimacy to the research. I expect that this is a small experiment, since it should only recreate already found results.\\
-\paragraph{Second experiment}The second experiment is finding the optimal parameters for the set of academic papers. This will be done by fine-tuning the parameters in search for an optimal result, furthermore, the results of this process must be registered for comparison. This fine-tuning process is a calculation-intensive process, because of this, I expect that this experiment will take most of the time. This experiment also includes data gathering for the comparison of the methods.\\
-\paragraph{Third experiment}The third experiment is creating the TF-IDF algorithm in the research environment and collecting data on its search results. This experiment will not take much time, since the TF-IDF is a simple algorithm to implement.\\
+\paragraph{First experiment}The goal of the first experiment is to measure the accuracy of the (already present) word embeddings, and to collect the found accuracy results for the word embeddings.
+\paragraph{Second experiment}The second experiment is creating the TF-IDF algorithm in the research environment and collecting data on its search results. This experiment will not take much time, since the TF-IDF is a simple algorithm to implement.\\
 \paragraph{Comparison}
-The final step is the comparison of the collected data from experiments 2 and 3, with this information, I will be able to accept or dismiss the hypothesis, and with that, answer the research questions.\\
+Thereafter, the the collected data from experiments 2 and 3 will be compared, with this information, I will be able to accept or dismiss the hypothesis, and with that, answer the research questions.\\
+\paragraph{Third experiment}The third experiment is finding the optimal parameters for the set of academic papers. This will be done by fine-tuning the parameters in search for an optimal result, furthermore, the results of this process must be registered for comparison. This fine-tuning process is a calculation-intensive process, because of this, I expect that this experiment will take most of the time. This experiment also includes data gathering for the comparison of the methods.\\
+\paragraph{Final comparison}
+The final step is to compare the accuracy score of the obtained word-vectors to the results of the previous comparison. This will enable me to validate the remaining research question.
 
 \subsection{Sources:}
 Multiple articles of the explanation of the embedding methods will be used to create the embedding methods. These sources will be included in the Bibliography. Furthermore, the example set that is used in the papers will also be used for this project, the link to this publicly available source will be added as a footnote when the collection is used/discussed. The other collection that will be used belongs to Elsevier and is not publicly available. This set will be described (type of texts, size) and it will be mentioned that the collection is not publicly available since it is property of Elsevier. 
@@ -101,20 +104,18 @@ This project requires:
 \begin{center}
 \begin{tabular}{lll}
 \textbf{Focus} & \textbf{Number of weeks} & \textbf{Date} \\
-Setting up workspace & 1 & April 3 - April 6\\
-Implementing methods & 2 & April 9 - April 20\\
-Finding optimal & 3 & April 23 - May 11\\
-embedding parameters & & \\
-Data gathering experiment 1 & 1 & May 14 - May 18\\
-Data gathering experiment 2 & 1 & May 21 - May 25\\
-Writing & 2 & May 28 - June 8\\
-Correction & 1 & June 11 - June 15\\
-Submission & 1 & June 18 - June 22\\
-Total & 12 & presentation date (NOT YET CONFIRMED) July 10\\
+Setting up workspace & 1 & April 3 - April 13\\
+Initial validation set-up & 2 & April 16 - April 20\\
+Applying validation methods to large scale set & 3 & April 23 - April 27\\
+Data gathering experiment 1 & 1 & April 30 - May 4\\
+Data gathering experiment 2 & 1 & May 7 - May 11\\
+Comparison & 1 & May 14 - May 18\\
+Data gathering experiment 3 & 2 & May 21 - June 1 \\
+Comparison & 1 & June 4 - June 8\\
+Finishing writing & 2 & June 11 - June 22\\
+Total & 12 & presentation date, July 10\\
 \end{tabular}\\
 \end{center}
-*  for non-academic texts\\ ** for academic texts
-
 \section{Risks}
 \begin{tabular}{ll}
 \textbf{Risk} & \textbf{Prevention / Solution}\\
