@@ -1,0 +1,12 @@
+Schnabel points out:
+	- Word frequency is encoded into the word embeddings
+	- Good results on one task does not mean good results on all tasks
+	- The encoding of word frequency in an embedding is reflected in cosine similarity
+		o this causes the cosine similarity to be biased on word-occurences
+
+Possible solutions:
+	- Create the document and journal embeddings from a SET of words
+		o SET, by definition distinct
+	- Compare cosine similarity to other similarity measures 
+		o euclindean absolute (diagonal) distance 
+		o manhattan (city block distance) distance measurred in DeltaX + DeltaY
