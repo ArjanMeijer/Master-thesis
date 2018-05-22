@@ -1,0 +1,53 @@
+\documentclass[../../Thesis.tex]{subfiles}
+\begin{document}
+\section{Background}
+\header{Embedding}
+%The basic theory of word embedding can be explained by the following quote of J.R. Firth: "You shall know a word by the company it keeps". 
+Machine learning (ML) tasks rely on a numerical (vectorial) representation of text which we refer to as an embedding. These can be calculated for texts of different lengths such as a title, sentence, paragraph or an entire document\cite{Karimi2017Deep}. Word embeddings are these numerical representations of a word, these vectors are an distributed representation of the word over the multiple (vector) dimensions(\citet{mikolov2013distributed}). The word embeddings can be used to construct embedding of larger texts. Word embeddings can capture both the semantic and syntactic information of words. The advantage of the machine learning models is that it can be done without human-interaction(\citet{lai2016generate}).
+Word embeddings have improved various Natural Language Processing (NLP) areas such as named entity recognition, part-of-speech tagging, parsing, and semantic role labelling (\citet{luong2013better}).
+\begin{jumpin}
+\subheader{Word2Vec}
+Word2vec word embeddings are created using neural network, Word2vec learns word embeddings via maximizing the log conditional probability of the word given the context word(s) occurring within a fixed-sized window. Therefore the learnt embeddings contain useful knowledge about word co-occurrence\cite{nalisnick2016improving}. There are multiple input/output possibilities for the neural network, best known are Skip-gram and the Continuous Bag-of-Words model (CBOW). The Skip-gram model takes a target word as input and outputs the predicted output words, while CBOW takes the context words as input and outputs the predicted target word\cite{nalisnick2016improving, pennington2014glove}.
+\subheader{Paragraph vectors}
+Variations on the word2vec model have also been proposed, \citet{le2014distributed} introduced the paragraph vector, based on the word2vec model. The paragraph vector model uses additional variables to improve the accuracy of the word-embeddings. An advantage of the paragraph vector model is that it takes the word order into consideration, atleast in a small context \cite{le2014distributed}.
+\subheader{GloVe}
+\citet{pennington2014glove} introduced the GloVe (Global Vectors) model. This model captures the global corpus statistics. The model transforms the word co-occurrences of all words in the corpus to chances, it excludes all the zero values and uses that as initial input for the neural network.\\
+\subheader{TF-IDF}
+TF-IDF is an abbreviation for Term Frequency - Inversed Document Frequency. This method does not rely on a neural network, and does not require training. According to a paper by \citet{beel2016paper} from 2016, "TF-IDF was the most popular weighting scheme (70\%) among those approaches for which the scheme was specified" (in the recommendation class 'Content-based filtering'). The TFIDF score is the product of the term frequency in a text and the inversed document frequency of the same term in a corpus of texts. Both of which can be calculated in a variety of ways.
+\end{jumpin}
+
+\header{Embedding validation}
+Embedding validation techniques are methods that are used to validate the quality\footnote{With quality we mean the extend to which the task is completed correctly} of an embedding for a specific task(\citet{schnabel2015evaluation}).
+Multiple validations of word embeddings have been used, including: Word analogy, text similarity, categorization and positional visualization.
+\begin{jumpin}
+\subheader{Word Analogy}
+Word analogy validation is based on a labelled validation set, containing, commonly, word pairs of four, that can be logically divided into two parts. As  Table
+~\ref{table:wordAnalogies} shows, each last word can be derived from the three words before. The score is the fraction of correctly given fourth words, given the first three words. This validation metric is used in multiple studies\cite{mikolov2013distributed, mikolov2013efficient, dai2015document, pennington2014glove}.
+\begin{table}
+\begin{center}
+\begin{tabular}{c c c c}
+Man & Women & King & Queen \\
+Athens & Greece & Oslo & Norway\\
+great & greater & tough & tougher
+\end{tabular}
+\end{center}
+\caption{Word analogies used in word embedding validation}\label{table:wordAnalogies}
+\end{table}
+Both this validation technique and the Word Similarity technique use vector distance calculations to validate the embeddings, this can therefore also be written as:
+\begin{displayquote}
+	X\textsubscript{Man} - X\textsubscript{King} $\approx$  X\textsubscript{Women} - X\textsubscript{Queen}
+\end{displayquote}
+This means that the resulting vector of embedding of "Man" minus the embedding of "King" is approximately the embedding of "Woman" minus the embedding of "Queen". This resulting vector may be close to a vector "monarch" for example.
+\subheader{Word Similarity}
+A method to test the quality of word embeddings is the word similarity test. For these test, the distance between the word embeddings (vectors) is measured and compared to similarity scores defined by humans. Multiple non domain specific validation sets are publicly available including: the Rare-word dataset introduced in the paper "Better Word Representations with Recursive Neural Networks for Morphology" by \citet{luong2013better}, 
+the MEN test collection by \citet{EBruniMENCollection} and the WordSimilarity-353 test collection by \citet{EGabrilovichWScollection}.
+These sets, among others, have been used in multiple studies of word embeddings\cite{pennington2014glove, mikolov2013efficient}. This validation metric also relies on labelled data.
+\subheader{Classification}
+The classification validation method is a simple task which compares multiple texts. \citet{lau2016empirical} used data from StackExchange and tried to determine if a pair was a duplicate. Even though the validation method is simple, it too used labelled data to validate the acquired results.
+\subheader{Categorization}
+\citet{le2014distributed} used for their research a dataset of IMDB with 100,000 movie review. They validated their proposed paragraph vector model by determining whether a review was positive or negative.
+\subheader{Position Visualization}
+(Unlabelled, Needs human validation)\citet{dai2015document} and \citet{hinton2003stochastic} mapped their word embeddings to a two dimensional vector to be able to display them in a graph and applied colors to various categories. The advantage of this is that a human can directly see that the embeddings make sense, however this approach is not applicable by a computer.\\
+\end{jumpin}
+Even though these validation methods are not limited to domains, the labelled data they use are, since they do not consist of words of specific domains. At this moment, there are no sets for every domain which make it difficult to compare the accuracy of domain specific word embeddings to non domain specific word embeddings.
+\end{document}

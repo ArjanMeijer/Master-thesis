@@ -1,0 +1,33 @@
+\documentclass[../../Thesis.tex]{subfiles}
+\begin{document}
+\section{Motivation}
+\header{Domain specific}
+Earlier work on this topic, concerning domain specific articles, by (\citet{Truong2017Thesis}), found that  
+%start of literal quote
+in-domain training of the word embeddings can drastically improve the process of document clustering. In fact, the effect is even stronger than the number of training examples and the model architecture. However, too isolated training can lead to a failure of several clustering algorithms, such as DBSCAN, due to a too dense vocabulary\cite{Truong2017Thesis}. 
+%end of literal quote
+\citet{lai2016generate} found that 
+%start literal quote
+the corpus domain is more important than the corpus size. Using an in-domain corpus significantly improves the performance for a given task, whereas using a corpus in an unsuitable domain may decrease performance. 
+%end literal quote
+These findings both indicate that an in-domain corpus improves the performance of word embeddings for the specific domains. 
+
+\newpage
+
+\header{Problems in validation}
+Unpublished results of the study by Truong encounter this problem, they show high error rates on the validation scores, presented in Table~\ref{table:truongErrorRates}. However, the word embeddings created correct document clusterings\cite{Truong2017Thesis}, this seems to indicate that the word-vectors are able to represent the words correctly but that the available validation sets cannot confirm this.\\
+Furthermore, a study by \citet{schnabel2015evaluation} found that the quality of embeddings are tasks specific, \textit{different tasks favour different embeddings}. They also found that the embeddings encode information about word frequency, even in models that are created to prevent this. \textit{This casts doubt on the common practice of using vanilla cosine similarity as a similarity measure}.\\
+Therefore, we propose the validation of domain specific word-embeddings through a classification tasks, using multiple vector-distance calculations. This eliminates the need for labelled data in the validation of these domain specific word embeddings, will validate the quality of word embeddings for domain specific texts, and will validate the impact of different vector-distance measures on a categorization task.
+\begin{table}
+\begin{center}
+\begin{tabular}{c c c c}
+&WordSim & Men & RareWords\\
+Lowest & 0.38 & 0.54 & 0.29 \\
+Highest & 0.49 & 0.61 & 0.32\\
+Average & 0.45 & 0.59 & 0.32\\
+Baseline & \textbf{0.64} & \textbf{0.68} & \textbf{0.34}
+\end{tabular}
+\end{center}
+\caption{Results for the different validation sets of word simularity validations on domain specific texts from the study by \citet{Truong2017Thesis}}\label{table:truongErrorRates}
+\end{table}
+\end{document}

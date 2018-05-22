@@ -1,0 +1,16 @@
+TODO:
+	[x] Share with jenny
+
+Priorities:
+A) Thesis
+
+B) Paper
+
+C) Expand Results:
+(running)	1. apply 2k_2k
+(running)	2. Okapi bm25 (https://github.com/yu-iskw/spark-ranking-algorithms/blob/master/docs/okapi-bm25.md)
+	
+	
+D) Improve embedding for abstracts:
+(Jenny)	apply term-weighting to embedding-collection
+	

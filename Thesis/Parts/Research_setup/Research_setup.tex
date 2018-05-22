@@ -1,0 +1,53 @@
+\documentclass[../../Thesis.tex]{subfiles}
+\begin{document}
+
+\header{Experiment setup}
+We used the following pipeline to collect the performance metrics for the categorization task:
+\begin{enumerate}
+\item{Create embeddings}
+\item{Filter articles}
+\item{Create training and validation set}
+\item{Create journal embeddings}
+\item{Categorize validation articles}
+\item{Calculate performance metrics}
+\end{enumerate}
+
+\subheader{Create embeddings}
+For this research, we used word-embeddings (created using the word2vec model) and TF-IDF embeddings. The word-embeddings were created with the word2vec model from PySparks MlLib library\cite{PysparkMlLib}. The embeddings have a vector size of 300. We used Elseviers' internal, pre-made word-embeddings for this research because of the training-time required for the word2vec model.
+The TF-IDF embeddings were created with the TF-IDF model from pyspark's MlLib library\cite{PysparkMlLib}, in combination with a term hasher (HashingTF) from the same library. We used multiple hashing dimensions: 100, 256, 300 \& 512. Since the TF-IDF uses the output of the term hasher, the TF-IDF model produces the same dimensions.
+\subheader{Filter articles}
+We create our initial set of articles by collecting all articles from the journals that were published in the year 2017, and have at least 200 publications in 2017. This reduces the journal set to $2,679$ journals, resulting in a set of $18,870,446$ articles.
+\subheader{Create training and validation set}
+We split our initial set in an 80\% - 20\% split, we use the 80\% set as the training set for the journal embeddings, and the 20\% set as the validation set for the journal embeddings.
+\subheader{Create journal embeddings}
+From our training set we create the journal embeddings by averaging all title embeddings as the journal title embedding, and by averaging all abstract embeddings as the journal abstract embedding. We also normalized both embeddings. 
+\subheader{Categorize validation articles}
+To categorize the articles, we calculate the distance between the title- and abstract embedding of each article, from the validation set, to the title- and abstract embedding of each journal. To calculate the distance, we use cosine similarity (as provided by the SciPy library\cite{SciPy}). During this process we keep track of:
+\begin{itemize}
+\item{Title-based-rank of the actual journal}
+\item{Abstract-based-rank of the actual journal}
+\item{Best scored journal on the abstract similarity}
+\item{Best scored journal on the title similarity}
+\item{Abstract similarity between the actual journal and the article}
+\item{Title similarity between the actual journal and the article}
+\end{itemize}
+\subheader{Performance measurement}
+We use multiple metrics to indicate the performance of the embeddings on a categorization task. These metrics are:
+\begin{enumerate}
+\item{F1-score}
+\item{Median abstract rank}
+\item{Median title rank}
+\end{enumerate}
+\subheader{ - F1-score}
+We calculate the F1 score per article, to do this, we use the following metrics:\\
+$True Positive = $ Articles that are correctly matched to the current journal\\
+$False Positive = $ Articles that are incorrectly matched to other journals\\
+$False Negative = $ Articles that are incorrectly matched to the current journal\\
+$Recall = \dfrac{True Positive}{True Positive + False Negative}$\\\\
+$Precision = \dfrac{True Positive}{True Positive + False Positive}$\\\\
+$F1 = \dfrac{2 * Precision * Recall}{Precision + Recall}$\\
+\subheader{ - Median abstract rank}
+We use the median abstract rank to indicate around which rank the 'standard' article would be ranked, based on its abstract. We do this by taking the median of the abstract rank from each article.
+\subheader{ - Median title rank}
+We use the median title rank to indicate around which rank the 'standard' article would be ranked, based on its title. We do this by taking the median of the title rank from each article.
+\end{document}
