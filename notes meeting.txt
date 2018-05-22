@@ -1,0 +1,13 @@
+Notes meeting:
+	- intro & motivation(containing "domain specific"
+	- introduce abbreviations
+	- better flow
+	- introduction to sections (domain specific what/why?)
+	- More in depth into word2vec (show that you know how it works) mention also alternatives
+	- unlabelled vs labelled data -> what why/ don't stop on it
+	- close an example with some short "toelichting"
+	- Results of truong - how do we use that (included in master thesis means published under name)
+	- update research questions (limit)
+	- Share some results if possible
+	- 
+	
