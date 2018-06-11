@@ -8,9 +8,12 @@
 \usepackage{csquotes}
 \usepackage[numbers, sort, comma, square]{natbib}
 \usepackage{changepage}
+\usepackage{graphicx}
+
 
 \newcommand{\header}[1]{\vspace{0.1in}\leavevmode\newline\textbf{#1}\\}
 \newcommand{\subheader}[1]{\vspace{0.1in}\leavevmode\newline\textit{#1}\\}
+\newcommand{\subsubheader}[1]{\vspace{0.1in}\leavevmode\newline\underline{#1}\\}
 \newsavebox{\scaleblockbox}
 \newenvironment{jumpin}{\begin{adjustwidth}{2cm}{}}{\end{adjustwidth}}
 
@@ -25,6 +28,12 @@
 \subfile{Parts/Background/Background.tex}
 \clearpage
 \subfile{Parts/Motivation/Motivation.tex}
+\clearpage
+\subfile{Parts/Problem_analysis/Problem_analysis}
+\clearpage
+\subfile{Parts/Research_setup/Research_setup.tex}
+\clearpage
+\subfile{Parts/Research_results/Research_results.tex}
 \clearpage
 \bibliographystyle{unsrtnat}
 \bibliography{Bibliography}
