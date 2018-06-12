@@ -10,5 +10,32 @@
 \\
 \includegraphics[width=6in]{Plots/Title_rank_distribution}\\
 \subheader{F1-Score}
-d
+\includegraphics[width=6in]{Plots/Title_avg_f1}\\
+\\
+\includegraphics[width=6in]{Plots/Abstract_avg_f1}\\
+\\
+
+
+\subheader{Memory usage}
+\begin{tabular}{|l|l|}
+\hline
+Set & Size in GB\\
+\hline
+tfidf 5k 5K & $9.82$ \\
+\hline
+tfidf 5K 10K & $11.47$ \\
+\hline
+\textbf{tfidf 10K 10K} &\textbf{11.61}\\
+\hline
+embedding & $3.13$ \\
+\hline
+5k embedding & $3.13$ \\
+\hline
+10k embedding & $3.13$ \\
+\hline
+\textbf{tfidf embedding} & \textbf{3.13} \\
+\hline
+1k 6k embedding & $3.06$ \\
+\hline
+\end{tabular}
 \end{document}

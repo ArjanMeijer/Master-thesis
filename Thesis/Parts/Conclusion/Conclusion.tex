@@ -1,0 +1,11 @@
+\documentclass[../../Thesis.tex]{subfiles}
+\begin{document}
+\header{Conclusion}
+This research shows that the article embeddings, created with word embeddings, perform better than the reasonable TF-IDF alternatives for our categorization task, based on article titles. The TF-IDF alternatives give better results than the embeddings based on abstracts. The performance of the embeddings have been improved by weighting them with the TF-IDF values on word level. This improved embedding results in a median rank decrease of 8 on title and an median rank increase of 8 on title, compared to the best performing TF-IDF alternative.  The embedding also results in a memory decrease of 73.04\% making it more viable to keep it in memory.
+We have furthermore shown that limiting vocabulary size to exclude rare words or common words decreases the performance of the embeddings. We thus come to the following conclusions:
+\begin{enumerate}
+\item{Article based embeddings perform better than TF-IDF on small texts}
+\item{TF-IDF performs better than article based embeddings on larger texts}
+\item{Embeddings give a significant decrease in memory usage compared to TF-IDF}
+\end{enumerate}
+\end{document}

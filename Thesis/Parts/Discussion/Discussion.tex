@@ -1,0 +1,21 @@
+\documentclass[../../Thesis.tex]{subfiles}
+\begin{document}
+\header{Discussion}
+\subheader{1k 6k behaviour}
+1k 6k embedding has lower storage than the other embeddings, this is most likely due to it's word filtering. Cutting off most-used words results probably in empty titles/abstracts which reduce the space that is needed for this embedding variant. All other embeddings have the same size, which indicates that this does not occur in the other situations, even in the 5k set, where the same amount of words are cut off.\\
+The, relatively, much higher average rank compared to the median rank of the 1k 6k embedding can be explained with the data of table (RANKING DISTRIBUTION TABLE). This shows that the embedding goes up at the start, indicating that there are articles in the low ranks, flats out in the center more than the others do, indicating a relatively low amount of articles in the middle ranks, and a strong increase at the end. Indicating that there are  many titles on the high end of the distribution. This explains the relatively low median, which is dawn towards the lower end of the distribution, and the high average, which is drawn to the higher end of the distribution.
+
+\subheader{Best performers}
+The data shows that the 10.000/10.000 set preforms better than all other TF-IDF sets, although the difference with the 5.000/10.000 is low, 1 (7.14\%) on abstract and 3 (8.57\%) on title. For the embeddings the TF-IDF weighted embedding works better than the others, although it is near equal to the default embeddings, which 1 rank higher on abstract, and equal on title.
+
+\subheader{TF-IDF weighting on embeddings}
+The difference between the TFIDF weighted embedding and the default embedding can be explained as follows:
+The embeddings seem to outperform the TF-IDF in situation when there is little information available, the titles in our case. This indicates that the embeddings store some kind of word meaning that enables them to perform relatively well on the titles. The abstracts on the other hand contain much more information. Our data seems to indicate that the amount of information available in the abstracts enable the TF-IDF to cope with the lack of embedded information. If this is the case, we could expect that there would little performance increase on the title, since the TF-IDF lacks the information to perform well. This can be seen in our data, only the average rank increased by 3, indicating that there is a difference between the two embeddings, but not a major one. We could expect on the abstract an increase in performance, since the TF-IDF has more information in this context. We would expect that the weighting applied by the TF-IDF improves the performance of the embedding by indicating word importance. Our data shows a minor improvement in performance of 1(4.35\%) median rank and 10(6.41\%) average ranks.
+
+\subheader{Raw, readable results}
+The TF-IDF outperform the embeddings on the abstract with a difference of 8 ranks for the best of each. On the title however, the best embedding outperforms the best TF-IDF by 8 ranks. 
+
+\subheader{Memory usage}
+Although the TF-IDF outperforms the embeddings on the abstracts, the memory usage of the TF-IDF is higher than the memory usage of the embeddings. The top-performing embedding, TF-IDF weighted embedding, uses 3.13 GB, the top performing TF-IDF, 10.000/10.000 uses 11.61 GB, which is 270.93\% more. The closest TF-IDF configuration we used was 1.000/1.000, which uses 5.13 GB (SEE GRAPH XXX). This TF-IDF set has a median title rank of 183 and a median abstract rank of 44. Which is worse than the embedding, which also uses less memory.
+
+\end{document}
