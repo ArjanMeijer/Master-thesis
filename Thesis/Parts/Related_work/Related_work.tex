@@ -1,4 +1,96 @@
 \documentclass[../../Thesis.tex]{subfiles}
 \begin{document}
 \header{Related work}
+\subheader{Deep Neural Networks for YouTube \\Recommendations}
+The paper 'Deep Neural Networks for YouTube Recommendations' by Covington et al.\cite{covington2016deep} describes the current (16 September 2016) YouTube candidate generation and ranking neural networks. The candidate generation network works with limited data inorder to reduce the needed time for the candidate generation. This process reduces the amount of possible videos for the ranking network, which uses more parameters to increase the accuracy of the ranking. The paper also discusses variables to influence the results of the networks, such as age of the training example and watch-time vs click-through prediction. The paper also discusses the impact that layers of depth have at the results.
+\subheader{Distributed Representations of Sentences and Documents}
+The paper 'Distributed Representations of Sentences and Documents' by le et al.\cite{le2014distributed} proposes the Paragraph Vector as a replacement for the popular bag-of-words or bag-of-n-grams. The Paragraph Vector framework is based on the word vectors framework. The difference between the frameworks is the calculation of the probability, the Paragraph Vector framework uses an matrix D, which consists of every paragraph. This matrix is used to replace a concatenation or average of word vectors. The Paragraph Vector out preforms the state-of-the art techniques on several text classification and sentiment analysis tasks.
+\subheader{Distributed Representations of Words and Phrases and their Compositionality}
+The paper 'Distributed Representations of Words and Phrases and their Compositionality' by Mikolov et al.\cite{mikolov2013distributed} presents several extensions that improve the quality of vector training and its speed. This is achieved by introducing Hierarchical Softmax, Negative Sampling and the subsampling of frequent words to the Skip-gram approach. This does not only speed up the learning process, but also improves the quality for rare words.
+\subheader{Document Embedding with Paragraph Vectors}
+The paper 'Document Embedding with Paragraph Vectors' by Dai et al.\cite{dai2015document} describes a larger/more thorough evaluation of the Paragraph Vectors model. The writers compare this technique with the Bag of Words model and the Latend Dirichlet Allocation model. The paper states that the Paragraph Vectors model preforms well for grouping, triplet finding and related object/article finding tasks. The paper states that the Paragraph Vectors model is significantly better then the other models in these tasks on the Wikipedia and arXiv articles.
+\subheader{Stochastic Neighbor Embedding}
+The paper 'Stochastic Neighbor Embedding' by Hinton et al.\cite{hinton2003stochastic} describes a probabilistic approach to transform objects form a high-dimensional space to a low-dimensional spaces so that  neighbour identities are preserved. To achieve this the objects are transformed to images. A Gaussian is then used to define the (context) probability. This method has the ability to be extended to mixtures in which ambiguous high-dimensional objects can have several widely-separated images in the low-dimensional space.
+\subheader{An empirical evaluation of doc2vec with practical \\insights into document embedding generation}
+The paper 'An empirical evaluation of doc2vec with practical insights into document embedding generation' by Lau et al.\cite{lau2016empirical} empirically evaluates the quality of the documents embedding created with the method 'doc2vec' compared to 'word2vec' and the 'n-gram' model. They conclude that doc2vec preforms well and that the 'dbow' approach works better than the 'dmpv' approach for the doc2vec method. They also provide recommendations for the optimal parameters for the doc2vec method.
+\subheader{Efficient estimation of word representations in vector space}
+The paper 'Efficient estimation of word representations in vector space' by Mikolov et al.\cite{mikolov2013efficient} 
+shows that, with newly applied techniques, the size of the training sets can increase while the time needed for the training operation does not increase. This new approach greatly reduces the training time per word and allows for bigger sets of texts. This results in a higher accuracy of the created embeddings. The authors state that the newly applied techniques can also be used on other, already existing embedding methods. 
+\subheader{GloVe: Global Vectors for Word Representation}
+The paper 'GloVe: Global Vectors for Word Representation' by Pennington et al.\cite{pennington2014glove} proposes a new model, named GloVe, which is a log-bilinear regression model for unsupervised learning of word representations. This model out preforms other models on three specific tasks, these are: word analogy, word similarity and named entity recognition.
+\subheader{MapReduce: Simplified data processing on large \\clusters}
+The paper 'MapReduce: Simplified data processing on large clusters' by Dean et al.\cite{dean2008mapreduce} explains the MapReduce programming model. The model is inspired by functional programming languages. It requires programmers to specify a map function which processes key-value pairs to generate intermediate key-value pairs. It requires furthermore a reduce function, that merges all intermediate values associated with the same intermediate key. This method allows for an execution on a large distributed computer network. This allows the processing of large input (and output) sets in reasonable time.
+\subheader{Spark SQL: Relational data processing in spark}
+The paper 'Spark SQL: Relational data processing in spark' by Armbrust et al.\cite{armbrust2015spark} explains Spark SQL. Spark SQL lest programmers leverage the benefits of relational processing and lets SQL users call complex analytix libraries in Spark. This allows for much tighter intergration between relational and procedural processing. The paper further states that Spark SQL makes it significanly simpler and more efficient to write data piplines that mix relational and procedural processing, while offering substantial speedups over previous SQL-on-Spark engines\footnote{Based on user feedback}.
+
+\subheader{How to Generate a Good Word Embedding?}
+Paper by Lai et al.\cite{lai2016generate}
+\begin{itemize}
+\item{Word embedding, also known as distributed word
+representation, can capture both the semantic and syntactic
+information of words from a large unlabeled corpus
+and has attracted considerable attention from many researchers.
+In recent years, several models have been proposed,
+and they have yielded state-of-the-art results in many
+natural language processing (NLP) tasks.}
+\item{We observe that almost
+all methods for training word embeddings are based on the
+same distributional hypothesis: words that occur in similar
+contexts tend to have similar meanings.}
+\item{Training on a large corpus
+generally improves the quality of word embeddings,
+and training on an in-domain corpus can significantly
+improve the quality of word embeddings for a specific
+task.}
+\item{Previous works have shown that models that predict the target word capture the paradigmatic relations between words}
+\item{we can conclude that using a larger corpus can yield a better embedding, when the corpora are in the same domain}
+\item{In most of the tasks, the influence of the corpus domain is
+dominant. In different tasks, it impacts performance in the
+different ways}
+\item{The corpus
+domain is more important than the corpus size. Using an indomain
+corpus significantly improves the performance for a
+given task, whereas using a corpus in an unsuitable domain
+may decrease performance. }
+\end{itemize}
+\subheader{Better Word Representations with Recursive Neural Networks for Morphology}
+Paper by Luong et al.\cite{luong2013better}
+\begin{itemize}
+\item{The use of word representations or word clusters
+pretrained in an unsupervised fashion from lots of
+text has become a key “secret sauce” for the success
+of many NLP systems in recent years, across
+tasks including named entity recognition, part-ofspeech
+tagging, parsing, and semantic role labeling.}
+\item{The main advantage of having such a distributed
+representation over word classes is that it can capture
+various dimensions of both semantic and syntactic
+information in a vector where each dimension
+corresponds to a latent feature of the word. As
+a result, a distributed representation is compact,
+less susceptible to data sparsity, and can implicitly
+represent an exponential number of word clusters.}
+\item{The Rare-word dataset introduced by Luong et al.}
+\end{itemize}
+\subheader{Evaluation methods for unsupervised word embeddings}
+Paper by Schnabel et al. \cite{schnabel2015evaluation}
+\begin{itemize}
+\item{Neural word embeddings represent meaning via
+geometry. A good embedding provides vector representations
+of words such that the relationship between
+two vectors mirrors the linguistic relationship
+between the two words.}
+\item{Existing schemes fall into two major categories: extrinsic and intrinsic evaluation. In extrinsic evaluation, we use word embeddings as input features to a downstream task and measure changes in performance metrics specific to that task. Examples include part-of-speech tagging and named-entity recognition (Pennington et al., 2014). Extrinsic evaluation only provides one way to specify the goodness of an embedding, and it is not clear how it connects to other measures. Intrinsic evaluations directly test for syntactic or semantic relationships between words (Mikolov et al., 2013a; Baroni et al., 2014).}
+\item{This is the first paper to conduct a comprehensive study covering a wide range of evaluation criteria and popular embedding techniques. In particular, we study how outcomes from three different evaluation criteria are connected: word relatedness, coherence, downstream performance.}
+\item{Embedding methods should be compared in the context of a specific task, e.g., linguistic insight or good downstream performance.}
+\item{We observe that word embeddings encode a surprising degree of information about word frequency. We found this was true even in models that explicitly reserve parameters to compensate for frequency effects. This finding may explain some of the variability across embeddings and across evaluation methods. It also casts doubt on the common practice of using the vanilla cosine similarity as a similarity measure in the embedding space.}
+\item{Extrinsic evaluations measure the contribution of a word embedding model to a specific task. There is an implicit assumption in the use of such evaluations that there is a consistent, global ranking of word embedding quality, and that higher quality embeddings will necessarily improve results on any downstream task. We find that this assumption does not hold: different tasks favor different embeddings}
+\item{Performance on downstream tasks is not consistent across tasks, and may not be consistent with intrinsic evaluations. Comparing performance across tasks may provide insight into the information encoded by an embedding, but we should not expect any specific task to act as a proxy for abstract quality.}
+\item{Word frequency information in the embedding space also affects cosine similarity}
+\item{ Also, the above results mean that the commonly-used cosine similarity in the embedding space for the intrinsic tasks gets polluted by frequency-based effects}
+\item{Factors such as word frequency
+play a significant and previously unacknowledged role. Word frequency also interferes with the commonly-used cosine similarity measure.}
+\end{itemize}
+\subheader{Word frequencies: A comparison of Pareto type distributions}
+Paper by \citet{wiegand2018word}. They state that the pareto distribution offers a better fit to the word occurrences in natural language than zipf's law. Their models show that, due to the additional parameters in the pareto-III, the tail of the data fits better to the model. This shows the relation between the word occurrences rank, and the actual occurrences.
 \end{document}

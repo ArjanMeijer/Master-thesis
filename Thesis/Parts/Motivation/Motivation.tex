@@ -1,33 +1,21 @@
 \documentclass[../../Thesis.tex]{subfiles}
 \begin{document}
 \header{Motivation}
-\subheader{Domain specific}
-Earlier research, concerning domain specific articles, by \citet{Truong2017Thesis}, found that in-domain training of the word embeddings can  improve the process of document clustering. This effect is even stronger than the number of training examples and the model architecture.
-\citet{lai2016generate} found that the corpus domain is more important than the corpus size. Using an in-domain corpus significantly improves the performance for a given task, whereas using a corpus in an unsuitable domain may decrease performance. These findings both indicate that an in-domain corpus improves the performance of word embeddings for the specific domains.
+\subheader{In-domain embeddings and validation}
+Earlier research, concerning domain specific articles, by \citet{Truong2017Thesis}, found that in-domain training of the word embeddings can  improve the process of document clustering. This effect is even stronger than the number of training examples and the model architecture. \citet{lai2016generate} found that the corpus domain is more important than the corpus size. Using an in-domain corpus significantly improves the performance for a given task, whereas using a corpus in an unsuitable domain may decrease performance.
+Truong et al. encountered a problem in the validation of these in-domain embeddings. The word embedding produced correct document clustering results, leading to the conclusion that these embeddings are of good quality, since they capture the document relatedness needed to create correct clusterings. However unpublished results by Truong et al. state that the embeddings show high error rates on the validation scores. This seems to indicate that the word-vectors are of good quality, but that the available validation metrics cannot confirm this. \citet{Truong2017Thesis} used multiple word similarity validations to asses the quality of the word embeddings. However, these set are created to validate the generic embeddings, they fail to asses the quality of the domain specific embeddings.
 
-\subheader{Problems in validation}
-To assess the performance of the embeddings, validation methods are used. This are tasks designed to produce a metric that gives an indication of the usability of the provided embeddings. \citet{schnabel2015evaluation} found that the validation method indicates only the quality of an embedding for a specific task. There is (yet) no methtod that can asses the usability of an embedding on all possible tasks, since each task may require other information to be embedded into the embedding.
-Validation methods use either labelled or unlabelled data. Labelled data is data that is in some way marked, so that the correct answer can be derived from it. Unlabelled is the opposite, this data is not marked.\\
-The usage of labelled data is common practice for validation methods, since the results produced by this data can be easily checked checked.
-Unpublished results of the study by Truong encounter this problem, they show high error rates on the validation scores, presented in Table~\ref{table:truongErrorRates}. However, the word embeddings created correct document clusterings\cite{Truong2017Thesis}, this seems to indicate that the word-vectors are able to represent the words correctly but that the available validation sets cannot confirm this.\\
-Furthermore, a study by \citet{schnabel2015evaluation} found that the quality of embeddings are tasks specific, \textit{different tasks favour different embeddings}. They also found that the embeddings encode information about word frequency, even in models that are created to prevent this. \textit{This casts doubt on the common practice of using vanilla cosine similarity as a similarity measure}.\\
-Therefore, we propose the validation of domain specific word-embeddings through a classification tasks, using multiple vector-distance calculations. This eliminates the need for labelled data in the validation of these domain specific word embeddings, will validate the quality of word embeddings for domain specific texts, and will validate the impact of different vector-distance measures on a categorization task.\\
-\begin{table}[hbt]
+\subheader{Research}
+To asses the problem of the limited availability of pre-labelled validation sets for domain specific articles, we compare the embeddings to  TF-IDF on a categorization task. This A) gives an indication of the embedding quality for categorization tasks and B) contrasts the performance of embeddings to the performance of the more traditional TF-IDF approach. To ensure the quality of the embeddings for our research, we reuse the embeddings created in the research of \citet{Truong2017Thesis}.
+\begin{jumpin}
+	\textbf{RQ.1} Have word-embeddings a higher accuracy for academic texts than TF-IDF for article classification?\\
+	\textbf{RQ.2} Which metric can be used to measure the accuracy of word embeddings for scientific articles?
+\end{jumpin}
+\subsubheader{Embedding and TF-IDF}
+Research question one focusses on the classification results of both embedding-based techniques and TF-IDF.  To measure classification task we use the rank of the class to which the item belongs. Transforming the classification task from a binary metric to a ranking metric. For this task, we will use different versions of embeddings, and different TF-IDF versions to not only compare the two techniques, but also look for the optimal results of both techniques. For this part of the research, we will use the following hypothesis:
 \begin{center}
-\begin{tabular}{l l l l}
-&WordSim & Men & RareWords\\
-Best results from the research by Truong: & 0.49 & 0.61 & 0.32\\
-Average  results from the research by Truong & 0.45 & 0.59 & 0.32\\
-\end{tabular}
+\textit{Embedding based techniques give lower rankings than the TF-IDF based techniques}
 \end{center}
-\caption{Results for the different validation sets of word simularity validations on domain specific texts from the study by \citet{Truong2017Thesis}}\label{table:truongErrorRates}
-\end{table}
-\\
-\subheader{Research Questions}
-\begin{itemize}
-\item{Have word-embeddings a higher accuracy for academic texts than TF-IDF for article classification?}
-\item{Which metric(s) can be used to measure the accuracy of word embeddings for scientific articles?}
-\end{itemize}
-
+By validating our invalidating  this hypothesis we get an indication of the performance of the embeddings compare to older techniques, and get insight into possible performance and resource trade-off's and if the computational power and AI expertise needed for the creation of embeddings is worth the investment .
 
 \end{document}
