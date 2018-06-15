@@ -1,5 +1,24 @@
 \documentclass[../../Thesis.tex]{subfiles}
 \begin{document}
 \header{Data}
-The dataset we used for this research consists of all articles published in 2017 which have been published in an article that has, in 2017 more than 150 publications.
+The dataset we used for this research consists of all articles\footnote{From Elseviers corpus} published in 2017 which have been published in a journal that has, in 2017, atleast 150 publications. This results in a total dataset of $1.391.543$ articles from $3.759$ journals.
+
+\begin{tabular}{c c c}
+ & Total token count & Unique token count \\
+Title & $14.742.192$ & $230.805$ \\
+Abstract & $171.474.473$ & $738.961$ \\
+Total & $186.962.354$ & $763.475$ \\
+\end{tabular}
 \end{document}
+
+% RAW DATA:
+% 1,391,543 articles
+% 14 811 433 title tokens			230805 unique
+% 172 150 921 abstract tokens		738961 unique
+% 186 962 354 total tokens			763475 unique
+% 3,759 journals
+
+% split = 79.9509609117 - 20.0490390883
+
+% training numbers
+% 10K = percentage?}
