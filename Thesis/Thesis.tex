@@ -11,7 +11,7 @@
 \usepackage{graphicx}
 \usepackage{placeins}
 
-
+\newcommand{\mainheader}[1]{\section{#1}}
 \newcommand{\header}[1]{\vspace{0.1in}\leavevmode\newline\textbf{#1}\\}
 \newcommand{\subheader}[1]{\vspace{0.1in}\leavevmode\newline\textit{#1}\\}
 \newcommand{\subsubheader}[1]{\vspace{0.1in}\leavevmode\newline\underline{#1}\\}
@@ -23,27 +23,31 @@
 \begin{document}
 \begin{titlepage}
 \title{Document Embedding for Scientific Articles: Validation of word embeddings}
-\author{Arjan Meijer, 11425555}
+\author{H.J. Meijer, 11425555}
 \clearpage\maketitle\thispagestyle{empty}
 \subfile{Parts/Abstract/Abstract.tex}
 \end{titlepage}
 
-\section{Introduction}
+\mainheader{Introduction}
 \subfile{Parts/Background/Background.tex}
+
 \clearpage
 \subfile{Parts/Motivation/Motivation.tex}
 \clearpage
 \subfile{Parts/Related_work/Related_work.tex}
 \clearpage
-\section{Work context}
+
+\mainheader{Data}
 \subfile{Parts/Data/Data.tex}
-\subfile{Parts/Research_setup/Research_setup.tex}
-\section{Results}
-\subfile{Parts/Research_results/Research_results.tex}
-\subfile{Parts/Discussion/Discussion.tex}
-\subfile{Parts/Conclusion/Conclusion.tex}
 \clearpage
 
+\mainheader{Results}
+\subfile{Parts/Research_results/Research_results.tex}
+\clearpage
+\subfile{Parts/Discussion/Discussion.tex}
+\subfile{Parts/Conclusion/Conclusion.tex}
+\subfile{Parts/Future_work/Future_work.tex}
+\clearpage
 
 \bibliographystyle{unsrtnat}
 \bibliography{Bibliography}

@@ -2,21 +2,25 @@
 \begin{document}
 \header{Research results}
 \subheader{Ranking}
-\includegraphics[width=6in]{Plots/Abstract_rankings}\\
-\\
-\includegraphics[width=6in]{Plots/Title_rankings}\\
+The graph XXX shows the ranking results for the different sets based on the title. Graph XXX displays the ranking results based on the abstract. Both graphs show both average and median ranks, based on the cosine-similarity between the article and journal embeddings or feature vectors.\\
+\includegraphics[width=6.5in]{Plots/Title_rankings}\\
+\vspace{0.2in}\\
+\includegraphics[width=6.5in]{Plots/Abstract_rankings}\\
+\clearpage
 \subheader{Rank distribution}
-\includegraphics[width=6in]{Plots/Abstract_rank_distribution}\\
-\\
-\includegraphics[width=6in]{Plots/Title_rank_distribution}\\
+Graph XXX shows the rank distribution for the titles on, graph XXX shows this for the ranks based on the abstract. Both graphs use a logarithmic scale. These graphs give a detailled view of the ranks presented in the respective graphs XXX and XXX.\\
+\includegraphics[width=6.5in]{Plots/Title_rank_distribution}\\
+\vspace{0.2in}\\
+\includegraphics[width=6.5in]{Plots/Abstract_rank_distribution}\\
+\clearpage
 \subheader{F1-Score}
-\includegraphics[width=6in]{Plots/Title_avg_f1}\\
-\\
-\includegraphics[width=6in]{Plots/Abstract_avg_f1}\\
-\\
-
-
+The graphs XXX and XXX show the F1 score for the title and abstract respectively. These scores are the average journals scores for each set, indicating the quality of the sets for absolute hits (top-1).\\
+\includegraphics[width=6.5in]{Plots/Title_avg_f1}\\
+\vspace{0.2in}\\
+\includegraphics[width=6.5in]{Plots/Abstract_avg_f1}\\
+\clearpage
 \subheader{Memory usage}
+XXX shows the total memory usage of each \textit{Validation set}, indicating their costs in memory storage \& RAM.\\
 \begin{tabular}{|l|l|}
 \hline
 Set & Size in GB\\
@@ -39,54 +43,5 @@ embedding & $3.13$ \\
 \hline
 \end{tabular}
 \\
-\begin{minipage}{6.5in}
-\begin{tabular}{|l|l|l|l|l|}
-\hline
-Metric\footnote{As defined and provided by the SciPy library} & Median title rank & Average title rank & Median abstract rank & Average abstract rank  \\
-\hline
-\hline
-braycurtis & 28 & 130 & 23 & 124  \\
-\hline
-canberra & 33 & 148 & 26 & 133  \\
-\hline
-chebyshev & 57 & 256 & 41 & 191  \\
-\hline
-cityblock & 28 & 130 & 23 & 124  \\
-\hline
-correlation & 27 & 127 & 23 & 122  \\
-\hline
-cosine & 27 & 127 & 23 & 122  \\
-\hline
-dice & 1995 & 1929 & 1995 & 1929  \\
-\hline
-euclidean & 27 & 127 & 23 & 122  \\
-\hline
-hamming & 1995 & 1929 & 1995 & 1929  \\
-\hline
-jaccard & 1995 & 1929 & 1995 & 1929  \\
-\hline
-kulsinski & 1995 & 1929 & 1995 & 1929  \\
-\hline
-mahalanobis & 136 & 544 & 75 & 449  \\
-\hline
-matching & 1995 & 1929 & 1995 & 1929  \\
-\hline
-minkowski & 27 & 127 & 23 & 122  \\
-\hline
-rogerstanimoto & 1995 & 1929 & 1995 & 1929  \\
-\hline
-russellrao & 1995 & 1929 & 1995 & 1929  \\
-\hline
-seuclidean & 27 & 124 & 22 & 115  \\
-\hline
-sokalmichener & 1995 & 1929 & 1995 & 1929  \\
-\hline
-sokalsneath & 1995 & 1929 & 1995 & 1929  \\
-\hline
-sqeuclidean & 27 & 127 & 23 & 122  \\
-\hline
-yule & 1995 & 1929 & 1995 & 1929  \\
-\hline
-\end{tabular}
-\end{minipage}
+
 \end{document}
