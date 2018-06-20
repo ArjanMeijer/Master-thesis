@@ -1,25 +1,34 @@
 \documentclass[../../Thesis.tex]{subfiles}
 \begin{document}
 \header{Corpus}
-The dataset we used for this research consists of all articles\footnote{From Elseviers corpus} published in 2017 which have been published in a journal that has, in 2017, atleast 150 publications. This results in a total dataset of $1.391.543$ articles from $3.759$ journals.
+The dataset we used for this research consists of articles published in 2017 which have been published in a journal that has, in 2017, atleast 150 publications. This results in a total dataset of $1.391.543$ articles from $3.759$ journals. Details about the corpus can be found in table~\ref{table:corpusSize}.
 \begin{table}[hbt]
 \begin{center}
-\begin{tabular}{|l|c|c|c|c|}
+\begin{tabular}{|l|c|c|c|}
 \hline
- & Total word count & Unique word count & Total token count & Unique token count \\
+ & Total count & Unique count & Average length \\
+\hline\hline
+Title words & $18.822.399$ & $939.665$ & 13,53  \\
 \hline
-Title & $18.822.399$ & $939.665$ & $14.742.192$ & $230.805$ \\
+Title tokens & $14.742.192$ & $230.805$ & 10,64 \\
+\hline\hline
+Abstract words & $264.653.020$ & $5.853.077$  & 190,19  \\
 \hline
-Abstract & $264.653.020$ & $5.853.077$ & $171.474.473$ & $738.961$ \\
+Abstract tokens & $171.474.473$ & $738.961$ & 123,71 \\
+\hline\hline
+Total words & $283.475.419$ & $6.209.769$  & 203,71 \\
 \hline
-Total & $283.475.419$ & $6.209.769$ & $186.962.354$ & $763.475$ \\
+Total tokens & $186.962.354$ & $763.475$ & 134,36 \\
 \hline
 \end{tabular}
 \end{center}
 \caption{Corpus size}\label{table:corpusSize}
 \end{table}\\
-The word occurrences follow the pattern of a pareto distribution as described by~\citet{wiegand2018word}. This distribution is visualized in XXXXXX, which displays the occurrences of the first 500 tokens of the corpus.
-\includegraphics[width=6.5in]{Plots/word_occurrences}\\
+The word occurrences follow the pattern of a pareto distribution as described by~\citet{wiegand2018word}. This distribution is visualized in figure~\ref{figure:wordTokenOccurrence}, which displays the occurrences of the first 500 tokens of the corpus.
+\begin{figure}[hbt]
+\includegraphics[width=6.5in]{Plots/word_occurrences}
+\caption{Word and token occurrences}\label{figure:wordTokenOccurrence}
+\end{figure}
 
 \header{Datasets}
 For this researched we used a (pre-made) tokenized dataset, which reduces the total amount of words by 34\%, from this tokenized set, we created the embeddings and the TF-IDF feature vectors.
@@ -57,8 +66,12 @@ The 1K-6K TF-IDF embedding is the TF-IDF embedding limited to the top 6.000 most
 \subheader{TF-IDF}
 To create the TF-IDF feature vectors, we used the TF-IDF model and a hasher from pysparks the MlLib library. The TF-IDF feature vectors are created by hashing the tokens with the hasher, which has a set hash bucket size. These hashed values are passed on to the TF-IDF model, resulting in a feature vector which vector dimensions equals the amount of hash buckets. To limit the computational and storage expenses and to reduce noise by rare words, we limit our vocabulary size.
 We denote the TF-IDF configurations as follows: $vocabulary size/hashbucket size$. Furthermore, we denote 1.000 as 1K, since we deal with chosen values which can be exactly noted given this notation.\\
-\includegraphics[width=6in]{Plots/tfidf_selection_plot}\\
-The graph XXX shows the performance and storage size\footnote{in gigabyte, 1024 based} of the 1k/1K, 4K/4K, 7K/7K and 10K/10K TF-IDF configurations. This plot shows that, while the required storage size keeps rising, the performance on title quickly stagnates, and the performance on abstract follows too. Given this information, we have chosen to use the 10K/10K, 10K/5K and 5K/5K configurations to compare our embedding results to. The TF-IDF features are created on article level. We average the set of article embeddings to create a journal embedding. 
+\begin{figure}
+\includegraphics[width=6in]{Plots/tfidf_selection_plot}
+\caption{TF-IDF performance and memory usage}\label{figure:tfidfPerformance}
+\end{figure}
+
+Figure~\ref{figure:tfidfPerformance} shows the performance and storage size\footnote{in gigabyte, 1024 based} of the 1k/1K, 4K/4K, 7K/7K and 10K/10K TF-IDF configurations. This plot shows that, while the required storage size keeps rising, the performance on title quickly stagnates, and the performance on abstract follows too. Given this information, we have chosen to use the 10K/10K, 10K/5K and 5K/5K configurations to compare our embedding results to. The TF-IDF features are created on article level. We average the set of article embeddings to create a journal embedding. 
 
 \header{Pipeline}
 We procesessed the TF-IDF sets an the embedding sets via the same pipeline, based on vector calculations. This ensures comparable results. The pipeline is setup as follows:
@@ -72,7 +85,7 @@ We procesessed the TF-IDF sets an the embedding sets via the same pipeline, base
 \subheader{Create training and validation set}
 We split our initial set  $80\%$ - $20\%$,. We use the $80\%$ set as the training set for the journal representations, and the $20\%$ set as the validation set for the journal representations. This split is based on a random number given to article each record, ensuring that all set have the same (random) training and validation set.
 \subheader{Create journal embeddings}
-From our training set we create the journal embeddings, which are created for most sets\footnote{see XXXXX} by averaging the article embeddings or feature vectors.
+From our training set we create the journal embeddings, which are created for most sets\footnote{see paragraph datasets} by averaging the article embeddings or feature vectors.
 \subheader{Categorize validation articles}
 To categorize the articles, we calculate the distance between the title- and abstract embedding of each article, from the validation set, to the title- and abstract embedding of each journal, during this process we keep track of:
 \begin{itemize}
@@ -84,8 +97,8 @@ To categorize the articles, we calculate the distance between the title- and abs
 \item{Title similarity between the actual journal and the article}
 \end{itemize}
 \subsubheader{Distance metrics}
-To calculate the distance between to vectors, cosine similarity is commonly used CITATIONS NEEDED. We validated the quality of cosine similarity as a distance metrics by comparing it to all other similarity matrices available in the SciPy library, which we used to calculate the distances. We calculate the similarities based on the normalized embeddings, and compared the distance metrics based on the default embedding set. XXXX shows the results of this validation.\\
-\begin{minipage}{6.5in}
+To calculate the distance between to vectors, cosine similarity is commonly used. We validated the quality of cosine similarity as a distance metrics by comparing it to all other similarity matrices available in the SciPy library, which we used to calculate the distances. We calculate the similarities based on the normalized embeddings, and compared the distance metrics based on the default embedding set. Table~\ref{table:distanceMetrics} shows the results of this validation.\\
+\begin{table}[hbt]
 \begin{tabular}{|l|l|l|l|l|}
 \hline
 Metric\footnote{As defined and provided by the SciPy library} & Median title rank & Average title rank & Median abstract rank & Average abstract rank  \\
@@ -131,8 +144,9 @@ Sokalsneath & 1995 & 1929 & 1995 & 1929  \\
 Yule & 1995 & 1929 & 1995 & 1929  \\
 \hline
 \end{tabular}
-\end{minipage}\\
-These results show high similarity between cosine-based metrics (Cosine \& Correlation) and euclidean based metrics (Euclidean, Seuclidean \& sqeuclidean). This similarity is expected, since the cosine and euclidean distances should yield the same results on normalized sets. The results show that some enhancement on the euclidean algorithm result in slightly improved results, although not significant XXX EXPLAIN? XXX. Also the Cityblock metric yields results close to the Cosine metric, it has a slightly worse performance, which is also not significant. Because of this, we will use the cosine-similarity as the distance matrix, which will make our results better comparable with other work.
+\caption{Distance metric performance for word embeddings on the categorization of academic texts}\label{table:distanceMetrics}
+\end{table}
+These results show high similarity between cosine-based metrics (Cosine \& Correlation) and euclidean based metrics (Euclidean, Seuclidean \& Sqeuclidean). This similarity is expected, since the cosine and euclidean distances should yield the same results on normalized sets. The results show that some enhancement on the euclidean algorithm result in slightly improved results, although not significant. Also the Cityblock metric yields results close to the Cosine metric, it has a slightly worse performance, which is also not significant. Because of this, we will use the cosine-similarity as the distance matrix, which will make our results better comparable with other work.
 
 \subheader{Performance measurement}
 We use multiple metrics to validate the performance of the embedding sets and TF-IDF sets on the categorization task. These metrics are:
