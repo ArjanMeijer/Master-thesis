@@ -65,16 +65,16 @@ The 1K-6K TF-IDF embedding is the TF-IDF embedding limited to the top 6.000 most
 
 \subheader{TF-IDF}
 To create the TF-IDF feature vectors, we used the TF-IDF model and a hasher from pysparks the MlLib library. The TF-IDF feature vectors are created by hashing the tokens with the hasher, which has a set hash bucket size. These hashed values are passed on to the TF-IDF model, resulting in a feature vector which vector dimensions equals the amount of hash buckets. To limit the computational and storage expenses and to reduce noise by rare words, we limit our vocabulary size.
-We denote the TF-IDF configurations as follows: $vocabulary size/hashbucket size$. Furthermore, we denote 1.000 as 1K, since we deal with chosen values which can be exactly noted given this notation.\\
+We denote the TF-IDF configurations as follows: $vocabulary size/hashbucket size$. Furthermore, we denote 1.000 as 1K, since we deal with chosen values which can be exactly noted given this notation.
 \begin{figure}
 \includegraphics[width=6in]{Plots/tfidf_selection_plot}
 \caption{TF-IDF performance and memory usage}\label{figure:tfidfPerformance}
 \end{figure}
-
-Figure~\ref{figure:tfidfPerformance} shows the performance and storage size\footnote{in gigabyte, 1024 based} of the 1k/1K, 4K/4K, 7K/7K and 10K/10K TF-IDF configurations. This plot shows that, while the required storage size keeps rising, the performance on title quickly stagnates, and the performance on abstract follows too. Given this information, we have chosen to use the 10K/10K, 10K/5K and 5K/5K configurations to compare our embedding results to. The TF-IDF features are created on article level. We average the set of article embeddings to create a journal embedding. 
+\FloatBarrier
+Figure~\ref{figure:tfidfPerformance} shows the performance, as median rank, and storage size, in gigabyte, of the 1k/1K, 4K/4K, 7K/7K and 10K/10K TF-IDF configurations. This plot shows that, while the required storage size keeps rising, the performance on title quickly stagnates, and the performance on abstract follows too. Given this information, we have chosen to use the 10K/10K, 10K/5K and 5K/5K configurations to compare our embedding results to. The TF-IDF features are created on article level. We average the set of article embeddings to create a journal embedding. 
 
 \header{Pipeline}
-We procesessed the TF-IDF sets an the embedding sets via the same pipeline, based on vector calculations. This ensures comparable results. The pipeline is setup as follows:
+We procesessed the TF-IDF sets and the embedding sets via the same pipeline, using their common vector properties. This ensures comparable results, the pipeline is set-up as follows:
 \begin{enumerate}
 \item{Create training and validation set}
 \item{Create journal embeddings}
@@ -172,6 +172,9 @@ $F1 = \dfrac{2 * Precision * Recall}{Precision + Recall}$
 We use the median rank to indicate around which rank the 'standard' article would be ranked, based on its title or abstract. We do this by taking the median of the respective rank from each article. This gives us an indication of the behaviour of most articles in our validation set. This median rank (mostly) ignores the outliers, we therefore also use the average rank, which gives a more global indication, although this rank may be over-influenced by some outliers.
 \subsubheader{Rank distribution}
 To further analyse the ranking results, we plot the rank distribution to get an indication of the ranking-landscape.
+
+\header{Two dimensional plot}
+To create a plot, we transformed the 300-dimensional journal vectors into 2-dimensional vectors using TSNE based on pca\footnote{Principal component analysis}. These 2-dimensional vectors, representing the x \& y coordinate, can then be drawn in a plot. To visualize the preservation of journal-relatedness while converting the 300 dimensions to 2 dimension, we create groupings using k-means. These groupings are created on the 300-dimensional vectors, and are visualized in the plot using colors.
 \end{document}
 
 % RAW DATA:
