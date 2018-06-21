@@ -64,30 +64,20 @@ embedding & $3.13$ & \begin{tabular}{p{0.5in}|p{0.5in}}7.92\% & 9.24\%\end{tabul
 \end{center}
 \caption{Memory usage and performance for each set}\label{table:memoryUsage}
 \end{table}
+\subheader{Journal relatedness plot}
+Figure~\ref{figure:journalPlotNormal} is the two dimensional plot of the journal embeddings. The journals are color-marked by publisher. Red is Wiley, lime is Elsevier and blue is Springer Nature. The grey points are other or not-specified.
+Figure~\ref{figure:journalPlotGroups} shows the journals, grouped by a k-means algorithm, creating 8 groups. The bottom right shows the names of the journals closest to the center of the group. The k-means algorithm ran on the 300-dimensional set, while the plot shows the 2-dimensional set.
+\begin{landscape}
+\begin{figure}
+\includegraphics[height=6.5in]{Plots/journal_plot_normal}
+\caption{Journal plot grouped by publisher}\label{figure:journalPlotNormal}
+\end{figure}
+\end{landscape}
 
+\begin{landscape}
+\begin{figure}
+\includegraphics[height=6.5in]{Plots/journal_plot_grouped}
+\caption{Journal plot grouped k-means grouped}\label{figure:journalPlotGroups}
+\end{figure}
+\end{landscape}
 \end{document}
-
-
-%1k_6k_embedding
-%  7.85534550616
-
-%tfidf_embedding
-%  9.33435128732
-
-%tfidf_5k_5K
-%  10.1820853794
-
-%embedding
-%  9.24083300477
-
-%tfidf_5K_10K
-%  11.0842682533
-
-%tfidf_10K_10K
-%  11.3222696154
-
-%10k_embedding
-%  8.75583800194
-
-%5k_embedding
-%  8.36120161582
