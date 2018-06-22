@@ -1,10 +1,22 @@
 \documentclass[../../Thesis.tex]{subfiles}
 \begin{document}
 \header{Future work}
-- Does the performance of embeddings and TF-IDF improve when embeddings and feature vectors are generated over the combination of title and abstract as one text?\\
-	- this helps when dealing with articles that do not have a title or an abstract.\\
-- How do unique token count, token count and vocabulary size relate for TF-IDF?\\
-- Can high quality word similarity sets be created from embedding for future benchmarking?\\
-- Can embeddings give a visual representation of the evolution of scientific research over time?\\
-- Does TF-IDF improve when top-occurring words are cut-off?\\
+This research focussed on the quality of word embeddings on academic texts. To do this we used both a comparison to TF-IDF and a visualization of the word embeddings. Future works may seek to further improve the quality of the word embeddings. 
+\subheader{Smarter cutting}
+An interesting improvement to enhance the word embeddings with could be a smarter way to remove noise, based on word embeddings. This might be achieved by analysing the word embedding spectrum before normalization, and to then cut the center of the vector space out. This must be applied before normalization, since normalization causes all embeddings to have a distance of 1 to the center point. All words which are generic are in the center of the spectrum. Removing these words prevents the larger texts to be pulled towards the middle, where they lose the parts of their meaning which sets them apart from the other journals. We expect that this way of cutting, instead of word-occurrence cutting, will improve the quality of the word embeddings.
+
+\subheader{Text combination}
+To cope with the problem of articles that do have an abstract but no title, or vice versa, it would be interesting to see what the quality of the embeddings would be if both texts were combined into one text. This should be possible since title and abstract per article share a common topic. We would expect that the common text would have the quality of the abstract, which is according to our findings the part that is best usable for the embeddings and TF-IDF.
+
+\subheader{TF-IDFs performance point}
+In our research, TF-IDF performed better on the abstracts than on the titles, which, according to us, is caused by the text size of the two texts. This leads to the question, how do unique token count, token count and vocabulary size relate for TF-IDF? Is there a point in at which we can expect that TF-IDF will be able to rank items in the top-10? If this is the case, we can skip the TF-IDF calculations in certain situations, saving time and costs.
+
+\subheader{Reversed word pairs}
+At this point in time, there are no domain specific word pair sets available. However, as we demonstrated, we can still test the quality of word embeddings. Once we established that we have word vectors of high quality, could we create word pairs from the embeddings? If this is the case, we could reverse-engineer domain specific word pair sets for future use. These word pairs should most likely still be validated by humans, but the automatic generation of word pairs should already reduce the effort needed for this process.
+
+\subheader{Historical overview}
+We have shown that the word embeddings can be used to create a subject spectrum, in which we plotted all the articles of one year. This gives insight into the currently popular research field, indicated by dense areas on the plot. If we would create this plot over multiple years, and then show these years in chronological order, we should be able to see the evaluation of research fields in time, giving more insight in shifting interests and the development of new research areas.
+
+\subheader{TF-IDF top-cutoff}
+In our research we used a dataset from which we removed the top 1k words, together with everything beyond 6k. This dataset did not perform well in our research, future work could look into this by validating if the top-words cut-off decreases the TF-IDF performance. Our findings on this topic are minimal, although we can say that we would not expect that the top-cutoff improves the performance, since a set with the top 5k words performed better than the 1k till 6k words set.
 \end{document}
