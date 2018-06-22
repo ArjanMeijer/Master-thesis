@@ -2,7 +2,7 @@
 \begin{document}
 \header{Motivation}
 \subheader{In-domain embeddings and validation}
-In earlier research concerning domain specific articles,  \citet{Truong2017Thesis}, found that in-domain training of the word embeddings can  improve the process of document clustering. This effect is even stronger than the number of training examples and the model architecture. \citet{lai2016generate} found that the corpus domain is more important than the corpus size. Using an in-domain corpus significantly improves the performance for a given task, whereas using a corpus in an unsuitable domain may decrease performance.
+In earlier research concerning domain specific articles,  \citet{Truong2017Thesis} found that in-domain training of the word embeddings can  improve the process of document clustering. The usage of in-domain data is more important than the number of training examples and the model architecture. \citet{lai2016generate} found that the corpus domain is more important than the corpus size. Using an in-domain corpus significantly improves the performance for a given task, whereas using a corpus in an unsuitable domain may decrease performance.
 Truong et al. encountered a problem in the validation of these in-domain embeddings. The word embedding produced correct document clustering results, leading to the conclusion that these embeddings are of good quality, since they capture the document relatedness needed to create correct clusterings. However unpublished results by Truong et al. state that the embeddings show high error rates on the validation scores. This seems to indicate that the word-vectors are of good quality, but that the available validation metrics fail to confirm this. \citet{Truong2017Thesis} used multiple word similarity validations to asses the quality of the word embeddings. However, these set are created to validate the generic embeddings, they fail to asses the quality of the domain specific embeddings.
 
 \subheader{Research}
@@ -30,6 +30,5 @@ RQ. 2 concerns the visualization of word embeddings and the accuracy of this vis
 \begin{jumpin}
 \textit{\textbf{H. 2} Word embeddings, combined with pca-based TSNE can preserve the journal relatedness on a two dimensional plot.}
 \end{jumpin}
-The validation of this hypothesis will be visual, this serves as a supporting insight in the relatedness of journals.
-
+The validation of this hypothesis will rely on visual conformation. We expect to see clustering of journals in certain areas, which indicates a research subject. We also expect that articles which are visually close together are closely related by subject. 
 \end{document}
