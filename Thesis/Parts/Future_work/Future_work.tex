@@ -3,6 +3,9 @@
 \header{Future work}
 This research focussed on the quality of word embeddings on academic texts. To do this we used both a comparison to TF-IDF and a visualization of the word embeddings. Future works may seek to further improve the quality of the word embeddings. 
 
+\subheader{Method differences}
+\citet{levy2015improving} observed that there were no major differences between the various embedding creation methods. They state that the difference in performance is mainly caused by the global/hyper parameters. In this research, we have not looked at comparison between various models and/or (hyper) parameters. We instead used a standard configuration, to focus more on the actual performance of the embeddings, instead of the best-possible performance. Future work could seek to validate the results of \citet{levy2015improving} by expanding our research with multiple metrics. It should be noted however that Levy et al. base their conclusions on word similarity and word analogy tasks, and not on categorization. This is the reason why we did not take this research into account in our discussion, since their experiments are not comparable to ours.
+
 \subheader{Intelligent cutting}
 An interesting improvement to enhance the word embeddings with could be a smarter way to remove noise, based on word embeddings. This might be achieved by analysing the word embedding spectrum before normalization, and to then cut the center of the vector space out. This must be applied before normalization, since normalization causes all embeddings to have a distance of 1 to the center point. All words which are generic are in the center of the spectrum. Removing these words prevents the larger texts to be pulled towards the middle, where they lose the parts of their meaning which sets them apart from the other journals. We expect that this way of cutting, instead of word-occurrence cutting, will improve the quality of the word embeddings.
 

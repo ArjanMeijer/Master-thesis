@@ -14,17 +14,13 @@
 \usepackage{tabularx}
 \usepackage{lscape}
 \usepackage{hyperref}
-
-
-\newcommand{\mainheader}[1]{\section{#1}}
-\newcommand{\header}[1]{\vspace{0.1in}\leavevmode\newline\textbf{#1}\\}
-\newcommand{\subheader}[1]{\vspace{0.1in}\leavevmode\newline\textit{#1}\\}
+\newcommand{\header}[1]{\section{#1}}
+\newcommand{\fakeheader}[1]{\fontsize{15pt}{15pt}\textbf{#1}\vspace{0.1in}\leavevmode\newline}
+\newcommand{\subheader}[1]{\subsection{#1}}
 \newcommand{\subsubheader}[1]{\vspace{0.1in}\leavevmode\newline\underline{#1}\\}
 \newcommand{\subsubsubheader}[1]{\vspace{0.1in}\leavevmode\newline\underline{- #1}\\}
 \newsavebox{\scaleblockbox}
 \newenvironment{jumpin}{\begin{adjustwidth}{0.3in}{}}{\end{adjustwidth}}
-
-
 \begin{document}
 \begin{titlepage}
 \title{Document Embedding for Scientific Articles: Validation of word embeddings}
@@ -32,19 +28,14 @@
 \clearpage\maketitle\thispagestyle{empty}
 \subfile{Parts/Abstract/Abstract.tex}
 \end{titlepage}
-
-\mainheader{Introduction}
+\tableofcontents
+\clearpage
 \subfile{Parts/Background/Background.tex}
-
 \clearpage
 \subfile{Parts/Motivation/Motivation.tex}
 \clearpage
-
-\mainheader{Data \& data-processing}
 \subfile{Parts/Data/Data.tex}
 \clearpage
-
-\mainheader{Results}
 \subfile{Parts/Research_results/Research_results.tex}
 \clearpage
 \subfile{Parts/Discussion/Discussion.tex}
