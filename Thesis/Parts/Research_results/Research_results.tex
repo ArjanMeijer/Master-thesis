@@ -65,23 +65,42 @@ embedding & $3.13$ & \begin{tabular}{p{0.5in}|p{0.5in}}7.92\% & 9.24\%\end{tabul
 \caption{Memory usage and performance for each set}\label{table:memoryUsage}
 \end{table}
 \subheader{Journal relatedness plot}
-Figure~\ref{figure:journalPlotNormal} is the two dimensional plot of the journal embeddings. The journals are color-marked by publisher. Red is Wiley, lime is Elsevier and blue is Springer Nature. The grey points are other or not-specified.
-Figure~\ref{figure:journalPlotGroups} shows the journals, grouped by a k-means algorithm, creating 8 groups. The bottom right shows the names of the journals closest to the center of the group. While most names state the topic of the research field, some do not. These are  \textit{SAGE Open}: social and behavioural sciences and humanities, \textit{RSC Advances}: chemical sciences, and \textit{Orvosi hetilap}: experimental and clinical medicine. The k-means algorithm ran on the 300-dimensional set, while the plot shows the 2-dimensional set. A digital version of this plot can be found at:~\url{https://goo.gl/tdHGnD}. The usage of this digital version is advised, since this interactive plot enables zooming and adjusting plot settings, which can give a better insight into the results than the presented figures.
+We created two seperate journal plot, figures~\ref{figure:titlePlotNormal} \&~\ref{figure:titlePlotGrouped} show the title based embeddings, and figures~\ref{figure:abstractPlotNormal} \&~\ref{figure:abstractPlotGrouped} show the abstract based embeddings.
+Figures~\ref{figure:titlePlotNormal} \&~\ref{figure:abstractPlotNormal} are the two dimensional plot of the journal embeddings. The journals are color-marked by publisher. Red is Wiley, lime is Elsevier and blue is Springer Nature. The grey points are other or not-specified publishers.
+Figures~\ref{figure:titlePlotGrouped} \&~\ref{figure:abstractPlotGrouped} show the journals, grouped by a k-means algorithm, creating 8 groups. The bottom right shows the names of the journals closest to the center of the group. While most names state the topic of the research field, some do not. These are \textit{RSC Advances}: chemical sciences, and \textit{Symmetry}:  research on symmetry phenomena wherever they occur in mathematical or scientific studies. The k-means algorithm ran on the 300-dimensional set, while the plot shows the 2-dimensional set. A digital version of this plot can be found at:~\url{https://goo.gl/nCGMcu} (title-based) and~\url{https://goo.gl/LwYP6k}. The usage of this digital version is advised, since this interactive plot enables zooming and adjusting plot settings, which can give a better insight into the results than the presented figures.
 \begin{landscape}
 \begin{figure}
 \begin{center}
-\includegraphics[height=6.5in]{Plots/journal_plot_normal}
+\includegraphics[height=6.5in]{Plots/Journal_Plots/Title_normal}
 \end{center}
-\caption{Journal plot grouped by publisher}\label{figure:journalPlotNormal}
+\caption{Journal plot grouped k-means grouped}\label{figure:titlePlotNormal}
 \end{figure}
 \end{landscape}
 
 \begin{landscape}
 \begin{figure}
 \begin{center}
-\includegraphics[height=6.5in]{Plots/journal_plot_grouped}
+\includegraphics[height=6.5in]{Plots/Journal_Plots/Abstract_normal}
 \end{center}
-\caption{Journal plot grouped k-means grouped}\label{figure:journalPlotGroups}
+\caption{Journal plot grouped by publisher}\label{figure:abstractPlotNormal}
+\end{figure}
+\end{landscape}
+
+\begin{landscape}
+\begin{figure}
+\begin{center}
+\includegraphics[height=6.5in]{Plots/Journal_Plots/Title_grouped}
+\end{center}
+\caption{Journal plot grouped k-means grouped}\label{figure:titlePlotGrouped}
+\end{figure}
+\end{landscape}
+
+\begin{landscape}
+\begin{figure}
+\begin{center}
+\includegraphics[height=6.5in]{Plots/Journal_Plots/Abstract_grouped}
+\end{center}
+\caption{Journal plot grouped k-means grouped}\label{figure:abstractPlotGrouped}
 \end{figure}
 \end{landscape}
 \end{document}
