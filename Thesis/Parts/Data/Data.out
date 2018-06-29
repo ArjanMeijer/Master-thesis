@@ -1,0 +1,13 @@
+\BOOKMARK [1][-]{section.1}{Corpus}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Text properties}{section.1}% 2
+\BOOKMARK [1][-]{section.2}{Datasets}{}% 3
+\BOOKMARK [2][-]{subsection.2.1}{Tokenization}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.2}{Embedding}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.3}{TF-IDF}{section.2}% 6
+\BOOKMARK [1][-]{section.3}{Research environment}{}% 7
+\BOOKMARK [1][-]{section.4}{Pipeline}{}% 8
+\BOOKMARK [2][-]{subsection.4.1}{Create training and validation set}{section.4}% 9
+\BOOKMARK [2][-]{subsection.4.2}{Create journal embeddings}{section.4}% 10
+\BOOKMARK [2][-]{subsection.4.3}{Categorize validation articles}{section.4}% 11
+\BOOKMARK [2][-]{subsection.4.4}{Performance measurement}{section.4}% 12
+\BOOKMARK [1][-]{section.5}{ Two-dimensional plot}{}% 13

@@ -8,15 +8,15 @@ Truong et al. encountered a problem in the validation of these in-domain embeddi
 \subheader{Research}
 To asses the problem of the limited availability of pre-labeled validation sets for domain-specific articles, we compare the embeddings to  TF-IDF on a categorization task. This A) indicates the embedding quality for categorization tasks and B) contrasts the performance of embeddings to the performance of the more traditional TF-IDF approach. To ensure the quality of the embeddings for our research, we reuse the embeddings created in the research of \citet{Truong2017Thesis}.
 \begin{jumpin}
-    \textbf{RQ. 1} Have word-embeddings a higher accuracy for academic texts than TF-IDF for article classification?\\
+    \textbf{RQ. 1} Have classical word-embeddings a higher accuracy for academic texts than TF-IDF for article classification?\\
     \begin{adjustwidth}{0.3in}{}
-        \textbf{RQ. 1.1} Does TF-IDF weighting increase the performance of word embedding on academic texts for article classification?\\
+        \textbf{RQ. 1.1} Do embedding optimizations increase the performance of word embedding on academic texts for article classification?\\
         \textbf{RQ. 1.2} Can the usage of alternative distance metrics improve the performance of word embedding on academic articles for article classification?
     \end{adjustwidth}
     \vspace{0.1in}\textbf{RQ. 2} Can word embeddings, combined with pca\footnote{principal component analysis}-based TSNE, create a two-dimensional plot that preserves the journal relatedness?
 \end{jumpin}
-\subsubheader{Embedding and TF-IDF}
-RQ. 1 focusses on the classification results of both embedding-based techniques and TF-IDF.  To measure classification task, we use the rank of the class to which the item belongs. This transforms the classification task from a binary metric to a ranking metric. For this task, we will use different versions of embeddings, to answer RQ 1.1, and different TF-IDF versions to not only compare the two techniques but also look for the optimal results of both techniques. To achieve the optimal results, we compare 20 distance metrics from the SciPy library on ranking performance on the standard embeddings. For this part of the research, we will use the following hypothesis:
+\subsubheader{Methodology}
+RQ. 1 focusses on the classification results of both embedding-based techniques and TF-IDF.  To measure classification task, we use the rank of the class to which the item belongs. This transforms the classification task from a binary metric to a ranking metric. For this task, we will use different versions of embeddings, to answer RQ 1.1, and different TF-IDF versions to not only compare the two techniques but also look for the optimal results of both techniques. To achieve the optimal results, we compare 20 distance metrics on ranking performance on the classical embeddings. For this part of the research, we will use the following hypothesis:
 \begin{jumpin}
 \textit{\textbf{H. 1} Embedding based techniques give lower rankings than the TF-IDF based techniques.}
 \begin{jumpin}
