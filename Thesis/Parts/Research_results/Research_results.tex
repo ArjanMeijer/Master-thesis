@@ -1,8 +1,9 @@
 \documentclass[../../Thesis.tex]{subfiles}
 \begin{document}
 \header{Research results}
+In this chapter the results of our research will be presented with only the required explanation of the results. These results will be discussed in Chapter 7: Discussion.
 \subheader{Ranking}
-The figures~\ref{figure:titleRanks} \&~\ref{figure:abstractRanks} show the result of the categorization task as ranking results. The rank indicates the position of the correct journal in the sorted list of matched journals. Figure~\ref{figure:titleRanks} shows the ranking results for the different sets based on the title. Figure~\ref{figure:abstractRanks} displays the ranking results based on the abstract. Both graphs show both average and median ranks, based on the cosine-similarity between the article and journal embeddings or feature vectors.
+The Figures~\ref{figure:titleRanks} \&~\ref{figure:abstractRanks} show the result of the categorization task as ranking results. The rank indicates the position of the correct journal in the sorted list of matched journals. Figure~\ref{figure:titleRanks} shows the ranking results for the different sets based on the title. Figure~\ref{figure:abstractRanks} displays the ranking results based on the abstract. Both graphs show both average and median ranks, based on the cosine-similarity between the article and journal embeddings or feature vectors.
 \clearpage
 \begin{figure}[hbt]
 \includegraphics[width=6.5in]{Plots/Title_rankings}
@@ -14,7 +15,7 @@ The figures~\ref{figure:titleRanks} \&~\ref{figure:abstractRanks} show the resul
 \end{figure}
 \clearpage
 \subheader{Rank distribution}
-Figures~\ref{figure:titleDistribution} \&~\ref{figure:abstractDistribution} show the distributions of the ranks for each set. The figures plot the summed amount of articles against the ranks on a logarithmic scale. Figure~\ref{figure:titleDistribution} shows the rank distribution for the titles, figure~\ref{figure:abstractDistribution} shows this for the ranks based on the abstract. These graphs give a detailed view of the ranks presented in their respective figures~\ref{figure:titleRanks} \&~\ref{figure:abstractRanks}. The Y-axis of the two figures show the fraction of the total number of articles. The X-axis plots the ranks of the articles. These ranks are the ranks of each individual article in our validation set, in contrast to figure~\ref{figure:titleRanks} \&~\ref{figure:abstractRanks} which show average and median ranks.
+Figures~\ref{figure:titleDistribution} \&~\ref{figure:abstractDistribution} show the distributions of the ranks for each set. The figures plot the summed amount of articles against the ranks on a logarithmic scale. Figure~\ref{figure:titleDistribution} shows the rank distribution for the titles, Figure~\ref{figure:abstractDistribution} shows this for the ranks based on the abstract. These graphs give a detailed view of the ranks presented in their respective figures~\ref{figure:titleRanks} \&~\ref{figure:abstractRanks}. The Y-axis of the two figures show the fraction of the total number of articles. Due to this, all sets will move towards one. When one is hit, the graph stagnates since there are no more articles that can be added once the value reaches one. The X-axis plots the ranks of the articles. These ranks are the ranks of each individual article in our validation set, in contrast to figure~\ref{figure:titleRanks} \&~\ref{figure:abstractRanks} which show average and median ranks.
 \begin{figure}[hbt]
 \includegraphics[width=6.5in]{Plots/Title_rank_distribution}
 \caption{Title rank distribution per set}\label{figure:titleDistribution}
