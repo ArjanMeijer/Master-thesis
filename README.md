@@ -1,11 +1,12 @@
 # Master-thesis<br/>
-Student: Arjan Meijer<br/>
-Academic supervisor: unkown<br/>
-Company supervisor: Reza Karimi<br/>
+Student: H.J. Meijer<br/>
+Academic supervisor: R. Cushing<br/>
+Company supervisor: R. Karimi & J.A. Schijvenaars<br/>
 
-Subject: Word embedding for Academic articles<br/>
+Title: Document Embedding for Scientific Articles: A validation of word embeddings<br/>
 Period: 2 April - 29 June<br/>
 Company: Elsevier<br/>
-University: University of Amsterdam<br/>
+University: University of Amsterdam (UvA)<br/>
+Thesis location: Master-thesis/Thesis/Thesis_uva.pdf<br/>
 
-Current Week: 1/12<br/>
+Current Week: 12/12<br/>
