@@ -1,6 +1,7 @@
 \documentclass[../../Thesis.tex]{subfiles}
 \begin{document}
-\header{Corpus}
+\header{Research Data}
+\subheader{Corpus}
 The dataset we used for this research consists of articles published in 2017 which have been published in a journal that has, in 2017, atleast 150 publications. This results in a total dataset of $1.391.543$ articles from $3.759$ journals. Details about the corpus can be found in table~\ref{table:corpusSize}.
 \begin{table}[hbt]
 \begin{center}
@@ -25,18 +26,18 @@ Total tokens & $186.962.354$ & $763.475$ & 134,36 \\
 \caption{Corpus size}\label{table:corpusSize}
 \end{table}
 \clearpage
-\subheader{Text properties}
-\citet{wiegand2018word} state that the Pareto distribution offers a good fit to the word occurrences in natural language. Their models show that, due to the additional parameters in the Pareto-III, the tail of the data fits better with the model than the Zipf model. This shows the relation between the word occurrences rank and the actual occurrences. This kind of word-occurrences distribution holds for many texts, including the writings of William Shakespeare and scientific texts and novels\cite{thurner2015understanding}.
-The word occurrences in our corpus also follow the pattern of a Pareto distribution as described by~\citet{wiegand2018word}. Our distribution is visualized in figure~\ref{figure:wordTokenOccurrence}, which displays the occurrences of the first 500 tokens of the corpus.
+\subsubheader{Text properties}
+\citet{wiegand2018word} state that the Pareto distribution offers a good fit to the word occurrences in natural language. Their models show that, due to the additional parameters in the Pareto-III\footnote{The pareto distribution is a distribution in which recognizable by a long "tail" of low values and a quick and short ascend to the top values. More information: \url{https://en.wikipedia.org/wiki/Pareto_distribution}.}, the tail of the data fits better with the model than the Zipf\footnote{Distribution similar to the Pareto distribution, see: \url{https://en.wikipedia.org/wiki/Zipf\%27s_law}} model. This shows the relation between the word occurrences rank and the actual occurrences. This kind of word-occurrences distribution holds for many texts, including the writings of William Shakespeare and scientific texts and novels\cite{thurner2015understanding}.
+The word occurrences in our corpus also follow the pattern of a Pareto distribution as described by~\citet{wiegand2018word}. Our distribution is visualized in Figure~\ref{figure:wordTokenOccurrence}, which displays the occurrences of the first 500 tokens of the corpus.
 \FloatBarrier
 \begin{figure}[hbt]
 \includegraphics[width=6.5in]{Plots/word_occurrences}
-\caption{Word and token occurrences}\label{figure:wordTokenOccurrence}
+\caption{Word and token occurrences. The word counts pattern resembles a Pareto distribution, the tokenization reduced the amount of high frequency words.}\label{figure:wordTokenOccurrence}
 \end{figure}
 \FloatBarrier
-\header{Datasets}
+\subheader{Datasets}
 For this researched we used a (pre-made) tokenized dataset, created from the earlier described corpus, which reduces the total amount of words by 34\% (see table~\ref{table:corpusSize}). From this tokenized set, we created the embeddings and the TF-IDF feature vectors.
-\subheader{Tokenization}
+\subsubheader{Tokenization}
 The following steps have been applied to the words to create a tokenized set:
 \begin{enumerate}
 \item{Removed punctuation}
@@ -47,39 +48,38 @@ The following steps have been applied to the words to create a tokenized set:
 \item{Stemmed all words, using the stemmer provided by the NLTK library}
 \end{enumerate}
 These transformations reduced our dataset by 34\%, resulting in a tokenized set of $186.962.354$ tokens.
-
-\subheader{Embedding}
+\subsubheader{Embedding}
 For this research, we reused the word embeddings created by \citet{Truong2017Thesis}. These embeddings have a vector dimension of 300, which is an industry default. They have been trained on the entire Elsevier corpus, not limited to the subset we used for this research. To create higher-level embeddings, we average all component embeddings. Thus, to create article embeddings, we take the average of all normalized word embeddings for that article. Journal embeddings are created by taking the average of all normalized article embeddings. We use the average to combine multiple embeddings into one, because we determine the meaning of a larger text as the average meaning of all components. Since this meaning is represented as an embedding, we can average the embeddings to create the "average meaning". We have used multiple embedding optimizations for this research.
-\subsubheader{Default embedding}
-The default embedding is created form the pre-trained word embeddings; no modifications have been applied to this set. We refer to this set in the figures as "embedding".
-\subsubheader{TF-IDF weighted embedding}
+\subsubsubheader{Default embedding}
+The default embedding is created form the pre-trained word embeddings; no modifications have been applied to this set. We refer to this set in the Figures as \textbf{embedding}.
+\subsubsubheader{TF-IDF weighted embedding}
 The TF-IDF weighted embedding set, referred to as TF-IDF embedding, are the default word embeddings weighted with a TF-IDF score per word.\\
 The TF-IDF is calculated with a raw token count, and a smoothed inverted document frequency, calculated as follows:\\
 \begin{equation}
 IDF = \log_{10}(\dfrac{|A|}{|A_t|})
 \end{equation}
 Where $|A|$ is the total count of articles and $|A_t|$ is the count of articles containing term t.
-The articles embeddings are a normalized summation of each word vector multiplied by it TF-IDF value. Since we take a sum of all words, the Term Frequency is embedded as the raw count of each word. We will refer to this embedding in the figures as "tfidf\_embedding".
-\subsubheader{10K TF-IDF embedding}
-The 10K embedding set is generated similarity to the TF-IDF embedding, this version only uses the 10.000 most common tokens, reducing the number of tokens it uses. This set was created to see if the limitation to 10.000 tokens reduces the amount of noise, increasing the performance. We will refer to this embedding in the figures as the "10k\_embedding".
-\subsubheader{5K TF-IDF embedding}
-The 5K TF-IDF embedding is the TF-IDF embedding set, limited to the 5.000 most common words. This set was created to limit the number of tokens more aggressively, and with that, cancel out more noise. We will refer to this embedding in the figures as "5k\_embedding".
-\subsubheader{1K-6K TF-IDF embedding}
-The 1K-6K TF-IDF embedding is the TF-IDF embedding limited to the top 6.000 most common words, without the top 1.000 most common words. The rationale for this is that common words will occur in many articles, creating noise, by cutting off the top 1.000 and cutting off everything below 6.000 we tried to reduce the noise by filtering common words. This cut results in a set of 5.000 tokens, which allows us to compare it to the 5K TF-IDF set. We will refer to this embedding in the figures as "1k\_6k\_embedding". We refer to the "10k\_embedding", "5k\_embedding" and the "1k\_6k\_embedding" as the limited TF-IDF embeddings, because these embedding use TF-IDF weighing, and have been limited in their vocabulary due to the cut-off's.
+The articles embeddings are a normalized summation of each word vector multiplied by it TF-IDF value. Since we take a sum of all words, the Term Frequency is embedded as the raw count of each word. We will refer to this embedding in the Figures as \textbf{tfidf\_embedding}.
+\subsubsubheader{10K TF-IDF embedding}
+The 10K embedding set is generated similarity to the TF-IDF embedding, this version only uses the 10.000 most common tokens, reducing the number of tokens it uses. This set was created to see if the limitation to 10.000 tokens reduces the amount of noise, increasing the performance. We will refer to this embedding in the Figures as the \textbf{10k\_embedding}.
+\subsubsubheader{5K TF-IDF embedding}
+The 5K TF-IDF embedding is the TF-IDF embedding set, limited to the 5.000 most common words. This set was created to limit the number of tokens more aggressively, and with that, cancel out more noise. We will refer to this embedding in the Figures as \textbf{5k\_embedding}.
+\subsubsubheader{1K-6K TF-IDF embedding}
+The 1K-6K TF-IDF embedding is the TF-IDF embedding limited to the top 6.000 most common words, without the top 1.000 most common words. The rationale for this is that common words will occur in many articles, creating noise, by cutting off the top 1.000 and cutting off everything below 6.000 we tried to reduce the noise by filtering common words. This cut results in a set of 5.000 tokens, which allows us to compare it to the 5K TF-IDF set. We will refer to this embedding in the Figures as \textbf{1k\_6k\_embedding}. We refer to the \textbf{10k\_embedding}, \textbf{5k\_embedding} and the \textbf{1k\_6k\_embedding} as the \textbf{limited TF-IDF embeddings}, because these embedding use TF-IDF weighing, and have been limited in their vocabulary due to the cut-off's.
 \clearpage
-\subheader{TF-IDF}
+\subsubheader{TF-IDF}
 To create the TF-IDF feature vectors, we used the TF-IDF model and a hasher from PySparks MlLib library. The TF-IDF feature vectors are created by hashing the tokens with the hasher, which has a set hash bucket size. These hashed values are passed on to the TF-IDF model, resulting in a feature vector which vector dimensions equal the number of hash buckets. To limit the computational and storage expenses and to reduce noise by rare words, we limit our vocabulary size.
-We label the TF-IDF configurations as follows: $vocabulary size/hash bucket size$. Furthermore, we denote 1.000 as 1K, since we deal with chosen values which can be exactly noted given this notation. This means that the set with a 10.000 vocabulary size and a 10.000 hash bucket size will be denoted as "10K/10K". We will refer to the TF-IDF configurations in our figures as "tfidf\_vocabulary size\_hash bucket size".
+We label the TF-IDF configurations as follows: $vocabulary size/hash bucket size$. Furthermore, we denote 1.000 as 1K, since we deal with chosen values which can be exactly noted given this notation. This means that the set with a 10.000 vocabulary size and a 10.000 hash bucket size will be denoted as "10K/10K". We will refer to the TF-IDF configurations in our Figures as "tfidf\_vocabulary size\_hash bucket size".
 \begin{figure}[hbt]
 \includegraphics[width=5in]{Plots/tfidf_selection_plot_performance}
 \caption{TF-IDF performance on title and abstract}\label{figure:tfidfPerformance}
 \end{figure}
 \begin{figure}[hbt]
 \includegraphics[width=5in]{Plots/tfidf_selection_plot_memory}
-\caption{TF-IDF performance on title and abstract}\label{figure:tfidfMemory}
+\caption{TF-IDF memory usage for title and abstract combined}\label{figure:tfidfMemory}
 \end{figure}
 \FloatBarrier
-Figure~\ref{figure:tfidfPerformance} shows the performance of title and abstract as median rank, and figure~\ref{figure:tfidfMemory} shows the storage size in gigabyte, of the 1k/1K, 4K/4K, 7K/7K and 10K/10K TF-IDF configurations. This plot shows that, while the required storage size stagnate, the performance on title also quickly stagnates, together with the performance on the abstracts. Given this information, we have chosen to use the 10K/10K, 10K/5K and 5K/5K configurations to compare our embedding results to. Since these configurations can be kept in memory (storage size) while it is not likely that larger sets will give much improvement. The TF-IDF features are created on article level. We average the set of article feature vectors to create a journal feature vector, just as we did with the embeddings. 
+Figure~\ref{figure:tfidfPerformance} shows the performance of title and abstract as median rank, and Figure~\ref{figure:tfidfMemory} shows the storage size in gigabyte, of the 1k/1K, 4K/4K, 7K/7K and 10K/10K TF-IDF configurations. This plot shows that, while the required storage size stagnate, the performance on title also quickly stagnates, together with the performance on the abstracts. Given this information, we have chosen to use the 10K/10K, 10K/5K and 5K/5K configurations to compare our embedding results to. Since these configurations can be kept in memory (storage size) while it is not likely that larger sets will give much improvement. The TF-IDF features are created on article level. We average the set of article feature vectors to create a journal feature vector, just as we did with the embeddings. 
 \header{Pipeline}
 \subheader{Research environment}
 The research will be done in a python-databricks environment, which uses spark, a library that offers tools to work with big-data. \citet{armbrust2015spark} state that Spark SQL lets programmers leverage the benefits of relational processing and lets SQL users call complex analytic libraries in Spark. This allows for much tighter integration between relational and procedural processing. The paper further states that Spark SQL makes it significantly simpler and more efficient to write data pipelines that mix relational and procedural processing while offering substantial speedups over previous SQL-on-Spark engines.\\
