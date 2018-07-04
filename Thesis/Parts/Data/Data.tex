@@ -110,7 +110,7 @@ To calculate the distance between to vectors, cosine similarity is commonly used
 \begin{table}[hbt]
 \begin{tabular}{|l|l|l|l|l|}
 \hline
-Metric\footnote{As defined and provided by the SciPy library} & Median title rank & Average title rank & Median abstract rank & Average abstract rank  \\
+Metric\footnotemark & Median title rank & Average title rank & Median abstract rank & Average abstract rank  \\
 \hline
 Braycurtis & 28 & 130 & 23 & 124  \\
 \hline
@@ -155,6 +155,7 @@ Yule & 1995 & 1929 & 1995 & 1929  \\
 \end{tabular}
 \caption{Distance metric performance for word embeddings on the categorization of academic texts}\label{table:distanceMetrics}
 \end{table}
+\footnotetext{As defined and provided by the SciPy library} 
 These results show high similarity between cosine-based metrics (Cosine \& Correlation) and euclidean based metrics (Euclidean, Seuclidean \& Sqeuclidean). This similarity is expected, since the cosine and euclidean distances should yield the same results on normalized sets. The results show that some enhancement on the euclidean algorithm result in slightly improved results, although not significant. Also the Cityblock metric yields results close to the Cosine metric, it has a slightly worse performance, which is also not significant. Because of this, we will use the cosine-similarity as the distance metric, which will make our results better comparable with other work.
 \clearpage
 \subheader{Performance measurement}
