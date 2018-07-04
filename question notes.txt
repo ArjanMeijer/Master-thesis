@@ -1,0 +1,2 @@
+QUESTION NOTES:
+	- Rankings why so much 1995? -> all these metrics are boolean based. Since there are 3759 journals, the random chance would lie on 1879. Possibly due to the overlapping journals, the random chance is worse.
