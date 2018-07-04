@@ -1,0 +1,512 @@
+== ABSTRACT ==
+
+Over the last few years, word embeddings have taken a dominant position in the Information Retrieval domain. Many studies have been done concerning the quality and application of word embeddings on general texts, such as the Wikipedia corpus and comments on review websites. Giving promising results, the word embeddings have been studied and improved over recent years. However, these studies have been focused on generic texts, which are not limited to the characteristics of in-domain texts such as rare domain-specific words or have been focussed on small sets of academic texts. This research focusses on the quality and application of word embeddings on domain-specific texts, concerning a large corpus of 1.391.543 scientific articles which have been published in 2017.\\
+\vspace*{\fill}
+\\
+We will have this thesis published, we are currently in the process of finding an appropriate conference for this.
+
+== BACKGROUND ==
+
+\header{Introduction and Background}
+\subheader{Information retrieval}
+Information Retrieval(IR)is the activity of gathering relevant information, given another initial piece of information. 
+\\\\The most practical example of this is a search engine. Given one or more search words the search engine will attempt to find relevant information. For example, an online search for "Information Retrieval" (initial piece of information) will give you a list of results (relevant information). To be able to do this, the search engine must know which texts are related. \\\\Interpreting which texts are related can be achieved with, and without neural networks, a traditional technique which does not use a neural network is TF-IDF, shot for Term Frequency - Inverted Document Frequency. Techniques that use a neural network are newer, these are (among others) Word2Vec, Paragraph Vectors and GloVe.
+
+\subheader{Neural Network}
+A complete in-depth background into neural networks is beyond the scope of this thesis, therefore we will only describe the simplified working of a neural network and its basic application in IR.
+Neural Networks are multi-layered computational software, based on matrix transformations, which tries to map input values to output values. This mapping uses a pre-defined amount of layers that modify the values through matrix transformations. Neural networks rely on training to create optimal values for these layers. Finding these optimal values is done iteratively, via a process known as "back-propogation". Back-propogation is done by starting at the output layer of the Neural Network and tracing error in the output back through the layers. This error information is used to improve the values of the layers. The values in the layers are only changed at training time; high-quality (training) data is therefore essential for neural networks. Neural networks can be applied to many different tasks, as long as there is sufficient data available to create a training and validation set. The training is the process of iteratively adjusting multiplication matrices or vectors to achieve the optimal result. Which is the result that is as close as possible to the given output for all input and output sets, without under performing on other sets\footnote{Having only good results for the training/validation set is know as overfitting. This means that the layer-values are fine-tuned to only perform (extremely) well on one set, while under performing on others}.\\Neural Networks are used, in the creation of word embeddings, to either predict words that may occur around a given word or predict a word given words that surround it. For example, given the sentence\\
+\begin{center}
+\textit{"The quick brown fox jumps over the lazy dog"}
+\end{center}
+the Neural Network can be trained to either predict the words around "jumps", which we refer to as context words (the, quick, brown, fox, over, the, lazy, dog). It can also predict the word "jumps", given the context words (the, quick, brown, fox, over, the, lazy, dog). This result in a matrix, a vector per word which is referred to as a word embedding. This embedding indicates "word relatedness" which, as mentioned earlier enables association (thus retrieval) with related(relevant) texts. It is to be noted that the word embeddings are only able to represent word relatedness to the other words trained in the same run. Due to the random initialization of the initial values of the layers in the neural networks, neural networks do not produce every run the same results. Therefore, word embeddings from different runs of the same neural network cannot be compared.
+
+
+\subheader{Embedding}
+An embedding is a distributed, numerical representation of text in a multi-dimensional vector space\footnote{The vector spaces of separately trained word embeddings differ, since each run the initial values of the neural network are randomly initialized. This means that the same word trained in two separate runs do not have to have the same embedding. However, they will have the same relationship to other words trained in their respective runs.} which can capture both the semantic and syntactic information\cite{mikolov2013distributed}. In the case of a word embeddings, the embeddings represent the words. These embeddings are created using machine learning models, which do not have the need for human interaction~\cite{lai2016generate}, they are so-called \textit{unsupervised learning algorithms}. Once trained, the embeddings can also be used to construct embeddings for collections of texts. For example, a word embedding can be used to create a sentence, paragraph, document or corpus embeddings. The usage of word embeddings has improved various Natural Language Processing areas such as named entity recognition, part-of-speech tagging, parsing, and semantic role labelling~\citet{luong2013better}.
+
+\subheader{Text analysis techniques}
+To enable a computer to process text, for embedding creation or other tasks, the text has to be processed by an algorithm. In this research, we used embeddings created by Word2Vec and TF-IDF feature vectors.
+\begin{jumpin}
+\subsubheader{Word2Vec}
+Word2vec word embeddings are created using a neural network, Word2Vec learns word embeddings via maximizing the log conditional probability of the word given the context word(s) occurring within a fixed-sized window. Therefore the learned embeddings contain useful knowledge about word co-occurrence\cite{nalisnick2016improving}. There are multiple input/output possibilities for the neural network, best known are Skip-gram and the Continuous Bag-of-Words model (CBOW). The Skip-gram model takes a target word as input and outputs the predicted output words, while CBOW takes the context words as input and outputs the predicted target word\cite{nalisnick2016improving, pennington2014glove}. This is illustrated in Figure~\ref{figure:word2vecModels}, in this Figure, $v(w)$ represents the target word, and $v(w...)$ represent the context words. \citet{mikolov2013distributed}\cite{mikolov2013efficient} presented several extensions to the word2vec model that improve the quality of vector training and its speed, such as introducing Hierarchical Softmax, Negative Sampling and the subsampling of frequent words to the Skip-gram approach. Variations to the word2vec model have also been proposed, such as the doc2vec model described by \citet{lau2016empirical} which creates document embeddings instead of word embeddings.
+\begin{center}
+\begin{figure}[hbt]
+\includegraphics[width=4in]{Plots/Model-Architecture-of-CBOW-and-Skip-Gram.png}
+\caption{Illustration of the CBOW and Skip-Gram models, as presented by \citet{chen2017convolutional}. Left part of the Figure illustrates the CBOW model, context words are represented at the left side (input) and the center word (output) is represented as $v(w)$ as output. The right side of the Figure illustrates the Skip-Gram Model, which takes the center word as input (left) and outputs the context words (right).}\label{figure:word2vecModels}
+\end{figure}
+\FloatBarrier
+\end{center}
+\subsubheader{Paragraph vectors}
+Variations on the word2vec model have also been proposed,~\citet{le2014distributed} introduced the paragraph vector in their paper "Distributed representations of sentences and documents". The Paragraph Vector framework is based on the word vectors framework. The difference between the frameworks is the calculation of the probability, the Paragraph Vector framework uses a matrix, which consists of every paragraph. This matrix is used to replace a concatenation or average of word vectors. An advantage of the paragraph vector model is that it takes the word order into consideration, at least in a small context \cite{le2014distributed}. \citet{dai2015document} state that the Paragraph Vectors model performs significantly better than other models on grouping, triplet finding and related object/article finding tasks on Wikipedia and arXiv texts.
+
+\subsubheader{GloVe}
+\citet{pennington2014glove} introduced the Global Vectors (GloVe) model. This model captures the global corpus statistics. The model transforms the word co-occurrences of all words in the corpus to chances, it excludes all the zero values and uses that as initial input for the neural network. This model out-performs other models on word analogy, word similarity and entity recognition according to the findings by~\citet{pennington2014glove}.\\
+
+\subsubheader{TF-IDF}
+Term Frequency * Inverted Document Frequency (TF-IDF) is a method that does not rely on a neural network and, therefore, does not require training. The TF-IDF score is the product of the term frequency in a text and the inverted document frequency of the same term in a corpus of texts. Both of which can be calculated in a variety of ways. Table~\ref{table:TFIDFScore} shows an example of the TF-IDF calculation. The multiplication of the TF and IDF is referred to as the TF-IDF score. The text, provided to the algorithm, is analyzed on word occurrences on corpus and document level, this results in a score per word. This score can be converted to a feature vector, in which the indexes of this vector represent the words and the value is the TF-IDF score. The size of this feature vector can optionally be controlled by hashing the words in the text, which can then be reduced to a given size. If this is not applied, the size of the feature vector is equal to the number of unique words in the corpus, also known as the (corpus) vocabulary.  The feature vectors produced by TF-IDF do not capture syntactic or semantic information about words, but capture information about word occurrences. Some applications of this technique limit the number of unique words in the text supplied to the TF-IDF algorithm, they do this by taking only a certain amount of top words, ordered on their occurrence. This reduces the amount of storage needed when hashing is not applied. It furthermore reduces the number of words which occur rarely. Due to the nature of TF-IDF, these rare words have a high score, cancelling out other more frequent words, while rarely occurring in the corpus.
+\vspace{0.3in}\begin{table}[hbt]
+\begin{center}
+\begin{tabular}{|p{1in}|p{1in}|p{1in}|p{1.3in}|p{1in}|}
+\hline
+Term & Frequency (TF) & Document Frequency (DF) & Inverted Document Frequency (IDF) & TF-IDF score\\
+\hline
+Exponential & 4 & 15 & 0.824 & 3.296\\
+\hline
+Occurrence & 1 & 20 & 0.699 & 0.699\\
+\hline
+Multitude & 1 & 40 & 0.398 & 0.398\\
+\hline
+Abstract & 100 & 100 & 0 & 0\\
+\hline
+\end{tabular}
+\caption{Example of TF-IDF score calculation.}\label{table:TFIDFScore}
+\end{center}
+\end{table}
+\FloatBarrier
+\end{jumpin}
+As \citet{lai2016generate} state in their paper "How to generate a good word embedding?", that all embedding methods rely on the same hypothesis, \textit{words that occur in similar contexts have similar meanings}. They furthermore found that larger corpus' lead to better quality embeddings, but that the domain in which the embeddings are trained has more influence on this than the corpus size. 
+
+\subheader{Validation methods}
+The results produced by the previously mentioned techniques have to be validated to determine their quality (in usage). The quality of the results can be validated through various validation metrics, one of these is the F1 score\footnote{The F1 score combines the precision score and the recall score in a single metric}. The embeddings can furthermore be validated through their performance on tasks such as word analogy, word similarity, categorization and embedding visualization. These tasks can be designed to produce a score that indicates the performance on a specific task. \citet{schnabel2015evaluation} found that a single validation metric cannot produce a representative result for other tasks. Embeddings that perform well on one task do not have to perform well on another task. As a result, findings about the performance of an embedding method are limited to the task on which they are tested. Their results cannot be generalized to state that the embeddings are overall "performing well". Validation tasks use either labeled or unlabeled data. Labeled data is data that is in some way marked so that the correct answer can be derived from it, while this is not possible with unlabelled data. The validation tasks can be divided into two groups, extrinsic evaluation, ones that use word embeddings as input for a downstream task and Intrinsic evaluation, which directly tests the relationships of the word embedding themselves. \citet{schnabel2015evaluation} note that the extrinsic evaluation may not be consistent with intrinsic evaluations since the performance on downstream tasks is not consistent across tasks.
+
+\begin{jumpin}
+\subsubheader{Word Analogy}
+Word analogy validation is based on a labelled validation set, containing word pairs of four that can be logically divided into two parts. As Table~\ref{table:wordAnalogies} shows, each last word can be derived from the three words before. The score is the fraction of correctly given fourth words, given the first three words. This validation metric is used in multiple studies\cite{mikolov2013distributed, mikolov2013efficient, dai2015document, pennington2014glove}.\\
+\begin{table}[hbt]
+\begin{center}
+\begin{tabular}{l l l l}
+Man & Women & King & Queen \\
+Athens & Greece & Oslo & Norway\\
+great & greater & tough & tougher
+\end{tabular}
+\end{center}
+\caption{Word analogies examples}\label{table:wordAnalogies}
+\end{table}\\
+Both this validation technique and the Word Similarity technique use vector distance calculations to validate the embeddings, this can therefore also be written as:
+\begin{displayquote}
+    X\textsubscript{King} - X\textsubscript{Man} $\approx$  X\textsubscript{Queen} - X\textsubscript{Women}
+\end{displayquote}
+This means that the resulting vector of embedding of "King" minus the embedding of "Men" is approximately the embedding of "Queen" minus the embedding of "Women". This resulting vector may, for example, be close to the vector representing "Monarch".
+\subsubheader{Word Similarity}
+A method to test the quality of word embeddings is the word similarity test. For these test, the distance between the word embeddings (vectors) is measured and compared to similarity scores defined by humans. Multiple non-domain specific validation sets are publicly available including the Rare-word dataset introduced in the paper "Better Word Representations with Recursive Neural Networks for Morphology" by \citet{luong2013better}, 
+the MEN test collection by \citet{EBruniMENCollection} and the WordSimilarity-353 test collection by \citet{EGabrilovichWScollection}.
+These sets, among others, have been used in multiple studies of word embeddings\cite{pennington2014glove, mikolov2013efficient}. This validation method is limited by the availability of word similarity sets that share the same domain as the trained embeddings.
+\subsubheader{Classification}
+A classification validation method is a simple task which assigns a label to a text. \citet{lau2016empirical} used data from StackExchange and tried to determine if a pair was a duplicate. In their setup, the text was a pair of texts, and their categories were duplicate and non-duplicate. \citet{le2014distributed} used for their research a dataset of IMDB with 100,000 movie reviews. They validated their proposed paragraph vector model by determining whether a review was positive or negative. We will use the classification task for this research too, we will use journals (collection of articles) as classes, and the articles as items that need to be classified. We create a list, sorted on the similarity between article and journal, of journals for each article to get a measurable result from this. From this list we can extract, among other things, the position (rank) of the journal from which the article was taken.
+\subsubheader{Position Visualization}
+\citet{dai2015document} and \citet{hinton2003stochastic} mapped their word embeddings from a high dimensional vector to a two-dimensional vector to be able to display them in a scatter plot and applied colors to various categories. The advantage of this visualization is that a human can directly see the embedding distribution, and see if it is distributed in a way that seems logical. It gives furthermore insight in the overall spectrum of the embedding. However, this representation does not give an empirical score, since it is not an evaluation of the data, but an alternative representation. 
+\end{jumpin}
+\subheader{General and Domain specific}
+Since the word embeddings are created from a given text, these embeddings are bound to the text. All meaning embedded in the word embedding is derived from the original text. Because of this, embeddings can be "Domain-specific" meaning that it only knows words (or a specific word) in a certain context. This becomes most clear when faced with words that can have different meanings in different contexts. For this research, we categorize the embeddings into two categories, generic embeddings and domain-specific embeddings. The generic embeddings are trained on a collection of texts that use common English and contains a wide variety of topics. The domain-specific embeddings are trained on a collection of texts that uses jargon English (i.e., domain-specific terms) or is limited to a small number of topics. Given these terms, we regard the embeddings trained on the Wikipedia corpus\cite{lai2016generate, pennington2014glove, dai2015document, lau2016empirical, schnabel2015evaluation} as general, since Wikipedia uses common English and spans a wide range of topics. On the other hand, we regard the embeddings created by \citet{Truong2017Thesis} as Domain specific; these embeddings were created on academic articles, which use domain-specific terms and notations and only consists of academic texts, which contains less general/generic words compared to the Wikipedia corpus. Figure~\ref{figure:domainPlot} illustrates our corpus, marked in green, in comparison to the Wikipedia corpus, marked in blue. Our corpus is a collection of domain specific texts, written in academic language. A set that would be more specific would only focus on the individual domains or sub-domains.
+\begin{figure}[hbt]
+\includegraphics[width=6.5in]{Plots/domain_specification_graph}
+\caption{Illustration of generic texts and domain specific texts. Our research focusses on the green-marked area.}\label{figure:domainPlot}
+\subheader{Domain-specific \& in-domain}
+We defined domain specific earlier, a related term to this is "in-domain". The term domain-specific refers to a specific domain, I.E. biology or chemistry. In-domain refers to a relation between texts, this means that an article on biology is an in-domain text of another article on biology, but not on an article on chemistry. This means that two domain-specific texts do not necessarily share their domain, while an text A which is an in-domain text for text B means that text A and B share the same domain.
+\end{figure}
+
+== MOTIVATION ==
+
+\header{Motivation}
+\subheader{In-domain embeddings and validation}
+In earlier research concerning domain specific articles,~\citet{Truong2017Thesis} found that in-domain training of the word embeddings can improve the process of document clustering. The usage of in-domain data is more important than the number of training examples and the model architecture. \citet{lai2016generate} found that the corpus domain is more important than the corpus size. Using an in-domain corpus significantly improves the performance for a given task, whereas using a corpus in an unsuitable domain may decrease performance.
+Truong et al. encountered a problem in the validation of these in-domain embeddings. The word embedding produced correct document clustering results, leading to the conclusion that these embeddings are of good quality since they capture the document relatedness needed to create correct clusterings. However unpublished results by Truong et al. state that the embeddings show high error rates on the validation scores. This seems to indicate that the word-vectors are of good quality, but that the available validation metrics fail to confirm this. \citet{Truong2017Thesis} used multiple word similarity validations to asses the quality of the word embeddings. However, these sets are created to validate the generic embeddings; they fail to asses the quality of the domain-specific embeddings.
+
+\subheader{Research}
+To asses the problem of the limited availability of pre-labeled validation sets for domain-specific articles, we compare the embeddings to  TF-IDF on a categorization task. This A) indicates the embedding quality for categorization tasks and B) contrasts the performance of embeddings to the performance of the more traditional TF-IDF approach. To ensure the quality of the embeddings for our research, we reuse the embeddings created in the research of \citet{Truong2017Thesis}.
+\begin{jumpin}
+    \textbf{RQ. 1} Have classical word-embeddings a higher accuracy for academic texts than TF-IDF for article classification?\\
+    \begin{adjustwidth}{0.3in}{}
+        \textbf{RQ. 1.1} Do embedding optimizations increase the performance of word embedding on academic texts for article classification?\\
+        \textbf{RQ. 1.2} Can the usage of alternative distance metrics improve the performance of word embedding on academic articles for article classification?
+    \end{adjustwidth}
+    \vspace{0.1in}\textbf{RQ. 2} Can word embeddings, combined with pca\footnote{principal component analysis}-based TSNE, create a two-dimensional plot that preserves the journal relatedness?
+\end{jumpin}
+\subsubheader{Methodology}
+RQ. 1 focusses on the classification results of both embedding-based techniques and TF-IDF.  To measure classification task, we use the rank of the class to which the item belongs. This transforms the classification task from a binary metric to a ranking metric. For this task, we will use different versions of embeddings, to answer RQ 1.1, and different TF-IDF versions to not only compare the two techniques but also look for the optimal results of both techniques. To achieve the optimal results, we compare 20 distance metrics on ranking performance on the classical embeddings. For this part of the research, we will use the following hypothesis:
+\begin{jumpin}
+\textit{\textbf{H. 1} Embedding based techniques give lower rankings than the TF-IDF based techniques.}
+\begin{jumpin}
+\textit{\textbf{H. 1.1} TF-IDF weighted document embeddings outperform standard embeddings on the classification of academic articles.}\\
+\textit{\textbf{H. 1.2} Cosine similarity based ranking results in the best performance for the classification of academic articles.}\\
+\textit{\textbf{H. 1.3} Word embeddings use less memory while giving better ranking results than TF-IDF on the classification of academic articles.}
+\end{jumpin}
+\end{jumpin}
+By validating or invalidating these hypotheses, we get an indication of the performance of the embeddings compared to TF-IDF,  get insight into possible performance and resource trade-off's and get insight into the performance of different distance calculation metrics. 
+RQ. 2 concerns the visualization of word embeddings and the accuracy of this visualization. To answer this research question, we will use the following hypothesis:
+\begin{jumpin}
+\textit{\textbf{H. 2} Word embeddings, combined with PCA-based TSNE can preserve the journal relatedness on a two-dimensional plot.}
+\end{jumpin}
+The validation of this hypothesis will rely on visual confirmation. We expect to see clustering of journals in certain areas, which indicates a research subject. We also expect that articles which are visually close together are closely related by subject. 
+
+== DATA ==
+\header{Research Data}
+\subheader{Corpus}
+The dataset we used for this research consists of articles published in 2017 which have been published in a journal that has, in 2017, atleast 150 publications. This results in a total dataset of $1.391.543$ articles from $3.759$ journals. Details about the corpus can be found in table~\ref{table:corpusSize}.
+\begin{table}[hbt]
+\begin{center}
+\begin{tabular}{|l|c|c|c|}
+\hline
+ & Total count & Unique count & Average length \\
+\hline\hline
+Title words & $18.822.399$ & $939.665$ & 13,53  \\
+\hline
+Title tokens & $14.742.192$ & $230.805$ & 10,64 \\
+\hline\hline
+Abstract words & $264.653.020$ & $5.853.077$  & 190,19  \\
+\hline
+Abstract tokens & $171.474.473$ & $738.961$ & 123,71 \\
+\hline\hline
+Total words & $283.475.419$ & $6.209.769$  & 203,71 \\
+\hline
+Total tokens & $186.962.354$ & $763.475$ & 134,36 \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Corpus size}\label{table:corpusSize}
+\end{table}
+\clearpage
+\subsubheader{Text properties}
+\citet{wiegand2018word} state that the Pareto distribution offers a good fit to the word occurrences in natural language. Their models show that, due to the additional parameters in the Pareto-III\footnote{The pareto distribution is a distribution in which recognizable by a long "tail" of low values and a quick and short ascend to the top values. More information: \url{https://en.wikipedia.org/wiki/Pareto_distribution}.}, the tail of the data fits better with the model than the Zipf\footnote{Distribution similar to the Pareto distribution, see: \url{https://en.wikipedia.org/wiki/Zipf\%27s_law}} model. This shows the relation between the word occurrences rank and the actual occurrences. This kind of word-occurrences distribution holds for many texts, including the writings of William Shakespeare, scientific texts and novels\cite{thurner2015understanding}.
+The word occurrences in our corpus also follow the pattern of a Pareto distribution as described by~\citet{wiegand2018word}. Our distribution is visualized in Figure~\ref{figure:wordTokenOccurrence}, which displays the occurrences of the first 500 tokens of the corpus.
+\FloatBarrier
+\begin{figure}[hbt]
+\includegraphics[width=6.5in]{Plots/word_occurrences}
+\caption{Word and token occurrences. The word counts pattern resembles a Pareto distribution, the tokenization reduced the amount of high frequency words.}\label{figure:wordTokenOccurrence}
+\end{figure}
+\FloatBarrier
+\subheader{Datasets}
+For this researched we used a (pre-made) tokenized dataset, created from the earlier described corpus, which reduces the total amount of words by 34\% (see table~\ref{table:corpusSize}). From this tokenized set, we created the embeddings and the TF-IDF feature vectors.
+\subsubheader{Tokenization}
+The following steps have been applied to the words to create a tokenized set:
+\begin{enumerate}
+\item{Removed punctuation}
+\item{Removed all non-ASCII characters}
+\item{Transformed all characters to lower-case}
+\item{Removed stop-words, as provided by the NLTK\footnote{Natural Language ToolKit, \url{https://www.nltk.org/}} library}
+\item{Removed numbers}
+\item{Stemmed all words, using the stemmer provided by the NLTK library}
+\end{enumerate}
+These transformations reduced our dataset by 34\%, resulting in a tokenized set of $186.962.354$ tokens.
+\subsubheader{Embedding}
+For this research, we reused the word embeddings created by \citet{Truong2017Thesis}. These embeddings have a vector dimension of 300, which is an industry default. They have been trained on the entire Elsevier corpus, not limited to the subset we used for this research. To create higher-level embeddings, we average all component embeddings. Thus, to create article embeddings, we take the average of all normalized word embeddings for that article. Journal embeddings are created by taking the average of all normalized article embeddings. We use the average to combine multiple embeddings into one, because we determine the meaning of a larger text as the average meaning of all components. Since this meaning is represented as an embedding, we can average the embeddings to create the "average meaning". We have used multiple embedding optimizations for this research.
+\subsubsubheader{Default embedding}
+The default embedding is created form the pre-trained word embeddings; no modifications have been applied to this set. We refer to this set in the Figures as \textbf{embedding}.
+\subsubsubheader{TF-IDF weighted embedding}
+The TF-IDF weighted embedding set, referred to as TF-IDF embedding, are the default word embeddings weighted with a TF-IDF score per word.\\
+The TF-IDF is calculated with a raw token count, and a smoothed inverted document frequency, calculated as follows:\\
+\begin{equation}
+IDF = \log_{10}(\dfrac{|A|}{|A_t|})
+\end{equation}
+Where $|A|$ is the total count of articles and $|A_t|$ is the count of articles containing term t.
+The articles embeddings are a normalized summation of each word vector multiplied by it TF-IDF value. Since we take a sum of all words, the Term Frequency is embedded as the raw count of each word. We will refer to this embedding in the Figures as \textbf{tfidf\_embedding}.
+\subsubsubheader{10K TF-IDF embedding}
+The 10K embedding set is generated similarity to the TF-IDF embedding, this version only uses the 10.000 most common tokens, reducing the number of tokens it uses. This set was created to see if the limitation to 10.000 tokens reduces the amount of noise, increasing the performance. We will refer to this embedding in the Figures as the \textbf{10k\_embedding}.
+\subsubsubheader{5K TF-IDF embedding}
+The 5K TF-IDF embedding is the TF-IDF embedding set, limited to the 5.000 most common words. This set was created to limit the number of tokens more aggressively, and with that, cancel out more noise. We will refer to this embedding in the Figures as \textbf{5k\_embedding}.
+\subsubsubheader{1K-6K TF-IDF embedding}
+The 1K-6K TF-IDF embedding is the TF-IDF embedding limited to the top 6.000 most common words, without the top 1.000 most common words. The rationale for this is that common words will occur in many articles, creating noise, by cutting off the top 1.000 and cutting off everything below 6.000 we tried to reduce the noise by filtering common words. This cut results in a set of 5.000 tokens, which allows us to compare it to the 5K TF-IDF set. We will refer to this embedding in the Figures as \textbf{1k\_6k\_embedding}. We refer to the \textbf{10k\_embedding}, \textbf{5k\_embedding} and the \textbf{1k\_6k\_embedding} as the \textbf{limited TF-IDF embeddings}, because these embedding use TF-IDF weighing, and have been limited in their vocabulary due to the cut-off's.
+\clearpage
+\subsubheader{TF-IDF}
+To create the TF-IDF feature vectors, we used the TF-IDF model and a hasher from PySparks MlLib library. The TF-IDF feature vectors are created by hashing the tokens with the hasher, which has a set hash bucket size. These hashed values are passed on to the TF-IDF model, resulting in a feature vector which vector dimensions equal the number of hash buckets. To limit the computational and storage expenses and to reduce noise by rare words, we limit our vocabulary size.
+We label the TF-IDF configurations as follows: $vocabulary size/hash bucket size$. Furthermore, we denote 1.000 as 1K, since we deal with chosen values which can be exactly noted given this notation. This means that the set with a 10.000 vocabulary size and a 10.000 hash bucket size will be denoted as "10K/10K". We will refer to the TF-IDF configurations in our Figures as "tfidf\_vocabulary size\_hash bucket size".
+\begin{figure}[hbt]
+\includegraphics[width=5in]{Plots/tfidf_selection_plot_performance}
+\caption{TF-IDF performance on title and abstract}\label{figure:tfidfPerformance}
+\end{figure}
+\begin{figure}[hbt]
+\includegraphics[width=5in]{Plots/tfidf_selection_plot_memory}
+\caption{TF-IDF memory usage for title and abstract combined}\label{figure:tfidfMemory}
+\end{figure}
+\FloatBarrier
+Figure~\ref{figure:tfidfPerformance} shows the performance of title and abstract as median rank, and Figure~\ref{figure:tfidfMemory} shows the storage size in gigabyte, of the 1k/1K, 4K/4K, 7K/7K and 10K/10K TF-IDF configurations. This plot shows that, while the required storage size stagnate, the performance on title also quickly stagnates, together with the performance on the abstracts. Given this information, we have chosen to use the 10K/10K, 10K/5K and 5K/5K configurations to compare our embedding results to. Since these configurations can be kept in memory (storage size) while it is not likely that larger sets will give much improvement. The TF-IDF features are created on article level. We average the set of article feature vectors to create a journal feature vector, just as we did with the embeddings. 
+\header{Pipeline}
+\subheader{Research environment}
+The research will be done in a python-databricks environment, which uses spark, a library that offers tools to work with big-data. \citet{armbrust2015spark} state that Spark SQL lets programmers leverage the benefits of relational processing and lets SQL users call complex analytic libraries in Spark. This allows for much tighter integration between relational and procedural processing. The paper further states that Spark SQL makes it significantly simpler and more efficient to write data pipelines that mix relational and procedural processing while offering substantial speedups over previous SQL-on-Spark engines.\\
+We procesessed the TF-IDF sets and the embedding sets via the same pipeline, using their common vector properties. This ensures comparable results, the pipeline is set-up as follows:
+\begin{enumerate}
+\item{Create training and validation set}
+\item{Create journal embeddings}
+\item{Categorize validation articles}
+\item{Calculate performance metrics}
+\end{enumerate}
+  
+\subheader{Create training and validation set}
+We split our initial set  $80\%$ - $20\%$. We use the $80\%$ set as the training set for the journal representations, and the $20\%$ set as the validation set for the journal representations. This split is based on a random number given to each article, ensuring that all set have the same (random) training and validation set.
+\subheader{Create journal embeddings}
+From our training set we create the journal embeddings, which are created for most sets\footnote{see paragraph datasets} by averaging the article embeddings or feature vectors.
+\subheader{Categorize validation articles}
+To categorize the articles, we calculate the distance between the title of the article, and the title of each journal from the validation set. We also do this for the abstract of the article and the abstract of each journal. During this process we keep track of:
+\begin{itemize}
+\item{Title-based-rank of the actual journal}
+\item{Abstract-based-rank of the actual journal}
+\item{Best scored journal on the abstract similarity}
+\item{Best scored journal on the title similarity}
+\item{Abstract similarity between the actual journal and the article}
+\item{Title similarity between the actual journal and the article}
+\end{itemize}
+\subsubheader{Distance metrics}
+To calculate the distance between to vectors, cosine similarity is commonly used. We validated the quality of cosine similarity as a distance metrics by comparing it to other similarity matrices available in the SciPy\footnote{\url{https://www.scipy.org/}} library, which we used to calculate the distances. We calculate the similarities based on the normalized embeddings, and compared the distance metrics based on the default embedding set. Table~\ref{table:distanceMetrics} shows the results of this validation.\\
+\begin{table}[hbt]
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+Metric\footnote{As defined and provided by the SciPy library} & Median title rank & Average title rank & Median abstract rank & Average abstract rank  \\
+\hline
+Braycurtis & 28 & 130 & 23 & 124  \\
+\hline
+Canberra & 33 & 148 & 26 & 133  \\
+\hline
+Chebyshev & 57 & 256 & 41 & 191  \\
+\hline
+\textit{Cityblock} & \textit{28} & \textit{130} & \textit{23} & \textit{124}  \\
+\hline
+\textit{Correlation} & \textit{27} & \textit{127} & \textit{23} & \textit{122}  \\
+\hline
+\textbf{Cosine} & \textbf{27} & \textbf{127} & \textbf{23} & \textbf{122}  \\
+\hline
+Dice & 1995 & 1929 & 1995 & 1929  \\
+\hline
+\textit{Euclidean} & \textit{27} & \textit{127} & \textit{23} & \textit{122}  \\
+\hline
+Hamming & 1995 & 1929 & 1995 & 1929  \\
+\hline
+Jaccard & 1995 & 1929 & 1995 & 1929  \\
+\hline
+Kulsinski & 1995 & 1929 & 1995 & 1929  \\
+\hline
+Mahalanobis & 136 & 544 & 75 & 449  \\
+\hline
+Matching & 1995 & 1929 & 1995 & 1929  \\
+\hline
+Rogerstanimoto & 1995 & 1929 & 1995 & 1929  \\
+\hline
+Russellrao & 1995 & 1929 & 1995 & 1929  \\
+\hline
+\textit{Seuclidean} & \textit{27} & \textit{124} & \textit{22} & \textit{115}  \\
+\hline
+Sokalmichener & 1995 & 1929 & 1995 & 1929  \\
+\hline
+Sokalsneath & 1995 & 1929 & 1995 & 1929  \\
+\hline
+\textit{Sqeuclidean} & \textit{27} & \textit{127} & \textit{23} & \textit{122}  \\
+\hline
+Yule & 1995 & 1929 & 1995 & 1929  \\
+\hline
+\end{tabular}
+\caption{Distance metric performance for word embeddings on the categorization of academic texts}\label{table:distanceMetrics}
+\end{table}
+These results show high similarity between cosine-based metrics (Cosine \& Correlation) and euclidean based metrics (Euclidean, Seuclidean \& Sqeuclidean). This similarity is expected, since the cosine and euclidean distances should yield the same results on normalized sets. The results show that some enhancement on the euclidean algorithm result in slightly improved results, although not significant. Also the Cityblock metric yields results close to the Cosine metric, it has a slightly worse performance, which is also not significant. Because of this, we will use the cosine-similarity as the distance metric, which will make our results better comparable with other work.
+\clearpage
+\subheader{Performance measurement}
+We use multiple metrics to validate the performance of the embedding sets and TF-IDF sets on the categorization task. These metrics are:
+\begin{enumerate}
+\item{F1-score}
+\item{Median \& average rank}
+\item{Rank distribution}
+\end{enumerate}
+\subsubheader{F1-score}
+We define the positive \& negative metrics as follows:\\
+\begin{jumpin}
+$True Positive = $ Articles that are correctly matched to the current journal\\
+$False Positive = $ Articles that are incorrectly matched to other journals\\
+$False Negative = $ Articles that are incorrectly matched to the current journal\\
+\end{jumpin}
+We used these metrics to calculate the Recall, Precision \& F1 as follows:\\
+\begin{jumpin}
+$Recall = \dfrac{True Positive}{True Positive + False Negative}$\vspace{0.1in}\\
+$Precision = \dfrac{True Positive}{True Positive + False Positive}$\vspace{0.1in}\\
+$F1 = \dfrac{2 * Precision * Recall}{Precision + Recall}$
+\end{jumpin}
+\subsubheader{Median \& average rank}
+The median rank of a journal indicates the point where 50\% of all articles are to the left of a virtual line and 50\% are to the right of this line. The median rank therefore indicates the position of the "normal/typical"  article. This median rank differs from the average, since the median is not influenced by a single value. If the median is 20, it does not matter if an article is 25 of 250, it does matter however if an articles is 19 or 21. For the average this is not the case, the average is influenced by single articles. Therefore it does not represents the "normal/typical" article but it represents the exact average of all articles in the validation set, which is changed when an article changed from 25 to 250.\\
+We use the median rank to indicate at which rank the typical article would be ranked, based on its title and abstract. We do this by taking the median of the respective rank from each article. This gives us an indication of the behaviour of the articles in our validation set. We also calculate the average score for the title and abstract of all articles. This gives us four scores: median title rank, median abstract rank, average title rank \& average abstract rank.\\
+\subsubheader{Rank distribution}
+To further analyse the ranking results, we plot the rank distribution to get an indication of the ranking-landscape.
+\subsubheader{Two-dimensional plot}
+To create a plot, we transformed the 300-dimensional journal vectors into 2-dimensional vectors using TSNE based on pca\footnote{Principal component analysis}. These 2-dimensional vectors, representing the x \& y coordinate, can then be drawn in a plot. To visualize the preservation of journal-relatedness while converting the 300 dimensions to 2 dimensions, we create groupings using k-means. These groupings are created on the 300-dimensional vectors and are visualized in the plot using colors. We use the k-means groupings due to the lack of subject-based grouping values in our dataset.
+
+
+== RESEARCH RESULTS ==
+\header{Research results}
+In this chapter the results of our research will be presented with only the required explanation of the results. These results will be discussed in Chapter 7: Discussion.
+\subheader{Ranking}
+The Figures~\ref{figure:titleRanks} \&~\ref{figure:abstractRanks} show the result of the categorization task as ranking results. The rank indicates the position of the correct journal in the sorted list of matched journals. Figure~\ref{figure:titleRanks} shows the ranking results for the different sets based on the title. Figure~\ref{figure:abstractRanks} displays the ranking results based on the abstract. Both graphs show both average and median ranks, based on the cosine-similarity between the article and journal embeddings or feature vectors.
+\clearpage
+\begin{figure}[hbt]
+\includegraphics[width=6.5in]{Plots/Title_rankings}
+\caption{Median and average title rankings}\label{figure:titleRanks}
+\end{figure}
+\begin{figure}[hbt]
+\includegraphics[width=6.5in]{Plots/Abstract_rankings}
+\caption{Median and average abstract rankings}\label{figure:abstractRanks}
+\end{figure}
+\clearpage
+\subheader{Rank distribution}
+Figures~\ref{figure:titleDistribution} \&~\ref{figure:abstractDistribution} show the distributions of the ranks for each set. The Figures plot the summed amount of articles against the ranks on a logarithmic scale. Figure~\ref{figure:titleDistribution} shows the rank distribution for the titles, Figure~\ref{figure:abstractDistribution} shows this for the ranks based on the abstract. These graphs give a detailed view of the ranks presented in their respective Figures~\ref{figure:titleRanks} \&~\ref{figure:abstractRanks}. The Y-axis of the two Figures show the fraction of the total number of articles. Due to this, all sets will move towards one. When one is hit, the graph stagnates since there are no more articles that can be added once the value reaches one. The X-axis plots the ranks of the articles. These ranks are the ranks of each individual article in our validation set, in contrast to Figure~\ref{figure:titleRanks} \&~\ref{figure:abstractRanks} which show average and median ranks.
+\begin{figure}[hbt]
+\includegraphics[width=6.5in]{Plots/Title_rank_distribution}
+\caption{Title rank distribution per set}\label{figure:titleDistribution}
+\end{figure}
+\begin{figure}[hbt]
+\includegraphics[width=6.5in]{Plots/Abstract_rank_distribution}
+\caption{Abstract rank distribution per set}\label{figure:abstractDistribution}
+\end{figure}
+
+\clearpage
+\subheader{F1-Score}
+Figures~\ref{figure:f1Title} \&~\ref{figure:f1Abstract} show the precision, recall and f1 scores. These scores are calculated on journal level, and are averaged per set. Figure~\ref{figure:f1Title} shows the F1 score for the title and Figure~\ref{figure:f1Abstract} shows the scores for the abstract. These scores indicate the performance of the sets on absolute hits/top-1. We show the precision and recall scores since they vary between sets that have similar F1-scores (i.e. Figure~\ref{figure:f1Title}, tfidf\_5k\_5k \& tfidf\_embedding
+\begin{figure}[hbt]
+\includegraphics[width=6.5in]{Plots/Title_avg_f1}
+\caption{Precision, recall and F1 scores based on title}\label{figure:f1Title}
+\end{figure}
+\begin{figure}[htb]
+\includegraphics[width=6.5in]{Plots/Abstract_avg_f1}
+\caption{Precision, recall and F1 scores based on abstract}\label{figure:f1Abstract}
+\end{figure}
+\clearpage
+\subheader{Memory usage}
+Table~\ref{table:memoryUsage} shows the total memory usage of each set for the \textit{Validation set}, indicating their storage costs in gigabytes\footnote{1024 based}. It furthermore shows the absolute hit percentage of the title and the abstracts, this is the percentage of articles that have the journals from which they were taken at rank 0, meaning that the journal has the closest embedding. The table furthermore shows the median rank and the median abstract rank, as visualized in Figures \ref{figure:titleRanks} \&~\ref{figure:abstractRanks}.\\
+\begin{table}[hbt]
+\begin{center}
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+Set & Size in GB & Absolute hit percentage & Median title rank & Median abstract rank\\
+&&\begin{tabular}{p{0.5in}|p{0.5in}}Title & Abstract\end{tabular}&&\\
+\hline
+tfidf 5k 5K & $9.82$ & \begin{tabular}{p{0.5in}|p{0.5in}}5.42\% & 10.18\%\end{tabular} & 50 & 27\\
+\hline
+tfidf 5K 10K & $11.47$ & \begin{tabular}{p{0.5in}|p{0.5in}}6.49\% & 11.08\%\end{tabular} & 38 & 15\\
+\hline
+\textbf{tfidf 10K 10K} &\textbf{11.61}& \begin{tabular}{p{0.5in}|p{0.5in}}\textbf{6.79\%} & \textbf{11.32\%}\end{tabular} & \textbf{35} & \textbf{14}\\
+\hline
+embedding & $3.13$ & \begin{tabular}{p{0.5in}|p{0.5in}}7.92\% & 9.24\%\end{tabular} & 27 & 23\\
+\hline
+5k embedding & $3.13$ & \begin{tabular}{p{0.5in}|p{0.5in}}6.34\% & 8.36\%\end{tabular} & 42 & 27\\
+\hline
+10k embedding & $3.13$ & \begin{tabular}{p{0.5in}|p{0.5in}}7.03\% & 8.76\%\end{tabular} & 34 & 25\\
+\hline
+\textbf{tfidf embedding} & \textbf{3.13} & \begin{tabular}{p{0.5in}|p{0.5in}}\textbf{7.89\%} & \textbf{9.33\%}\end{tabular} & \textbf{27} & \textbf{22}\\
+\hline
+1k 6k embedding & $3.06$ & \begin{tabular}{p{0.5in}|p{0.5in}}5.16\% & 7.86\%\end{tabular} & 64 &31 \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Memory usage and performance for each set}\label{table:memoryUsage}
+\end{table}
+\subheader{Journal relatedness plot}
+We created two seperate journal plot, Figures~\ref{figure:titlePlotNormal} \&~\ref{figure:titlePlotGrouped} show the title based embeddings, and Figures~\ref{figure:abstractPlotNormal} \&~\ref{figure:abstractPlotGrouped} show the abstract based embeddings.
+Figures~\ref{figure:titlePlotNormal} \&~\ref{figure:abstractPlotNormal} show the two dimensional plots of the journal embeddings. The journals are color-marked by publisher. Red is Wiley, lime is Elsevier and blue is Springer Nature. The grey points are other or not-specified publishers.
+Figures~\ref{figure:titlePlotGrouped} \&~\ref{figure:abstractPlotGrouped} show the journal embeddings grouped by a k-means algorithm, creating 8 groups. The bottom right shows the names of the journals closest to the center of the group. While most names state the topic of the research field, some do not. These are \textit{RSC Advances}: chemical sciences, and \textit{Symmetry}:  research on symmetry phenomena wherever they occur in mathematical or scientific studies. The k-means algorithm ran on the 300-dimensional vectors, while the plot shows the 2-dimensional vectors. In the title-based Figures (\ref{figure:titlePlotNormal} \&~\ref{figure:titlePlotGrouped}) the journals \textit{PNAS} and \textit{Cell} overlap each others labels on the bottom right side of the graph. In the abstract-based Figures (\ref{figure:abstractPlotNormal} \&~\ref{figure:abstractPlotGrouped}) the journals \textit{PNAS} and \textit{Nature} overlap each others label on the bottom right side of the graph.
+The digital versions of these plots can be found at:~\url{https://goo.gl/nCGMcu} (title-based) and~\url{https://goo.gl/LwYP6k} (abstract-based). The usage of this digital version is advised, since this interactive plot enables zooming and adjusting plot settings, which can give a broader insight into the results than the presented Figures. Although the presented Figures give sufficient insight for the purpose of this thesis.
+\begin{landscape}
+\begin{figure}
+\begin{center}
+\includegraphics[height=6.5in]{Plots/Journal_Plots/Title_normal}
+\end{center}
+\caption{Journal plot of title embeddings, grouped by publisher}\label{figure:titlePlotNormal}
+\end{figure}
+\end{landscape}
+
+\begin{landscape}
+\begin{figure}
+\begin{center}
+\includegraphics[height=6.5in]{Plots/Journal_Plots/Abstract_normal}
+\end{center}
+\caption{Journal plot of abstract embeddings, grouped by publisher}\label{figure:abstractPlotNormal}
+\end{figure}
+\end{landscape}
+
+\begin{landscape}
+\begin{figure}
+\begin{center}
+\includegraphics[height=6.5in]{Plots/Journal_Plots/Title_grouped}
+\end{center}
+\caption{Journal plot of title embeddings, k-means grouped}\label{figure:titlePlotGrouped}
+\end{figure}
+\end{landscape}
+
+\begin{landscape}
+\begin{figure}
+\begin{center}
+\includegraphics[height=6.5in]{Plots/Journal_Plots/Abstract_grouped}
+\end{center}
+\caption{Journal plot of abstract embeddings, k-means grouped}\label{figure:abstractPlotGrouped}
+\end{figure}
+\end{landscape}
+
+== DISCUSSION ==
+\header{Discussion}
+In this chapter, the results presented in Chapter 6: Results will be discussed. No additional results will be presented in this chapter.
+\subheader{Result analysis}
+
+\subsubheader{Best performers}
+The data, as presented in Figures~\ref{figure:titleRanks} \&~\ref{figure:abstractRanks} shows that the 10k/10k set performs better than all other TF-IDF sets, although the difference with the 5k/10k is low, 1  median rank on abstract and 3 median ranks on the titles. For the embeddings, the TF-IDF weighted embedding works better than the others, although it is not a significant improvement (1 rank on a set of more than 3.000) compared to the default embeddings, which 1 median rank higher on the abstracts, and equal on the titles. 
+
+\subsubheader{TF-IDF}
+The TF-IDF feature vectors outperform the embeddings on the abstract, while the embeddings outperform the TF-IDF feature vectors on the title. The main difference between the abstract \& title is that the title contains fewer tokens compared to the abstract (see Table~\ref{table:corpusSize}). This means that the titles contain less information than the abstracts. Due to this, the TF-IDF method, which is purely based on word-occurrences \& counts has less information on the titles. The TF-IDF method works better on the abstract, which contain more tokens, which improves the differentiating the different abstract. The data furthermore shows that increasing the vocabulary size increases the performance of the TF-IDF, this means that none of the created cut-off's resulted in cutting off noise, the increasing size of the vocabulary only improved the performance in this case. It could be possible that at higher vocabulary sizes the cut-off would result in a sharper signal, we did not look into this further due to our findings that the TF-IDF performance stagnates (presented in Figure~\ref{figure:tfidfPerformance}).
+\clearpage
+\subsubheader{Limited TF-IDF embeddings}
+The limited TF-IDF embeddings all underperform, compared to the TF-IDF embedding (which does not have a limited vocabulary), on the median and average ranking. Indicating that the noise reduction is too much, and it removes meaningful words. If the noise reduction would be too low, we would only see a slight increase or none at all. However, the rank lowers, indicating the reduction in embedding quality due to missing words. This is in line with what we found with the TF-IDF results; higher vocabulary sizes give better performance. 
+\begin{jumpin}
+\subsubsubheader{Rank distribution}
+However, Figures~\ref{figure:titleDistribution} \&~\ref{figure:abstractDistribution} show that their rank distribution is different from the other embeddings. Their pattern shows a decent performance indicates the following pattern: a high/average performance on the top-rankings, an underperformance on the middle rankings and a resulting stack-up of articles with a high-ranking. This is further supported by the TF-IDF score on titles (Figure~\ref{figure:titleRanks}), on which the limited TF-IDF embeddings are the top performance. Indicating a better performance on the top-1 articles compared to the other sets.\vspace{0.3in}
+\end{jumpin}
+The rank distribution seems to indicate that the cut-off was effective, but also that it did not suit our purpose. The cut-off moved the "middle-ranked"  articles to either the higher end or the lower end of the rankings. Resulting in high median and average ranks, and in (relatively) high accuracy scores. The reduction in vocabulary size did not reduce the storage size for the embeddings, except for the 1K-6K embedding. This indicates that only the 1K-6K cut actually removes entire titles and abstracts, since all vectors are stored as dense-vectors\footnote{Dense vectors are bigger in memory, since they store all their values, including zeros. However, they can be processed more efficiently during calculations}. This results in a lower memory requirement.
+
+\subsubheader{TF-IDF \& embeddings}
+Our hypothesis on the difference between the TF-IDF and the standard embedding is as follows:\\
+The embeddings seem to outperform the TF-IDF in situations when there is little information available, the titles in our case. This indicates that the embeddings store some word meaning that enables them to perform relatively well on the titles. The abstracts, on the other hand, contain much more information. Our data seems to indicate that the amount of information available in the abstracts enable the TF-IDF to cope with the lack of embedded information. 
+If this is the case, we could expect that there would little performance increase on the title when we compare the embeddings to the weighted TF-IDF embeddings, since the TF-IDF lacks the information to perform well. This can be seen in our data, only the average rank increased by 3, indicating that there is a difference between the two embeddings, but not a significant one. We would also expect on the abstract an increase in performance since the TF-IDF has more information in this context. We would expect that the weighting applied by the TF-IDF improves the performance of the embedding by indicating word importance. Our data shows a minor improvement in performance of 1 median rank and 10 average ranks while these improvements cannot be seen as significant, our data at least indicates that weighting the embeddings with TF-IDF values has a positive effect on the embeddings.
+
+\subsubheader{Memory usage}
+Although the TF-IDF outperforms the embeddings on the abstracts, the memory usage of the TF-IDF is higher than the memory usage of the embeddings. The top-performing embedding, TF-IDF weighted embedding, uses 3.13 GB, the top performing TF-IDF, 10K/10K uses 11.61 GB, which is 270.93\% of the storage size needed for the embedding. The closest TF-IDF configuration (based on memory usage) we used was 1K/1K, which uses 5.13 GB (as displayed in Figure~\ref{figure:tfidfPerformance}). This TF-IDF set has a median title rank of 183 and a median abstract rank of 44. Which is significantly worse than the embedding, which also uses less memory. This indicates that the embeddings are able to store the relatedness information more densely than the TF-IDF feature vectors can store the worod occurrence information.
+
+\subsubheader{Journal plots}
+Figures~\ref{figure:titlePlotNormal} \&~\ref{figure:abstractPlotNormal} show the journals in the, what we will refer to as "subject spectrum". We do this because the journal embeddings capture journal-relatedness, which leads to the clustering of related articles, which share, in varying degree, the common subject. In this Figure, we can see that the publisher Wiley is more active in the right part of the spectrum than the left. We can further see that Nature is far to the center, as we would expect a generic journal to be, but it is on the biology/medicine side of the center (indicated by the position of Cell and Pharmaceutical Research).\\
+Figures~\ref{figure:titlePlotGrouped} \&~\ref{figure:abstractPlotGrouped} show the journals, grouped with k-means on the original 300-dimensional embedding vector. In the plot we can see that the original embedding-clustering, as provided by the k-means algorithm, is relatively well preserved, most groups stay clustered together. 
+The interactive version shows that the clusterings, as seen on all four Figures, are subject based. Journals concerning the same subjects are correctly clustered together, and the journals in between topic clusters are also positioned at logical positions. It furthermore shows that the k-means groupings give insight in research fields, although it is limited by the number of groups the k-means algorithm creates. Our findings on the 2-dimensional representation of embeddings are similar to those of \citet{dai2015document}, who plotted 4.4 million Wikipedia articles. The major difference between our plot and their plot is that they focus on just a view subjects in an entire plot, and have access to (human-made) partitioning data. They have therefore a more reliable grouping metric.
+
+\subheader{Improvements}
+This research shows that even though the embeddings can capture and preserve relatedness, TF-IDF is able to outperform the embeddings on the abstracts. Earlier research already proposed improvements to the word embeddings. \citet{dai2015document} show that the usage of paragraph vectors improve the accuracy of word embeddings with 4.4\% on triplet creation with the Wikipedia corpus and a 3.9\% improvement on the same task based on the arXiv articles.\\
+Furthermore, \citet{le2014distributed} show that the usage of paragraph vectors decrease the error rate (positive/negative) with 7.7\% compared to averaging the word embeddings on categorizing text as either positive or negative. While this looks promising, we have to keep in mind that our task differs from earlier tasks. We do not categorize on two categories but more than 3k. Still, we would expect an improvement by using paragraph vectors since the classification task if fundamentally the same, only on a much larger scale, which complicates the task due to the "grey areas"  between categories. These are the area's in which the classification algorithm is "in doubt" and could reasonably assing the article to both journals. The number of these grey areas increases given more categories. \citet{pennington2014glove} showed that the GloVe model outperforms the CBOW model, which is used in this research, on a word analogy task. \citet{wang2016linked} introduced the Linked Document Embedding method (LDE) method, which makes use of additional information about a document, such as citations. Their research specifically focused on categorizing documents, showed a 5.89\% increase of the micro-F1 score on LDE compared to CBOW, and a 9.11\% increase of the macro-F1 score. We would expect that applying this technique to our dataset would improve our scores, given earlier results on comparable tasks.\\
+Even though much research has been done, we have not been able to find published results which are directly comparable to our results. This is likely due to our high amount of categorization groups, which enabled us to handle our results as a ranking problem, instead of an absolute hit, which has been used in earlier researches\cite{wang2016linked}. Even though we have an F1 score, which indicates performance on the absolute hits, our results are not comparable to other works due to the number of categories, and their overlapping subjects\footnote{As visualized in the journal embedding plots and discussed earlier}.
+
+== CONCLUSION ==
+\header{Conclusion}
+This research shows that the article embeddings, created with word embeddings, perform better than the reasonable TF-IDF alternatives on our categorization task, based on article titles. The TF-IDF alternatives give better results than the embeddings based on abstracts. The performance of the embeddings has been improved by weighting them with the TF-IDF values on the word level, although this improvement cannot be seen as significant on our dataset. This improved embedding set results in a median rank decrease of 8 on the titles and a median rank increase of 8 on the abstract, compared to the best performing TF-IDF alternative.  The embedding also results in a memory decrease of 73.04\% compared to the best performing TF-IDF alternative, making it more viable to keep it in memory. The visualization of the journal embedding shows that similar journals are grouped together, indicating a preservation of relatedness between the journal embeddings. We thus come to the following conclusions:
+\begin{enumerate}
+\item{Article based embeddings perform better than TF-IDF on titles, small texts, which contain limited information}
+\item{TF-IDF performs better than article based embeddings on abstracts, larger texts, which contain more information}
+\item{Embeddings give a significant decrease in memory usage compared to TF-IDF}
+\item{Visualization of the journal embeddings show that the embeddings capture and preserve subject relatedness when they are combined to create embeddings for larger texts}
+
+== FUTURE WORK ==
+\header{Future work}
+This research focussed on the quality of word embeddings on academic texts. To do this, we used both a comparison to TF-IDF and a visualization of the word embeddings. Future works may seek to improve the quality of the embeddings further or determine the limit of the capabilities of the embedding technique. 
+
+\subheader{Method differences}
+\citet{levy2015improving} observed that there were no significant differences between the various embedding creation methods. They state that the global/hyperparameters of the various methods mainly cause the difference in performance. In this research, we have not looked at the comparison between various models and (hyper) parameters. We instead used a standard configuration, to focus more on the actual performance of the embeddings, instead of the best possible performance. Future work could seek to validate the results of \citet{levy2015improving} by expanding our research with multiple metrics. It should be noted however that Levy et al. base their conclusions on word similarity and word analogy tasks, and not on categorization. This is the reason why we did not take this research into account in our discussion since their experiments are not comparable to ours.
+
+\subheader{Intelligent cutting}
+An interesting improvement to enhance the word embeddings with, could be a smarter way to remove noise, based on word embeddings. This might be achieved by analyzing the word embedding spectrum before normalization, and to then cut the center of the vector space out. This must be applied before normalization since normalization causes all embeddings to have a distance of 1 to the center point. All words which are generic are in the center of the spectrum. Removing these words prevents the larger texts to be pulled towards the middle of the vector space, where they lose the parts of their meaning which sets them apart from the other journals. We expect that this way of cutting, instead of word-occurrence cutting, will improve the quality of the word embeddings.
+
+\subheader{Text combination}
+To cope with the problem of articles that do have an abstract but no title, or vice versa, it would be interesting to see what the quality of the embeddings would be if both texts were combined into one text. This should be possible since title and abstract per article share a common topic. We would expect that the common text would have the quality of the abstract, which is according to our findings the part that is best used for the embeddings and TF-IDF.
+
+\subheader{TF-IDFs performance point}
+In our research, TF-IDF performed better on the abstracts than on the titles, which, according to us, is caused by the text size of the two texts. This leads to the question, how do token count and unique token count relate for TF-IDF? Is there a point at which the TF-IDF outperforms the embeddings, and will continue to outperform? If this relation is found,  we could skip the TF-IDF calculations in certain situations, and skip the embedding training in other scenario's, saving time and costs.
+
+\subheader{Reversed word pairs}
+At this point, there are no domain-specific word pair sets available. However, as we demonstrated, we can still test the quality of word embeddings. Once we established that we have word vectors of high quality, could we create word pairs from the embeddings? If this is the case, we could reverse-engineer domain specific word pair sets for future use. These word pairs should most likely still be validated by humans, but the automatic generation of word pairs should already reduce the effort needed for this process.
+
+\subheader{Historical overview}
+We have shown that the word embeddings can be used to create a subject spectrum, in which we plotted all the articles for one year. This gives insight into the currently popular research field, indicated by dense areas on the plot. If we would create this plot over multiple years, and then show these years in chronological order, we should be able to see the evaluation of research fields in time, giving more insight in shifting interests and the development of new research areas.
+
+\subheader{TF-IDF top-cutoff}
+In our research, we used a dataset from which we removed the top 1k words, together with everything beyond 6k. This dataset did not perform well in our research; future work could look into this by validating if the top-words cut-off decreases the TF-IDF performance. Our findings on this topic are minimal, although we can say that we would not expect that the top-cutoff improves the performance since a set with the top 5k words performed better than the 1k till 6k words set.
+
+\subheader{Collecting a set of terms}
+Our results show that, for larger texts, TF-IDF outperforms the embeddings. Given this, it would be logical to use TF-IDF for search tasks on sets with many tokens. However, the search term itself will contain a small number of tokens, as our research showed, embeddings perform better in this situation. Future work could try to combine these findings, by collecting a large number of words, resembling the meaning (captured by the embeddings), and transforming this into a (large) collection of words (mimicking word occurrence, captured by the TF-IDF). If this could be done effectively, the power of the TF-IDF method could be applied to smaller texts. This process could be seen as a translation from word-embedding space into TF-IDF space. Furthermore, it would be interesting to see which words would be selected and if these words represent the given sentence as an "extracted version" which would still be interpretable by humans.
+
+\subheader{Pre-categorization}
+Our results show that the embeddings can indicate the domains of the given articles, as visualized in the journal embedding plots (Figure~\ref{figure:titlePlotNormal}-\ref{figure:abstractPlotGrouped}). This knowledge could be used to pre-process given texts, creating a two-step search. This method would first categorize the given article into a field, and then search in the limited set of journals for the best fit. This has two advantages: A) we predict the field of the article, giving additional information to a user and B) once an article is inside a certain domain, ambiguous words between domains (i.e. cloud for computer science and meteorology) are eliminated, since these embeddings do not have to be trained with the other embeddings, which create ambiguity. A possible downside of this approach is the need for data within each domain, since the embeddings are created on two levels, cross-domain for domain categorization and in-domain for journal categorization. The lack of articles within one domain could hurt the embeddings since they need training data to make accurate predictions. In a situation were there is no categorization data available, like in our research, a k-means algorithm should suffice for categorization. The goal is to have multiple separate vector spaces, for this is does not matter if the "domains" are well-interpretable or make sense to humans.
