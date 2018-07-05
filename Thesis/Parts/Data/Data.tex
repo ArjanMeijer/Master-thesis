@@ -32,11 +32,11 @@ The word occurrences in our corpus also follow the pattern of a Pareto distribut
 \FloatBarrier
 \begin{figure}[hbt]
 \includegraphics[width=6.5in]{Plots/word_occurrences}
-\caption{Word and token occurrences. The word counts pattern resembles a Pareto distribution, the tokenization reduced the amount of high frequency words.}\label{figure:wordTokenOccurrence}
+\caption{Word and token occurrences. The word counts pattern resembles a Pareto distribution; the tokenization reduced the number of high-frequency words.}\label{figure:wordTokenOccurrence}
 \end{figure}
 \FloatBarrier
 \subheader{Datasets}
-For this researched we used a (pre-made) tokenized dataset, created from the earlier described corpus, which reduces the total amount of words by 34\% (see table~\ref{table:corpusSize}). From this tokenized set, we created the embeddings and the TF-IDF feature vectors.
+For this research we used a (pre-made) tokenized dataset, created from the earlier described corpus, which reduces the total amount of words by 34\% (see table~\ref{table:corpusSize}). From this tokenized set, we created the embeddings and the TF-IDF feature vectors.
 \subsubheader{Tokenization}
 The following steps have been applied to the words to create a tokenized set:
 \begin{enumerate}
@@ -49,7 +49,7 @@ The following steps have been applied to the words to create a tokenized set:
 \end{enumerate}
 These transformations reduced our dataset by 34\%, resulting in a tokenized set of $186.962.354$ tokens.
 \subsubheader{Embedding}
-For this research, we reused the word embeddings created by \citet{Truong2017Thesis}. These embeddings have a vector dimension of 300, which is an industry default. They have been trained on the entire Elsevier corpus, not limited to the subset we used for this research. To create higher-level embeddings, we average all component embeddings. Thus, to create article embeddings, we take the average of all normalized word embeddings for that article. Journal embeddings are created by taking the average of all normalized article embeddings. We use the average to combine multiple embeddings into one, because we determine the meaning of a larger text as the average meaning of all components. Since this meaning is represented as an embedding, we can average the embeddings to create the "average meaning". We have used multiple embedding optimizations for this research.
+For this research, we reused the word embeddings created by \citet{Truong2017Thesis}. These embeddings have a vector dimension of 300, which is an industry default. They have been trained on the entire Elsevier corpus, not limited to the subset we used for this research. To create higher-level embeddings, we average all component embeddings. Thus, to create article embeddings, we take the average of all normalized word embeddings for that article. Journal embeddings are created by taking the average of all normalized article embeddings. We use the average to combine multiple embeddings into one because we determine the meaning of a larger text as the average meaning of all components. Since this meaning is represented as an embedding, we can average the embeddings to create the "average meaning". We have used multiple embedding optimizations for this research.
 \subsubsubheader{Default embedding}
 The default embedding is created form the pre-trained word embeddings; no modifications have been applied to this set. We refer to this set in the figures as \textbf{embedding}.
 \subsubsubheader{TF-IDF weighted embedding}
@@ -79,11 +79,11 @@ We label the TF-IDF configurations as follows: $vocabulary size/hash bucket size
 \caption{TF-IDF memory usage for title and abstract combined}\label{figure:tfidfMemory}
 \end{figure}
 \FloatBarrier
-Figure~\ref{figure:tfidfPerformance} shows the performance of title and abstract as median rank, and Figure~\ref{figure:tfidfMemory} shows the storage size in gigabyte, of the 1k/1K, 4K/4K, 7K/7K and 10K/10K TF-IDF configurations. This plot shows that, while the required storage size stagnate, the performance on title also quickly stagnates, together with the performance on the abstracts. The stagnation of the storage size is likely due to the fact that the terms which are added to the higher vocabulary sets occur less often than the other words (the cut-off is based on word occurrence, descending).Given this information, we have chosen to use the 10K/10K, 10K/5K and 5K/5K configurations to compare our embedding results to. Since these configurations can be kept in memory (storage size) while it is not likely that larger sets will give much improvement. The TF-IDF features are created on article level. We average the set of article feature vectors to create a journal feature vector, just as we did with the embeddings. 
+Figure~\ref{figure:tfidfPerformance} shows the performance of title and abstract as median rank, and Figure~\ref{figure:tfidfMemory} shows the storage size in gigabyte, of the 1k/1K, 4K/4K, 7K/7K and 10K/10K TF-IDF configurations. This plot shows that, while the required storage size stagnates, the performance on title also quickly stagnates, together with the performance on the abstracts. The stagnation of the storage size is likely due to the fact that the terms which are added to the higher vocabulary sets occur less often than the other words (the cut-off is based on word occurrence, descending). Given this information, we have chosen to use the 10K/10K, 10K/5K and 5K/5K configurations to compare our embedding results to. Since these configurations can be kept in memory (storage size) while it is not likely that larger sets will give much improvement. The TF-IDF features are created on article level. We average the set of article feature vectors to create a journal feature vector, just as we did with the embeddings. 
 \header{Pipeline}
 \subheader{Research environment}
 The research has been done in a python-databricks environment, which used Spark, a library that offers tools to work with big-data. \citet{armbrust2015spark} state that Spark SQL lets programmers leverage the benefits of relational processing and lets SQL users call complex analytic libraries in Spark. This allows for much tighter integration between relational and procedural processing. The paper further states that Spark SQL makes it significantly simpler and more efficient to write data pipelines that mix relational and procedural processing while offering substantial speedups over previous SQL-on-Spark engines.\\
-We procesessed the TF-IDF sets and the embedding sets via the same pipeline, using their common vector properties. This ensures comparable results, the pipeline is set-up as follows:
+We processed the TF-IDF sets and the embedding sets via the same pipeline, using their common vector properties. This ensures comparable results, the pipeline is set-up as follows:
 \begin{enumerate}
 \item{Create training and validation set}
 \item{Create journal embeddings}
