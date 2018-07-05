@@ -2,29 +2,30 @@
 \begin{document}
 \header{Research Data}
 \subheader{Corpus}
-The dataset we used for this research consists of articles published in 2017 which have been published in a journal that has, in 2017, atleast 150 publications. This results in a total dataset of $1.391.543$ articles from $3.759$ journals. Details about the corpus can be found in table~\ref{table:corpusSize}.
+The dataset we used for this research consists of articles published in 2017 which have been published in journals that have, in 2017, atleast 150 publications. This results in a total dataset of $1.391.543$ articles from $3.759$ journals. Details about the corpus can be found in table~\ref{table:corpusSize}.
 \begin{table}[hbt]
 \begin{center}
 \begin{tabular}{|l|c|c|c|}
 \hline
- & Total count & Unique count & Average length \\
+ & Total count & Unique count & Average length\footnotemark \\
 \hline\hline
-Title words & $18.822.399$ & $939.665$ & 13,53  \\
+Title words & $18.822.399$ & $939.665$ & 14  \\
 \hline
-Title tokens & $14.742.192$ & $230.805$ & 10,64 \\
+Title tokens & $14.742.192$ & $230.805$ & 11 \\
 \hline\hline
-Abstract words & $264.653.020$ & $5.853.077$  & 190,19  \\
+Abstract words & $264.653.020$ & $5.853.077$  & 190  \\
 \hline
-Abstract tokens & $171.474.473$ & $738.961$ & 123,71 \\
+Abstract tokens & $171.474.473$ & $738.961$ & 124 \\
 \hline\hline
-Total words & $283.475.419$ & $6.209.769$  & 203,71 \\
+Total words & $283.475.419$ & $6.209.769$  & 204 \\
 \hline
-Total tokens & $186.962.354$ & $763.475$ & 134,36 \\
+Total tokens & $186.962.354$ & $763.475$ & 134 \\
 \hline
 \end{tabular}
 \end{center}
 \caption{Corpus size}\label{table:corpusSize}
 \end{table}
+\footnotetext{Rounded}
 \clearpage
 \subsubheader{Text properties}
 \citet{wiegand2018word} state that the Pareto distribution offers a good fit to the word occurrences in natural language. Their models show that, due to the additional parameters in the Pareto-III\footnote{The pareto distribution is a distribution in which recognizable by a long "tail" of low values and a quick and short ascend to the top values. More information: \url{https://en.wikipedia.org/wiki/Pareto_distribution}.}, the tail of the data fits better with the model than the Zipf\footnote{Distribution similar to the Pareto distribution, see: \url{https://en.wikipedia.org/wiki/Zipf\%27s_law}} model. This shows the relation between the word occurrences rank and the actual occurrences. This kind of word-occurrences distribution holds for many texts, including the writings of William Shakespeare, scientific texts and novels\cite{thurner2015understanding}.
