@@ -2,7 +2,7 @@
 \begin{document}
 \header{Research Data}
 \subheader{Corpus}
-The dataset we used for this research consists of articles published in 2017 which have been published in journals that have, in 2017, atleast 150 publications. This results in a total dataset of $1.391.543$ articles from $3.759$ journals. Details about the corpus can be found in table~\ref{table:corpusSize}.
+The dataset we used for this research consists of articles published in 2017 which have been published in journals that have, in 2017, at least 150 publications. This results in a total dataset of $1.391.543$ articles from $3.759$ journals. Details about the corpus can be found in table~\ref{table:corpusSize}.
 \begin{table}[hbt]
 \begin{center}
 \begin{tabular}{|l|c|c|c|}
@@ -49,8 +49,9 @@ The following steps have been applied to the words to create a tokenized set:
 \item{Stemmed all words, using the stemmer provided by the NLTK library}
 \end{enumerate}
 These transformations reduced our dataset by 34\%, resulting in a tokenized set of $186.962.354$ tokens.
+\clearpage
 \subsubheader{Embedding}
-For this research, we reused the word embeddings created by \citet{Truong2017Thesis}. These embeddings have a vector dimension of 300, which is an industry default. They have been trained on the entire Elsevier corpus, not limited to the subset we used for this research. To create higher-level embeddings, we average all component embeddings. Thus, to create article embeddings, we take the average of all normalized word embeddings for that article. Journal embeddings are created by taking the average of all normalized article embeddings. We use the average to combine multiple embeddings into one because we determine the meaning of a larger text as the average meaning of all components. Since this meaning is represented as an embedding, we can average the embeddings to create the "average meaning". We have used multiple embedding optimizations for this research.
+For this research, we reused the word embeddings created by \citet{Truong2017Thesis}. These embeddings have a vector dimension of 300, which is an industry default. They have been trained on the entire Elsevier corpus (titles and abstracts respectively), not limited to the subset we used for this research. To create higher-level embeddings, we average all component embeddings. Thus, to create article embeddings, we take the average of all normalized word embeddings for that article. Journal embeddings are created by taking the average of all normalized article embeddings. We use the average to combine multiple embeddings into one because we determine the meaning of a larger text as the average meaning of all components. Since this meaning is represented as an embedding, we can average the embeddings to create the "average meaning". We have used multiple embedding optimizations for this research.
 \subsubsubheader{Default embedding}
 The default embedding is created form the pre-trained word embeddings; no modifications have been applied to this set. We refer to this set in the figures as \textbf{embedding}.
 \subsubsubheader{TF-IDF weighted embedding}
@@ -96,6 +97,7 @@ We processed the TF-IDF sets and the embedding sets via the same pipeline, using
 We split our initial set  $80\%$ - $20\%$. We use the $80\%$ set as the training set for the journal representations, and the $20\%$ set as the validation set for the journal representations. This split is based on a random number given to each article, ensuring that all set have the same (random) training and validation set.
 \subheader{Create journal embeddings}
 From our training set we create the journal embeddings, which are created for most sets\footnote{see paragraph datasets} by averaging the article embeddings or feature vectors.
+\clearpage
 \subheader{Categorize validation articles}
 To categorize the articles, we calculate the distance between the title of the article, and the title of each journal from the validation set. We also do this for the abstract of the article and the abstract of each journal. During this process we keep track of:
 \begin{itemize}
@@ -158,7 +160,6 @@ Yule & 1995 & 1929 & 1995 & 1929  \\
 \end{table}
 \footnotetext{As defined and provided by the SciPy library} 
 These results show high similarity between cosine-based metrics (Cosine \& Correlation) and euclidean based metrics (Euclidean, Seuclidean \& Sqeuclidean). This similarity is expected, since the cosine and euclidean distances should yield the same results on normalized sets. The results show that some enhancement on the euclidean algorithm result in slightly improved results, although not significant. Also the Cityblock metric yields results close to the Cosine metric, it has a slightly worse performance, which is also not significant. Because of this, we will use the cosine-similarity as the distance metric, which will make our results better comparable with other work.
-\clearpage
 \subheader{Performance measurement}
 We use multiple metrics to validate the performance of the embedding sets and TF-IDF sets on the categorization task. These metrics are:
 \begin{enumerate}
@@ -181,7 +182,8 @@ $F1 = \dfrac{2 * Precision * Recall}{Precision + Recall}$
 \end{jumpin}
 \subsubheader{Median \& average rank}
 The median rank of a journal indicates the point where 50\% of all articles are to the left of a virtual line and 50\% are to the right of this line. The median rank therefore indicates the position of the "normal/typical"  article. This median rank differs from the average, since the median is not influenced by a single value. If the median is 20, it does not matter if an article rank is 25 of 250, it does matter however if an article rank is 19 or 21. For the average this is not the case, the average is influenced by single articles. Therefore, it does not represents the "normal/typical" article but it represents the exact average of all articles in the validation set, which is changed when an article rank is changed from 25 to 250.\\
-We use the median rank to indicate at which rank the typical article would be ranked, based on its title and abstract. We do this by taking the median of the respective rank from each article. This gives us an indication of the behaviour of the articles in our validation set. We also calculate the average score for the title and abstract of all articles. This gives us four scores: \textbf{median title rank, median abstract rank, average title rank \& average abstract rank.}\\
+We use the median rank to indicate at which rank the typical article would be ranked, based on its title and abstract. We do this by taking the median of the respective rank from each article. This gives us an indication of the behaviour of the articles in our validation set. We also calculate the average score for the title and abstract of all articles. This gives us four scores: \textbf{median title rank, median abstract rank, average title rank \& average abstract rank.}
+\clearpage
 \subsubheader{Rank distribution}
 To further analyse the ranking results, we plot the rank distribution to get an indication of the ranking-landscape.
 \subsubheader{Two-dimensional plot}
