@@ -20,6 +20,7 @@
 \newcommand{\subheader}[1]{\section{#1}}
 \newcommand{\subsubheader}[1]{\vspace{0.1in}\leavevmode\newline\underline{#1}\\}
 \newcommand{\subsubsubheader}[1]{\vspace{0.1in}\leavevmode\newline\underline{- #1}\\}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newsavebox{\scaleblockbox}
 \newenvironment{jumpin}{\begin{adjustwidth}{0.3in}{}}{\end{adjustwidth}}
 \title{Document Embedding for Scientific Articles:}
@@ -28,9 +29,7 @@
 \authemail{meijerarjan@live.nl}
 \supervisor{R. Cushing}
 \host{Elsevier, \url{https://www.elsevier.com/en-gb}}
-\abstract{
-\subfile{Parts/Abstract/Abstract.tex}
-}
+\abstract{\subfile{Parts/Abstract/Abstract.tex}}
 \begin{document}
 \maketitle
 \clearpage
