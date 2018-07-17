@@ -1,0 +1,40 @@
+\BOOKMARK [1][-]{section.1}{Introduction and Background}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Information retrieval}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Neural Networks}{section.1}% 3
+\BOOKMARK [2][-]{subsection.1.3}{Embedding}{section.1}% 4
+\BOOKMARK [2][-]{subsection.1.4}{Text analysis techniques}{section.1}% 5
+\BOOKMARK [2][-]{subsection.1.5}{Validation methods}{section.1}% 6
+\BOOKMARK [2][-]{subsection.1.6}{General and Domain specific}{section.1}% 7
+\BOOKMARK [2][-]{subsection.1.7}{Domain-specific \046 in-domain}{section.1}% 8
+\BOOKMARK [1][-]{section.2}{Motivation}{}% 9
+\BOOKMARK [2][-]{subsection.2.1}{In-domain embeddings and validation}{section.2}% 10
+\BOOKMARK [2][-]{subsection.2.2}{Research}{section.2}% 11
+\BOOKMARK [1][-]{section.3}{Research Data}{}% 12
+\BOOKMARK [2][-]{subsection.3.1}{Corpus}{section.3}% 13
+\BOOKMARK [2][-]{subsection.3.2}{Datasets}{section.3}% 14
+\BOOKMARK [1][-]{section.4}{Pipeline}{}% 15
+\BOOKMARK [2][-]{subsection.4.1}{Research environment}{section.4}% 16
+\BOOKMARK [2][-]{subsection.4.2}{Create training and validation set}{section.4}% 17
+\BOOKMARK [2][-]{subsection.4.3}{Create journal embeddings}{section.4}% 18
+\BOOKMARK [2][-]{subsection.4.4}{Categorize validation articles}{section.4}% 19
+\BOOKMARK [2][-]{subsection.4.5}{Performance measurement}{section.4}% 20
+\BOOKMARK [1][-]{section.5}{Research results}{}% 21
+\BOOKMARK [2][-]{subsection.5.1}{Ranking}{section.5}% 22
+\BOOKMARK [2][-]{subsection.5.2}{Rank distribution}{section.5}% 23
+\BOOKMARK [2][-]{subsection.5.3}{F1-Score}{section.5}% 24
+\BOOKMARK [2][-]{subsection.5.4}{Memory usage}{section.5}% 25
+\BOOKMARK [2][-]{subsection.5.5}{Journal relatedness plot}{section.5}% 26
+\BOOKMARK [1][-]{section.6}{Discussion}{}% 27
+\BOOKMARK [2][-]{subsection.6.1}{Result analysis}{section.6}% 28
+\BOOKMARK [2][-]{subsection.6.2}{Improvements}{section.6}% 29
+\BOOKMARK [1][-]{section.7}{Conclusion}{}% 30
+\BOOKMARK [1][-]{section.8}{Future work}{}% 31
+\BOOKMARK [2][-]{subsection.8.1}{Method differences}{section.8}% 32
+\BOOKMARK [2][-]{subsection.8.2}{Intelligent cutting}{section.8}% 33
+\BOOKMARK [2][-]{subsection.8.3}{Text combination}{section.8}% 34
+\BOOKMARK [2][-]{subsection.8.4}{TF-IDFs performance point}{section.8}% 35
+\BOOKMARK [2][-]{subsection.8.5}{Reversed word pairs}{section.8}% 36
+\BOOKMARK [2][-]{subsection.8.6}{Historical overview}{section.8}% 37
+\BOOKMARK [2][-]{subsection.8.7}{TF-IDF top-cutoff}{section.8}% 38
+\BOOKMARK [2][-]{subsection.8.8}{Collecting a set of terms}{section.8}% 39
+\BOOKMARK [2][-]{subsection.8.9}{Pre-categorization}{section.8}% 40
