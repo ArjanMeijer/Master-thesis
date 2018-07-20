@@ -1,0 +1,65 @@
+\documentclass[runningheads]{llncs}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{subfiles}
+\usepackage{amssymb}
+\usepackage{csquotes}
+\usepackage[numbers, sort, comma, square]{natbib}
+\usepackage{changepage}
+\usepackage{graphicx}
+\usepackage{placeins}
+\usepackage{xr}
+\usepackage{tabularx}
+\usepackage{lscape}
+\usepackage{hyperref}
+\usepackage{tablefootnote}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+%\renewcommand\UrlFont{\color{blue}\rmfamily}
+
+\newenvironment{jumpin}{\begin{adjustwidth}{0.3in}{}}{\end{adjustwidth}}
+
+
+\begin{document}
+\title{Document Embedding for Scientific Articles:\newline A validation of word embeddings}
+\titlerunning{Document embedding for Scientific Articles}
+
+\author{H.J. Meijer\inst{1,2}\orcidID{0000-1111-2222-3333} \and
+R. Karimi\inst{2}\orcidID{1111-2222-3333-4444}}
+\authorrunning{H.J. Meijer et al.}
+
+\institute{University of Amsterdam, Science park 904, 1012WX Amsterdam, The Netherlands \and
+Elsevier, Radarweg 29, 1043 NX Amsterdam, The Neterlands
+\email{meijerarjan@live.nl, r.karimi@elsevier.com}}
+\maketitle
+
+\begin{abstract}
+\subfile{Parts/Abstract/Abstract.tex}
+
+\keywords{Word Embedding  \and Document Embedding \and Article Embedding \and Journal Embedding \and Embedding Visualization \and Embedding Validation.}
+\end{abstract}
+
+\subfile{Parts/Data/Data.tex}
+%\subfile{Parts/Research_results/Research_results.tex}
+%\subfile{Parts/Discussion/Discussion.tex}
+%\subfile{Parts/Conclusion/Conclusion.tex}
+%\subfile{Parts/Future_work/Future_work.tex}
+
+%\begin{theorem}
+%This is a sample theorem. The run-in heading is set in bold, while
+%the following text appears in italics. Definitions, lemmas,
+%propositions, and corollaries are styled the same way.
+%\end{theorem}
+%
+% the environments 'definition', 'lemma', 'proposition', 'corollary',
+% 'remark', and 'example' are defined in the LLNCS documentclass as well.
+%
+%\begin{proof}
+%Proofs, examples, and remarks have the initial word in italics,
+%while the following text appears in normal font.
+%\end{proof}
+\cite{Truong2017Thesis}
+\bibliographystyle{splncs04}
+\bibliography{Bibliography.bib}
+\end{document}
